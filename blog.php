@@ -1,3 +1,21 @@
+<?php
+
+try {
+    $bdd = new PDO('mysql:host=localhost;dbname=ocblog;charset=utf8', 'root', '');
+} catch (Exception $e) {
+    die('Erreur : ' . $e->getMessage());
+}
+
+$req = $bdd->query('SELECT * 
+                    FROM blog_post 
+                    ORDER BY created_at 
+                    DESC LIMIT 0, 5
+                    ');
+$req->setFetchMode(PDO::FETCH_ASSOC);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -47,22 +65,25 @@
     <header class="bg-primary text-white text-center masthead-blog">
         <div class="container d-flex align-items-center flex-column">
 
-        <div class="row">
-            <h1 class="text-body">Blog</h1>
-            </div><div class="card-columns mt-5">                                    
+            <div class="row">
+                <h1 class="text-body">Blog</h1>
+            </div>
+            <div class="card-columns mt-5">
 
-    
-    
-    <div class="card"> 
-        <div class="card-body border-dark bg-info"> 
-            <h4 class="card-title">Blog Post Title</h4> 
-            <p class="card-text text-light">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            <a class="btn btn-light mb-3" href="post.html">Lire</a>             
+                <!-- Blog Post -->
+                <?php foreach ($req as $donnees) : ?>
+                    <div class="card">
+                        <div class="card-body border-dark bg-info">
+                            <h4 class="card-title"><?php echo $donnees['title'] . '<br>'; ?></h4>
+                            <p class="card-text text-light"><?php echo $donnees['heading'] . '<br>'; ?></p>
+                            <a class="btn btn-light mb-3" href="post.html?postid=<?php echo $donnees['id'] ?>">Lire</a>
+                            <p class="card-text"><small class="text-white-50"><?php echo 'Le : ' . date('d/m/Y à g:i', strtotime($donnees['created_at']) ) . '<br>'; ?></small></p>
+                        </div>
+                    </div>
+                <?php endforeach ?>
 
-            <p class="card-text"><small class="text-white-50">Le 10 octobre 2019</small></p> 
-        </div>         
-    </div>     
-</div></div>
+            </div>
+        </div>
     </header>
 
     <!-- Footer -->
