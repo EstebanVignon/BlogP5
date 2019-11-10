@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="blog.html">Blog</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="blog.php">Blog</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.html#about">À Propos</a>
@@ -58,7 +58,7 @@
                         <div class="card-body border-dark bg-info">
                             <h4 class="card-title"><?= $data['title'] . '<br>'; ?></h4>
                             <p class="card-text text-light"><?= $data['heading'] . '<br>'; ?></p>
-                            <a class="btn btn-light mb-3" href="post.html?postid=<?= $data['id'] ?>">Lire</a>
+                            <a class="btn btn-light mb-3" href="post.php?id=<?= $data['id'] ?>">Lire</a>
                             <p class="card-text"><small class="text-white-50"><?= 'Le : ' . date('d/m/Y à g:i', strtotime($data['created_at'])) . '<br>'; ?></small></p>
                         </div>
                     </div>

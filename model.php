@@ -38,11 +38,25 @@ function getComments($postId)
 {
     $db = dbConnect();
     $sql = 'SELECT *
-            FROM comments 
-            WHERE post_id = ? 
-            ORDER BY created_at 
+            FROM comment
+            WHERE blog_post_id = ? 
+            ORDER BY created_at
             DESC';
     $comments = $db->prepare($sql);
     $comments->execute(array($postId));
     return $comments;
 }
+
+function getAuthor($accountId)
+{
+    $db = dbConnect();
+    $sql = 'SELECT id, username
+            FROM account 
+            WHERE id = ?';
+    $req = $db->prepare($sql);
+    $req->execute(array($accountId));
+    $req->setFetchMode(PDO::FETCH_ASSOC);
+    $author = $req->fetch();
+    return $author;
+}
+

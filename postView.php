@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="blog.html">Blog</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="blog.php">Blog</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.html#about">À
@@ -49,48 +49,55 @@
         <div class="container d-flex align-items-center flex-column">
             <div class="row col-12">
                 <div class="col-12">
-                    <h1 class="text-body">Titre du blog post</h1>
-                    <p class="text-black-50 chapo">Le chapo du blog post</p>
+                    <h1 class="text-body"><?= $post['title']; ?></h1>
+                    <p class="text-black-50 chapo"><?= $post['heading']; ?></p>
                 </div>
-            </div><div class="row">
+            </div>
+
+            <div class="row">
                 <div class="mt-4 pl-4 pr-4 col-md-10 offset-md-1">
-                    <p class="text-body text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                    <p class="text-body text-left">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                        velit esse cillum dolore eu fugiat nulla pariatur. </p>
-                    <p class="text-body text-left">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                        officia deserunt mollit anim id est laborum.</p>
-                    <p class="text-left text-body mt-5"><b>Rédigé par : </b>Esteban Vignon </p>
-                    <p class="text-left text-body"><b>Le :</b> 10 octobre 2019</p>
+
+                    <p class="text-body text-left"><?= $post['content']; ?></p>
+
+                    <p class="text-left text-body mt-5"><b>Rédigé par : </b><?= $author['username'] ?></p>
+                    <p class="text-left text-body"><b>Le :</b> <?= date('d/m/Y', strtotime($post['created_at'])) ?></p>
                 </div>
-            </div><div class="row col-12">
+            </div>
+
+            <div class="row col-12">
+
                 <div class="mt-5 pl-4 pr-4 col-12">
                     <h3 class="text-body">Commentaires</h3>
-
                 </div>
-                <div class="comment-post p-3 text-white col-12 mt-3 offset-md-1 col-md-8">
-                    <p class="text-left text-body"><b>Par Jean Dupont le 20 octobre 2019</b></p>
-                    <p class="text-left text-body">Super article de blog ! Continuez comme ça ! :)</p>
 
 
-                </div>
-            </div><div class="row mt-5">
-                    <form role="form" class="col-12"> 
-                        <div class="form-group text-black-50"> 
-                            <label for="exampleInputEmail1">Email address</label>                             
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> 
-                        </div>                         
-                        <div class="form-group"> 
-                            <label for="exampleInputPassword1" class="text-black-50">Password</label>                             
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"> 
-                        </div>                         
-                                                 
-                                                 
-                        <button type="submit" class="btn btn-primary">Submit</button>                         
-                    </form>
-                </div>
+                <?php foreach ($comments as $comment) : ?>
+                    <div class="comment-post p-3 text-white col-12 mt-3 offset-md-1 col-md-8">
+                        <p class="text-left text-body"><b><?= 'Par ' . $comment['firstname'] . ' ' . $comment['lastname'] . ' le ' . date('d/m/Y à g:i', strtotime($comment['created_at'])) ?></b></p>
+                        <p class="text-left text-body">Super article de blog ! Continuez comme ça ! :)</p>
+                    </div>
+                <?php endforeach ?>
+
+
+            </div>
+
+            <div class="row mt-5">
+                <form role="form" class="col-12">
+                    <div class="form-group text-black-50">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1" class="text-black-50">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
         </div>
+
     </header>
 
     <!-- Footer -->
