@@ -43,7 +43,7 @@
         </div>
         <!-- About Section Button -->
         <div class="text-center mt-4">
-            <a class="btn btn-xl btn-outline-light" href="files/cv.pdf" target="_blank">
+            <a class="btn btn-xl btn-outline-light" href="./public/files/cv.pdf" target="_blank">
                 <i class="fas fa-download mr-2"></i>
                 Télécharger
             </a>
