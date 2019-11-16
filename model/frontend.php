@@ -42,21 +42,33 @@ function getComments($postId)
             WHERE blog_post_id = ? 
             ORDER BY created_at
             DESC';
-    $comments = $db->prepare($sql);
-    $comments->execute(array($postId));
+    $req = $db->prepare($sql);
+    $req->execute(array($postId));
+    $req->setFetchMode(PDO::FETCH_ASSOC);
+    $comments = $req->fetchAll();
     return $comments;
 }
 
-function getAuthor($accountId)
+function getAuthor($postId)
 {
     $db = dbConnect();
-    $sql = 'SELECT id, username
-            FROM account 
-            WHERE id = ?';
+    $sql = 'SELECT username
+            FROM blog_post
+            INNER JOIN account on blog_post.account_id = account.id
+            WHERE blog_post.id = ?';
     $req = $db->prepare($sql);
-    $req->execute(array($accountId));
+    $req->execute(array($postId));
     $req->setFetchMode(PDO::FETCH_ASSOC);
     $author = $req->fetch();
     return $author;
 }
 
+
+function postComment($firstname, $lastname, $content, $email, $blog_post_id) 
+{
+    $db = dbConnect();
+    $comment = $db->prepare('INSERT INTO comment(firstname, lastname, content, email, created_at, blog_post_id) VALUES(?, ?, ?, ?, NOW(), ?)');
+    $affectedLines = $comment->execute(array($firstname, $lastname, $content, $email, $blog_post_id));
+
+    return $affectedLines;
+}

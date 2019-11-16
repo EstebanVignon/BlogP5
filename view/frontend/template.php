@@ -93,10 +93,6 @@
     <!-- Plugin JavaScript -->
     <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Contact Form JavaScript -->
-    <script src="./public/js/jqBootstrapValidation.js"></script>
-    <script src="./public/js/contact_me.js"></script>
-
     <!-- Custom scripts for this template -->
     <script src="./public/js/freelancer.js"></script>
 

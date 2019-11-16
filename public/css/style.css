@@ -10969,3 +10969,24 @@ form .row:first-child .floating-label-form-group {
     border-radius: 10px;
     background-color: #d5e5e6;
 }
+
+#error-comments{
+    color: #8b1212;
+    font-weight: 800;
+}
+
+
+.textarea{
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0.125rem solid #ced4da;
+    border-radius: 0.5rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
