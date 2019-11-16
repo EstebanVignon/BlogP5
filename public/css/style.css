@@ -10913,8 +10913,6 @@ a.text-dark:focus {
     display: block;
     margin: 0;
     transition: top 0.3s ease, opacity 0.3s ease;
-    vertical-align: middle;
-    vertical-align: baseline;
     opacity: 0;
 }
 
@@ -10977,7 +10975,6 @@ form .row:first-child .floating-label-form-group {
 
 
 .textarea{
-    display: block;
     width: 100%;
     padding: 0.375rem 0.75rem;
     font-size: 1rem;

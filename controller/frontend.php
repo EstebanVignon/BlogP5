@@ -1,6 +1,7 @@
 <?php
 
-require('./model/frontend.php');
+require_once('./model/PostManager.php');
+require_once('./model/CommentManager.php');
 
 function home()
 {
@@ -9,31 +10,34 @@ function home()
 
 function blog()
 {
-    $posts = getPosts();
+    $postManager = new OC\Blog\Model\PostManager();
+    $posts = $postManager->getPosts();
+
     require('./view/frontend/blog.php');
 }
 
 function post()
 {
-    if (isset($_GET['id']) && $_GET['id'] > 0) {
-        $post = getPost($_GET['id']);
-        $comments = getComments($_GET['id']);
-        $author = getAuthor($_GET['id']);
-        require('./view/frontend/post.php');
-    } else {
-        throw new Exception('Erreur : Aucun identifiant de post envoyé');
-    }
+    $postManager = new OC\Blog\Model\PostManager();
+    $commentManager = new OC\Blog\Model\CommentManager();
+
+    $post = $postManager->getPost($_GET['id']);
+    $comments = $commentManager->getComments($_GET['id']);
+    $author = $postManager->getAuthor($_GET['id']);
+
+    require('./view/frontend/post.php');
 }
 
 
 function addComment($firstname, $lastname, $content, $email, $blog_post_id)
 {
-    $affectedLines = postComment($firstname, $lastname, $content, $email, $blog_post_id);
+    $commentManager = new OC\Blog\Model\CommentManager();
+
+    $affectedLines = $commentManager->postComment($firstname, $lastname, $content, $email, $blog_post_id);
 
     if ($affectedLines === false) {
         throw new Exception('Impossible d\'ajouter le commentaire !');
-    }
-    else {
+    } else {
         header('Location: index.php?action=post&id=' . $blog_post_id);
     }
 }
