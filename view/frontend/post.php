@@ -47,22 +47,22 @@
 
                 <div class="form-group text-black-50">
                     <label for="email">Adresse Email</label>
-                    <input type="email" class="form-control" name ="email" id="email" placeholder="Enter email">
+                    <input type="email" class="form-control" name ="email" id="email" placeholder="Enter email" required>
                 </div>
 
                 <div class="form-group text-black-50">
                     <label for="firstname">Prénom</label>
-                    <input type="text" class="form-control" name ="firstname" id="firstname" placeholder="Prénom">
+                    <input type="text" class="form-control" name ="firstname" id="firstname" placeholder="Prénom" required>
                 </div>
 
                 <div class="form-group text-black-50">
                     <label for="lastname">Nom</label>
-                    <input type="text" class="form-control" name ="lastname" id="lastname" placeholder="Nom">
+                    <input type="text" class="form-control" name ="lastname" id="lastname" placeholder="Nom" required>
                 </div>
 
                 <div class="form-group text-black-50">
                     <label for="content">Message</label>
-                    <textarea class="textarea" name ="content" id="content" cols="30" rows="5" placeholder="Message"></textarea>
+                    <textarea class="textarea" name ="content" id="content" cols="30" rows="5" placeholder="Message" required></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>

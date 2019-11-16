@@ -10990,3 +10990,10 @@ form .row:first-child .floating-label-form-group {
     border-radius: 0.5rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+.error-text{
+    color: #8b1212;
+    font-weight: 800;
+    font-size : 20px;
+    text-align: center;
+}

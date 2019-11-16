@@ -18,7 +18,7 @@
                         <h4 class="card-title"><?= $data['title'] . '<br>'; ?></h4>
                         <p class="card-text text-light"><?= $data['heading'] . '<br>'; ?></p>
                         <a class="btn btn-light mb-3" href="index.php?action=post&id=<?= $data['id'] ?>">Lire</a>
-                        <p class="card-text"><small class="text-white-50"><?= 'Le : ' . date('d/m/Y à g:i', strtotime($data['created_at'])) . '<br>'; ?></small></p>
+                        <p class="card-text"><small class="text-white-50"><?= 'Le : ' . date('d/m/Y à G:i', strtotime($data['created_at'])) . '<br>'; ?></small></p>
                     </div>
                 </div>
             <?php endforeach ?>

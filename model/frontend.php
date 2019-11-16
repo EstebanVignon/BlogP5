@@ -2,12 +2,8 @@
 
 function dbConnect()
 {
-    try {
-        $db = new PDO('mysql:host=localhost;dbname=ocblog;charset=utf8', 'root', '');
-        return $db;
-    } catch (Exception $e) {
-        die('Erreur : ' . $e->getMessage());
-    }
+    $db = new PDO('mysql:host=localhost;dbname=ocblog;charset=utf8', 'root', '');
+    return $db;
 }
 
 function getPosts()
@@ -64,11 +60,11 @@ function getAuthor($postId)
 }
 
 
-function postComment($firstname, $lastname, $content, $email, $blog_post_id) 
+function postComment($firstname, $lastname, $content, $email, $blog_post_id)
 {
     $db = dbConnect();
-    $comment = $db->prepare('INSERT INTO comment(firstname, lastname, content, email, created_at, blog_post_id) VALUES(?, ?, ?, ?, NOW(), ?)');
-    $affectedLines = $comment->execute(array($firstname, $lastname, $content, $email, $blog_post_id));
+    $comment = $db->prepare('INSERT INTO comment(firstname, lastname, content, email, created_at, is_approved, blog_post_id) VALUES(?, ?, ?, ?, NOW(), ?, ?)');
+    $affectedLines = $comment->execute(array($firstname, $lastname, $content, $email, 0, $blog_post_id));
 
     return $affectedLines;
 }

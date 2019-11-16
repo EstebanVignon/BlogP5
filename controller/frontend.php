@@ -21,7 +21,7 @@ function post()
         $author = getAuthor($_GET['id']);
         require('./view/frontend/post.php');
     } else {
-        echo 'Erreur : aucun identifiant de billet envoyé';
+        throw new Exception('Erreur : Aucun identifiant de post envoyé');
     }
 }
 
@@ -31,7 +31,7 @@ function addComment($firstname, $lastname, $content, $email, $blog_post_id)
     $affectedLines = postComment($firstname, $lastname, $content, $email, $blog_post_id);
 
     if ($affectedLines === false) {
-        die('Impossible d\'ajouter le commentaire !');
+        throw new Exception('Impossible d\'ajouter le commentaire !');
     }
     else {
         header('Location: index.php?action=post&id=' . $blog_post_id);
