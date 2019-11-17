@@ -77,6 +77,9 @@
         <div class="container">
             <small>Copyright &copy; Esteban Vignon - 2019</small>
         </div>
+        <div class="container">
+            <small><a href="index.php?action=login">Se connecter</a></small>
+        </div>
     </section>
 
     <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->

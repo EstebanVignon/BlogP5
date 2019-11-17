@@ -42,14 +42,6 @@ function addComment($firstname, $lastname, $content, $email, $blog_post_id)
     }
 }
 
-
-
-
-
-
-
-
-
 function contact()
 {
     if (

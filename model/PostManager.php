@@ -13,7 +13,7 @@ class PostManager extends Manager
             FROM blog_post 
             ORDER BY created_at 
             DESC LIMIT 0, 5';
-        $req = $db->query($sql);
+        $req = $db->query($sql); 
         $req->setFetchMode(\PDO::FETCH_ASSOC);
         return $req;
     }

@@ -1,5 +1,6 @@
 <?php
 require('controller/frontend.php');
+require('controller/backend.php');
 
 
 try {
@@ -24,6 +25,12 @@ try {
                 }
             } else {
                 throw new Exception('Aucun identifiant de post envoyé pour le commentaire');
+            }
+        } elseif ($action = 'login') {
+            if (isset($_POST['username']) && isset($_POST['pwd']) && !empty($_POST['username']) && !empty($_POST['pwd'])) {
+                checkLogin($_POST['username'], $_POST['pwd']);
+            } else {
+                login('Veuillez saisir vos identifiants');
             }
         } else {
             throw new Exception('Erreur 404 : Cette page n\'existe pas');
