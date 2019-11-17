@@ -18,13 +18,16 @@ class LoginManager extends Manager
 
         if (!empty($usernameReq[0]['password'])) {
             if (password_verify($pwd, $usernameReq[0]['password'])) {
-                return 'connected';
+                if ($usernameReq[0]['is_approved'] == null) {
+                    return 'needApproved';
+                } else {
+                    return 'connected';
+                }
             } else {
                 return 'badPassword';
             }
-        }else{
+        } else {
             return 'badUser';
         }
-        
     }
 }

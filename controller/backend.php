@@ -2,9 +2,8 @@
 
 require_once('./model/LoginManager.php');
 
-function login($loginErrorMessage = null)
+function login()
 {
-    $showError = $loginErrorMessage;
     require('./view/backend/login.php');
 }
 
@@ -17,6 +16,8 @@ function checkLogin($username, $pwd)
 
     if ($credentials == 'badUser') {
         $loginErrorMessage = 'Cet utilisateur nexiste pas';
+    } elseif ($credentials == 'needApproved') {
+        $loginErrorMessage = 'Compte connecté mais doit être approuvé';
     } elseif ($credentials == 'connected') {
         $loginErrorMessage = 'Connecté';
     } elseif ($credentials == 'badPassword') {
