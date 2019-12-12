@@ -1,7 +1,11 @@
 <?php
-require('controller/frontend.php');
-require('controller/backend.php');
 
+include_once('config.php');
+
+require(CONTROLLER . 'FrontendController.php');
+require(CONTROLLER . 'backend.php');
+
+$frontendController = new FrontendController;
 
 try {
     if (isset($_GET['action'])) {
@@ -10,25 +14,25 @@ try {
 
         //ACTION BLOG
         if ($action == 'blog') {
-            blog();
+            $frontendController->blog();
         }
         //ACTION POST
         elseif ($action == 'post') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
-                post();
+                $frontendController->post();
             } else {
                 throw new Exception('Aucun identifiant de post envoyé');
             }
         }
         //ACTION CONTACT
         elseif ($action == 'contact') {
-            contact();
+            $frontendController->contact();
         }
         //ACTION ADD COMMENT
         elseif ($action == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['content']) && !empty($_POST['email'])) {
-                    addComment($_POST['firstname'], $_POST['lastname'], $_POST['content'], $_POST['email'], $_GET['id']);
+                    $frontendController->addComment($_POST['firstname'], $_POST['lastname'], $_POST['content'], $_POST['email'], $_GET['id']);
                 } else {
                     throw new Exception('Tous les champs ne sont pas remplis !');
                 }
@@ -53,7 +57,7 @@ try {
             throw new Exception('Erreur 404 : Cette page n\'existe pas');
         }
     } else {
-        home();
+        $frontendController->home();
     }
 } catch (Exception $e) {
     $errorMessage = $e->getMessage();

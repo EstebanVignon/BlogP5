@@ -1,24 +1,24 @@
 <?php $title = 'Accueil - CV Esteban Vignon ' ?>
 
-<?php $description = 'Site CV de Esteban Vignon - Développeur PHP Symphony' ?>
+<?php $description = 'Site CV de Esteban Vignon - Développeur PHP Symfony' ?>
 
 <?php ob_start(); ?>
 <header class="masthead bg-primary text-white text-center">
     <div class="container d-flex align-items-center flex-column">
         <!-- Masthead Avatar Image -->
-        <img class="masthead-avatar mb-5" src="./public/img/esteban.png" alt="">
+        <img class="masthead-avatar mb-5" src="<?= ASSETS ?>img/esteban.png" alt="">
         <!-- Masthead Heading -->
         <h1 class="masthead-heading text-uppercase mb-0">Esteban Vignon</h1>
         <!-- Icon Divider -->
         <div class="divider-custom divider-light">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon">
-                <i class="fas fa-star"></i>
+                <i class="fas fa-laptop-code"></i>
             </div>
             <div class="divider-custom-line"></div>
         </div>
         <!-- Masthead Subheading -->
-        <p class="masthead-subheading font-weight-light mb-0">Développeur PHP - Symphony</p>
+        <p class="masthead-subheading font-weight-light mb-0">Développeur PHP - Symfony</p>
     </div>
 </header>
 <!-- About Section -->
@@ -30,20 +30,20 @@
         <div class="divider-custom divider-light">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon">
-                <i class="fas fa-star"></i>
+                <i class="far fa-file"></i>
             </div>
             <div class="divider-custom-line"></div>
         </div>
         <!-- About Section Content -->
         <div class="row">
             <div class="col-lg-6 mr-auto offset-lg-3">
-                <p class="lead">J'ai étudié chez OpenClassrooms PHP et Symphony grâce à leur parcours. Vous pouvez
+                <p class="lead">J'ai étudié chez OpenClassrooms PHP et Symfony grâce à leur parcours. Vous pouvez
                     télécharger mon CV au format PDF en cliquant ci-dessous :</p>
             </div>
         </div>
         <!-- About Section Button -->
         <div class="text-center mt-4">
-            <a class="btn btn-xl btn-outline-light" href="./public/files/cv.pdf" target="_blank">
+            <a class="btn btn-xl btn-outline-light" href="<?= ASSETS ?>files/cv.pdf" target="_blank">
                 <i class="fas fa-download mr-2"></i>
                 Télécharger
             </a>
@@ -59,7 +59,7 @@
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon">
-                <i class="fas fa-star"></i>
+                <i class="far fa-envelope"></i>
             </div>
             <div class="divider-custom-line"></div>
         </div>
@@ -101,4 +101,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('./view/template.php'); ?>
+<?php require(VIEW . 'template.php'); ?>

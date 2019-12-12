@@ -2,10 +2,15 @@
 
 namespace OC\Blog\Model;
 
-require_once('Manager.php');
+require_once(MODEL . 'Manager.php');
 
 class PostManager extends Manager
 {
+    /*
+    public function getName(){
+
+    }*/
+
     public function getPosts()
     {
         $db = $this->dbConnect();
@@ -13,7 +18,7 @@ class PostManager extends Manager
             FROM blog_post 
             ORDER BY created_at 
             DESC LIMIT 0, 5';
-        $req = $db->query($sql); 
+        $req = $db->query($sql);
         $req->setFetchMode(\PDO::FETCH_ASSOC);
         return $req;
     }
@@ -34,9 +39,10 @@ class PostManager extends Manager
     {
         $db = $this->dbConnect();
         $sql = 'SELECT username
-            FROM blog_post
-            INNER JOIN account on blog_post.account_id = account.id
-            WHERE blog_post.id = ?';
+            FROM blog_post bp
+            INNER JOIN account a 
+            ON bp.account_id = a.id
+            WHERE bp.id = ?';
         $req = $db->prepare($sql);
         $req->execute(array($postId));
         $req->setFetchMode(\PDO::FETCH_ASSOC);

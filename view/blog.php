@@ -1,5 +1,5 @@
 <?php $title = 'CV Esteban Vignon - Blog'; ?>
-<?php $description = 'Blog - Esteban Vignon Freelance PHP Symphony'; ?>
+<?php $description = 'Blog - Esteban Vignon Freelance PHP Symfony'; ?>
 
 <?php ob_start(); ?>
 
@@ -29,4 +29,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('./view/template.php'); ?>
+<?php require(VIEW . 'template.php'); ?>

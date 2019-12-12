@@ -1,10 +1,13 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-require_once('./model/LoginManager.php');
+require_once(MODEL . 'LoginManager.php');
 
 function login()
 {
-    require('./view/backend/login.php');
+    require(VIEW . 'login.php');
 }
 
 function checkLogin($username, $pwd)
@@ -20,9 +23,10 @@ function checkLogin($username, $pwd)
         $loginErrorMessage = 'Compte connecté mais doit être approuvé';
     } elseif ($credentials == 'connected') {
         $loginErrorMessage = 'Connecté';
+        $_SESSION['connexion'] = 1;
     } elseif ($credentials == 'badPassword') {
         $loginErrorMessage = 'Mauvais mdp';
     }
 
-    require('./view/backend/login.php');
+    require(VIEW . 'login.php');
 }

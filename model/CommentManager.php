@@ -2,7 +2,7 @@
 
 namespace OC\Blog\Model;
 
-require_once('Manager.php');
+require_once(MODEL . 'Manager.php');
 
 class CommentManager extends Manager
 {
