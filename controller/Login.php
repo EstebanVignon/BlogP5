@@ -4,7 +4,10 @@ class Login
 {
     public function showLogin()
     {
-        require(VIEW . 'login.php');
+        $myView = new View('login');
+        $myView->setPageTitle('Login Du blog De Esteban Vignon');
+        $myView->setPageDesc('Page de connexion du Blog De Esteban Vignon - Développeur PHP');
+        $myView->render();
     }
 
     public function checkLogin($username, $pwd)

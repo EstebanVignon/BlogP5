@@ -8,7 +8,8 @@ class Router
         "home" => ["controller" => 'Home', "method" => 'showHome'],
         "contact" => ["controller" => 'Home', "method" => 'contact'],
         "login" => ["controller" => 'Login', "method" => 'showLogin'],
-        "checkLogin" => ["controller" => 'Login', "method" => 'checkLogin']
+        "checkLogin" => ["controller" => 'Login', "method" => 'checkLogin'],
+        "blog" => ["controller" => 'Blog', "method" => 'showBlog']
     ];
 
     public function __construct($request)
@@ -28,7 +29,9 @@ class Router
             $currentController = new $controller();
             $currentController->$method();
         } else {
-            include(VIEW . 'error.php');
+            $myView = new View('error');
+            $myView->setPageTitle('Erreur');
+            $myView->render();
         }
     }
 }

@@ -4,7 +4,10 @@ class Home
 {
     public function showHome()
     {
-        require(VIEW . 'home.php');
+        $myView = new View('home');
+        $myView->setPageTitle('Page d\'Accueil Du blog De Esteban Vignon');
+        $myView->setPageDesc('Page d\'accueil Du Blog De Esteban Vignon - Développeur PHP');
+        $myView->render();
     }
 
     public function contact()

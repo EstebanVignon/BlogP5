@@ -1,8 +1,3 @@
-<?php $title = 'CV Esteban Vignon - Blog'; ?>
-<?php $description = 'Blog - Esteban Vignon Freelance PHP Symfony'; ?>
-
-<?php ob_start(); ?>
-
 <header class="bg-primary text-white text-center masthead-blog">
     <div class="container d-flex align-items-center flex-column">
 
@@ -26,7 +21,3 @@
         </div>
     </div>
 </header>
-
-<?php $content = ob_get_clean(); ?>
-
-<?php require(VIEW . 'template.php'); ?>

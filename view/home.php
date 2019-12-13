@@ -1,8 +1,3 @@
-<?php $title = 'Accueil - CV Esteban Vignon ' ?>
-
-<?php $description = 'Site CV de Esteban Vignon - Développeur PHP Symfony' ?>
-
-<?php ob_start(); ?>
 <header class="masthead bg-primary text-white text-center">
     <div class="container d-flex align-items-center flex-column">
         <!-- Masthead Avatar Image -->
@@ -98,7 +93,3 @@
         </div>
     </div>
 </section>
-
-<?php $content = ob_get_clean(); ?>
-
-<?php require(VIEW . 'template.php'); ?>
