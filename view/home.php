@@ -66,7 +66,7 @@
         <!-- Contact Section Form -->
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <form action="index.php?action=contact" method="post" id="contactForm">
+                <form action="<?= HOST ?>contact" method="post" id="contactForm">
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
                             <label>Nom</label>

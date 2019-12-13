@@ -43,7 +43,7 @@
 
         <div class="row mt-5">
 
-            <form class="col-12" action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
+            <form class="col-12" action="<?= HOST ?>addComment&amp;id=<?= $post['id'] ?>" method="post">
 
                 <div class="form-group text-black-50">
                     <label for="email">Adresse Email</label>

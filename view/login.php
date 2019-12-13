@@ -10,7 +10,7 @@
         </div>
         <div class="row mt-5">
             <!-- START LOGIN FORM -->
-            <form class="col-12" action="index.php?action=login" method="post">
+            <form class="col-12" action="<?= HOST ?>checkLogin" method="post">
                 <div class="form-group text-black-50">
                     <label for="username">Nom d'utilisateur</label>
                     <input type="username" class="form-control" name="username" id="username" placeholder="Nom d'utilisateur" required>

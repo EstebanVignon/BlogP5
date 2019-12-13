@@ -2,44 +2,33 @@
 
 class Router
 {
+    private $request;
 
-    private $action;
-    private $params;
     private $routes = [
-        'blog' => ['controller' => 'FrontendController', 'method' => 'blog'],
-        'post' => ['controller' => 'FrontendController', 'method' => 'post'],
-        'contact' => ['controller' => 'FrontendController', 'method' => 'contact']
+        "home" => ["controller" => 'Home', "method" => 'showHome'],
+        "contact" => ["controller" => 'Home', "method" => 'contact'],
+        "login" => ["controller" => 'Login', "method" => 'showLogin'],
+        "checkLogin" => ["controller" => 'Login', "method" => 'checkLogin']
     ];
 
-    public function __construct($action)
+    public function __construct($request)
     {
-        $this->action = $action;
-        $this->params = $this->extractParams();
-    }
-
-    public function extractParams()
-    {
-        $params = [];
-
-        foreach ($_POST as $name => $value) {
-            $params[$name] = $value;
-        }
-        foreach ($_GET as $name => $value) {
-            $params[$name] = $value;
-        }
-        return $params;
+        $this->request = $request;
     }
 
     public function renderController()
     {
-        $action = $this->action;
+        $request = $this->request;
 
-        if (key_exists($action, $this->routes)) {
-            $controller = $this->routes[$action]['controller'];
-            $method = $this->routes[$action]['method'];
+        if (key_exists($request, $this->routes)) {
+
+            $controller = $this->routes[$request]['controller'];
+            $method = $this->routes[$request]['method'];
 
             $currentController = new $controller();
-            $currentController->$method($this->params);
+            $currentController->$method();
+        } else {
+            include(VIEW . 'error.php');
         }
     }
 }
