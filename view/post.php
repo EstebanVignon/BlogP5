@@ -18,22 +18,20 @@
             <div class="mt-5 pl-4 pr-4 col-12">
                 <h3 class="text-body">Commentaires</h3>
             </div>
-
             <?php if ($comments == false) : ?>
                 <div>
                     <p id="error-comments">Pas encore de commentaires</p>
                 </div>
+            <?php else : ?>
+                <?php foreach ($comments as $comment) : ?>
+                    <div class="comment-post p-3 text-white col-12 mt-3 offset-md-1 col-md-8">
+                        <p class="text-left text-body">
+                            <b><?= 'Par ' . $comment->getFirstname() . ' ' . $comment->getLastname() . ' le ' . date('d/m/Y à G:i', strtotime($comment->getCreatedAt())) ?></b>
+                        </p>
+                        <p class="text-left text-body"><?= nl2br($comment->getContent()) ?></p>
+                    </div>
+                <?php endforeach ?>
             <?php endif ?>
-
-            <!-- Start Comments -->
-            <?php foreach ($comments as $comment) : ?>
-                <div class="comment-post p-3 text-white col-12 mt-3 offset-md-1 col-md-8">
-                    <p class="text-left text-body"><b><?= 'Par ' . $comment['firstname'] . ' ' . $comment['lastname'] . ' le ' . date('d/m/Y à G:i', strtotime($comment['created_at'])) ?></b></p>
-                    <p class="text-left text-body"><?= (!isset($comment['content'])) ? '<p>Pas encore de commentaire</p>' : nl2br($comment['content']) ?></p>
-                </div>
-            <?php endforeach ?>
-            <!-- End Comments -->
-
         </div>
 
         <div class="row mt-5">
@@ -42,22 +40,24 @@
 
                 <div class="form-group text-black-50">
                     <label for="email">Adresse Email</label>
-                    <input type="email" class="form-control" name ="email" id="email" placeholder="Enter email" required>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" required>
                 </div>
 
                 <div class="form-group text-black-50">
                     <label for="firstname">Prénom</label>
-                    <input type="text" class="form-control" name ="firstname" id="firstname" placeholder="Prénom" required>
+                    <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Prénom"
+                           required>
                 </div>
 
                 <div class="form-group text-black-50">
                     <label for="lastname">Nom</label>
-                    <input type="text" class="form-control" name ="lastname" id="lastname" placeholder="Nom" required>
+                    <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Nom" required>
                 </div>
 
                 <div class="form-group text-black-50">
                     <label for="content">Message</label>
-                    <textarea class="textarea" name ="content" id="content" cols="30" rows="5" placeholder="Message" required></textarea>
+                    <textarea class="textarea" name="content" id="content" cols="30" rows="5" placeholder="Message"
+                              required></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>

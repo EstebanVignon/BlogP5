@@ -23,18 +23,23 @@ class Home
 
     public function showPost()
     {
-        if(isset($_GET['id'])){
-            $id = $_GET['id'];
-            $manager = new PostManager();
-            $post = $manager->find($id);
+        if (isset($_GET['id'])) {
 
-            $author = $manager->findAuthor($post->getaccountId());
+            $id = $_GET['id'];
+
+            $postManager = new PostManager();
+            $post = $postManager->find($id);
+            $author = $postManager->findAuthor($post->getaccountId());
+
+            $commentManager = new CommentManager();
+            $comments = $commentManager->getComments($id);
+
 
             $myView = new View('post');
             $myView->setPageTitle('Article Du blog De Esteban Vignon');
             $myView->setPageDesc('Page d\'article Du Blog De Esteban Vignon - Développeur PHP');
-            $myView->render(array('post' => $post, 'author' => $author));
-        }else{
+            $myView->render(array('post' => $post, 'author' => $author, 'comments' => $comments));
+        } else {
             $myView = new View('error');
             $myView->render(array('errorMessage' => 'Pas d\'ID d\'article demandé'));
         }

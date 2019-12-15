@@ -1,23 +1,47 @@
 <?php
 
-namespace OC\Blog\Model;
 
-require_once(MODEL . 'Manager.php');
-
-class CommentManager extends Manager
+class CommentManager
 {
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = $db = new PDO('mysql:host=localhost;dbname=ocblog;charset=utf8', 'root', '');
+    }
+
     public function getComments($postId)
     {
-        $db = $this->dbConnect();
-        $sql = 'SELECT * FROM comment 
-                WHERE blog_post_id = ? 
+        $id = $postId;
+        $comments = [];
+
+        $db = $this->db;
+        $query = 'SELECT * 
+                FROM comment
+                WHERE blog_post_id = :postId
                 ORDER BY created_at DESC';
-        $req = $db->prepare($sql);
-        $req->execute(array($postId));
-        $req->setFetchMode(\PDO::FETCH_ASSOC);
-        $comments = $req->fetchAll();
+        $req = $db->prepare($query);
+        $req->bindValue(':postId', $id, PDO::PARAM_INT);
+        $req->execute();
+
+        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+            $comment = new Comment();
+            $comment->setId($row['id']);
+            $comment->setFirstname($row['firstname']);
+            $comment->setLastname($row['lastname']);
+            $comment->setContent($row['content']);
+            $comment->setEmail($row['email']);
+            $comment->setCreatedAt($row['created_at']);
+            $comment->setIsApproved($row['is_approved']);
+            $comment->setBlogPostId($row['blog_post_id']);
+
+            $comments[] = $comment;
+        }
+
         return $comments;
+
     }
+
 
     public function postComment($firstname, $lastname, $content, $email, $blog_post_id)
     {
@@ -28,3 +52,5 @@ class CommentManager extends Manager
         return $affectedLines;
     }
 }
+
+
