@@ -2,10 +2,10 @@
     <div class="container d-flex align-items-center flex-column">
 
         <div class="row">
-            <h1 class="text-body">Erreur !</h1>
+            <h1 class="text-body">Erreur</h1>
         </div>
         <div class="row mt-5">
-            <p class="error-text"><?= $errorMessage ?></p>
+            <p class="error-text"><?= isset($errorMessage) ? $errorMessage : 'La page demandée n\'existe pas'?></p>
         </div>
     </div>
 </header>

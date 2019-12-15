@@ -7,9 +7,9 @@ class Router
     private $routes = [
         "home" => ["controller" => 'Home', "method" => 'showHome'],
         "contact" => ["controller" => 'Home', "method" => 'contact'],
-        "blog" => ["controller" => 'Blog', "method" => 'showBlog'],
-        "login" => ["controller" => 'Login', "method" => 'showLogin'],
-        "post" => ["controller" => 'Home', "method" => 'showPost']
+        "blog" => ["controller" => 'Home', "method" => 'showBlog'],
+        "post" => ["controller" => 'Home', "method" => 'showPost'],
+        "login" => ["controller" => 'Login', "method" => 'showLogin']
     ];
 
     public function __construct($request)

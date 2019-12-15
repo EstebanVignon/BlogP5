@@ -10,7 +10,7 @@
             <div class="mt-4 pl-4 pr-4 col-md-10 offset-md-1">
 
                 <p class="text-body text-left"><?= $post->getContent(); ?></p>
-                <p class="text-left text-body mt-5"><b>Rédigé par : </b><?= 'AJOUTER AUTEUR' ?></p>
+                <p class="text-left text-body mt-5"><b>Rédigé par : </b><?= $author->username ?></p>
                 <p class="text-left text-body"><b>Le :</b> <?= date('d/m/Y', strtotime($post->getCreatedAt())) ?></p>
             </div>
         </div>
@@ -38,7 +38,7 @@
 
         <div class="row mt-5">
 
-            <form class="col-12" action="<?= HOST ?>addComment&amp;id=<?= $post['id'] ?>" method="post">
+            <form class="col-12" action="<?= HOST ?>addComment&amp;id=<?= $post->getId() ?>" method="post">
 
                 <div class="form-group text-black-50">
                     <label for="email">Adresse Email</label>

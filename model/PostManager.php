@@ -63,5 +63,20 @@ class PostManager
         return $post;
     }
 
+    public function findAuthor(int $accountId)
+    {
+        $accountId = $accountId;
+
+        $db = $this->db;
+        $query = 'SELECT username
+                  FROM blog_post bp INNER JOIN account a
+                  ON bp.account_id = a.id
+                  WHERE a.id = :accountId';
+        $req = $db->prepare($query);
+        $req->bindValue(':accountId', $accountId, PDO::PARAM_STR);
+        $req->execute();
+        $result = $req->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
 
 }

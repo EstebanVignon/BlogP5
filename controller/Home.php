@@ -10,6 +10,36 @@ class Home
         $myView->render();
     }
 
+    public function showBlog()
+    {
+        $manager = new PostManager();
+        $posts = $manager->getPosts();
+
+        $myView = new View('blog');
+        $myView->setPageTitle('Page de blog De Esteban Vignon');
+        $myView->setPageDesc('Liste des Du Blog De Esteban Vignon - Développeur PHP');
+        $myView->render(array('posts' => $posts));
+    }
+
+    public function showPost()
+    {
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $manager = new PostManager();
+            $post = $manager->find($id);
+
+            $author = $manager->findAuthor($post->getaccountId());
+
+            $myView = new View('post');
+            $myView->setPageTitle('Article Du blog De Esteban Vignon');
+            $myView->setPageDesc('Page d\'article Du Blog De Esteban Vignon - Développeur PHP');
+            $myView->render(array('post' => $post, 'author' => $author));
+        }else{
+            $myView = new View('error');
+            $myView->render(array('errorMessage' => 'Pas d\'ID d\'article demandé'));
+        }
+    }
+
     public function contact()
     {
         if (
@@ -34,19 +64,5 @@ class Home
         mail($to, $subject, $body, $header);
 
         header('Location: home');
-    }
-
-    public function showPost()
-    {
-        if(isset($_GET['id'])){
-            $id = $_GET['id'];
-            $manager = new PostManager();
-            $post = $manager->find($id);
-
-            $myView = new View('post');
-            $myView->setPageTitle('Article Du blog De Esteban Vignon');
-            $myView->setPageDesc('Page d\'article Du Blog De Esteban Vignon - Développeur PHP');
-            $myView->render(array('post' => $post));
-        }
     }
 }
