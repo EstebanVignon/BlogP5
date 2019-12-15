@@ -1,52 +1,37 @@
 <?php
 
-namespace OC\Blog\Model;
-
-require_once(MODEL . 'Manager.php');
-
-class PostManager extends Manager
+class PostManager
 {
-    /*
-    public function getName(){
+    private $db;
 
-    }*/
+    public function __construct()
+    {
+        $this->db = $db = new PDO('mysql:host=localhost;dbname=ocblog;charset=utf8', 'root', '');
+    }
 
     public function getPosts()
     {
-        $db = $this->dbConnect();
-        $sql = 'SELECT * 
-            FROM blog_post 
-            ORDER BY created_at 
-            DESC LIMIT 0, 5';
-        $req = $db->query($sql);
-        $req->setFetchMode(\PDO::FETCH_ASSOC);
-        return $req;
-    }
+        $db = $this->db;
 
-    public function getPost($postId)
-    {
-        $db = $this->dbConnect();
-        $sql = 'SELECT * 
-            FROM blog_post 
-            WHERE id = ?';
-        $req = $db->prepare($sql);
-        $req->execute(array($postId));
-        $post = $req->fetch();
-        return $post;
-    }
+        $query = 'SELECT * FROM blog_post ORDER BY created_at DESC LIMIT 0, 5';
+        $req = $db->prepare($query);
+        $req->execute();
 
-    public function getAuthor($postId)
-    {
-        $db = $this->dbConnect();
-        $sql = 'SELECT username
-            FROM blog_post bp
-            INNER JOIN account a 
-            ON bp.account_id = a.id
-            WHERE bp.id = ?';
-        $req = $db->prepare($sql);
-        $req->execute(array($postId));
-        $req->setFetchMode(\PDO::FETCH_ASSOC);
-        $author = $req->fetch();
-        return $author;
+        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+            $post = new Post();
+            $post->setId($row['id']);
+            $post->setTitle($row['title']);
+            $post->setHeading($row['heading']);
+            $post->setContent($row['content']);
+            $post->setCreatedAt($row['created_at']);
+            $post->setPublicationAt($row['publication_at']);
+            $post->setIsActive($row['is_active']);
+            $post->setLastModification($row['last_modification']);
+            $post->setaccountId($row['account_id']);
+
+            $posts[] = $post;
+        }
+
+        return $posts;
     }
 }

@@ -7,9 +7,9 @@ class Router
     private $routes = [
         "home" => ["controller" => 'Home', "method" => 'showHome'],
         "contact" => ["controller" => 'Home', "method" => 'contact'],
+        "blog" => ["controller" => 'Blog', "method" => 'showBlog'],
         "login" => ["controller" => 'Login', "method" => 'showLogin'],
-        "checkLogin" => ["controller" => 'Login', "method" => 'checkLogin'],
-        "blog" => ["controller" => 'Blog', "method" => 'showBlog']
+        "checkLogin" => ["controller" => 'Login', "method" => 'checkLogin']
     ];
 
     public function __construct($request)
@@ -31,6 +31,7 @@ class Router
         } else {
             $myView = new View('error');
             $myView->setPageTitle('Erreur');
+            $myView->setPageDesc('La page n\'existe pas');
             $myView->render();
         }
     }

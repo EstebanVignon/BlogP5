@@ -21,7 +21,7 @@ class View
         $this->pageDesc = $pageDesc;
     }
 
-    public function render()
+    public function render($posts = null) // VOIR AVEC SANDY PASSAGE DES DONNEES A LA VUE
     {
         $template = $this->template;
 
