@@ -35,4 +35,18 @@ class Home
 
         header('Location: home');
     }
+
+    public function showPost()
+    {
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $manager = new PostManager();
+            $post = $manager->find($id);
+
+            $myView = new View('post');
+            $myView->setPageTitle('Article Du blog De Esteban Vignon');
+            $myView->setPageDesc('Page d\'article Du Blog De Esteban Vignon - Développeur PHP');
+            $myView->render(array('post' => $post));
+        }
+    }
 }

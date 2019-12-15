@@ -1,22 +1,17 @@
-<?php $title = 'CV Esteban Vignon - ' . $post['title']; ?>
-
-<?php $description = 'Article de blog : ' . $post['title']; ?>
-
-<?php ob_start(); ?>
 <header class="bg-primary text-white text-center masthead-blog">
     <div class="container d-flex align-items-center flex-column">
         <div class="row col-12">
             <div class="col-12">
-                <h1 class="text-body"><?= $post['title']; ?></h1>
-                <p class="text-black-50 chapo"><?= $post['heading']; ?></p>
+                <h1 class="text-body"><?= $post->getTitle(); ?></h1>
+                <p class="text-black-50 chapo"><?= $post->getHeading(); ?></p>
             </div>
         </div>
         <div class="row">
             <div class="mt-4 pl-4 pr-4 col-md-10 offset-md-1">
 
-                <p class="text-body text-left"><?= $post['content']; ?></p>
-                <p class="text-left text-body mt-5"><b>Rédigé par : </b><?= $author['username'] ?></p>
-                <p class="text-left text-body"><b>Le :</b> <?= date('d/m/Y', strtotime($post['created_at'])) ?></p>
+                <p class="text-body text-left"><?= $post->getContent(); ?></p>
+                <p class="text-left text-body mt-5"><b>Rédigé par : </b><?= 'AJOUTER AUTEUR' ?></p>
+                <p class="text-left text-body"><b>Le :</b> <?= date('d/m/Y', strtotime($post->getCreatedAt())) ?></p>
             </div>
         </div>
         <div class="row col-12">
@@ -72,7 +67,3 @@
         </div>
     </div>
 </header>
-
-<?php $content = ob_get_clean(); ?>
-
-<?php require(VIEW . 'template.php'); ?>

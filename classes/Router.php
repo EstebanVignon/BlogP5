@@ -9,7 +9,7 @@ class Router
         "contact" => ["controller" => 'Home', "method" => 'contact'],
         "blog" => ["controller" => 'Blog', "method" => 'showBlog'],
         "login" => ["controller" => 'Login', "method" => 'showLogin'],
-        "checkLogin" => ["controller" => 'Login', "method" => 'checkLogin']
+        "post" => ["controller" => 'Home', "method" => 'showPost']
     ];
 
     public function __construct($request)
