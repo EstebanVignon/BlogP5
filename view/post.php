@@ -16,7 +16,7 @@
         </div>
         <div class="row col-12">
             <div class="mt-5 pl-4 pr-4 col-12">
-                <h3 class="text-body">Commentaires</h3>
+                <h3 id="commentaires" class="text-body">Commentaires</h3>
             </div>
             <?php if ($comments == false) : ?>
                 <div>
@@ -36,28 +36,32 @@
 
         <div class="row mt-5">
 
-            <form class="col-12" action="<?= HOST ?>addComment&amp;id=<?= $post->getId() ?>" method="post">
+            <form class="col-12" action="<?= HOST ?>addComment" method="post">
+
+                <input type="hidden" name="values[id]" value="<?= $post->getId() ?>"/>
 
                 <div class="form-group text-black-50">
                     <label for="email">Adresse Email</label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" required>
+                    <input type="email" class="form-control" name="values[email]" id="email" placeholder="Enter email"
+                           required>
                 </div>
 
                 <div class="form-group text-black-50">
                     <label for="firstname">Prénom</label>
-                    <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Prénom"
+                    <input type="text" class="form-control" name="values[firstname]" id="firstname" placeholder="Prénom"
                            required>
                 </div>
 
                 <div class="form-group text-black-50">
                     <label for="lastname">Nom</label>
-                    <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Nom" required>
+                    <input type="text" class="form-control" name="values[lastname]" id="lastname" placeholder="Nom"
+                           required>
                 </div>
 
                 <div class="form-group text-black-50">
                     <label for="content">Message</label>
-                    <textarea class="textarea" name="content" id="content" cols="30" rows="5" placeholder="Message"
-                              required></textarea>
+                    <textarea class="textarea" name="values[content]" id="content" cols="30" rows="5"
+                              placeholder="Message" required></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>

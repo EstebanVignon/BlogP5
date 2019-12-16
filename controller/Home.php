@@ -21,6 +21,17 @@ class Home
         $myView->render(array('posts' => $posts));
     }
 
+    public function addComment()
+    {
+        $values = $_POST['values'];
+        $manager = new CommentManager();
+        $manager->create($values);
+
+        $view = new View();
+        $route = 'post?id=' . $values['id'] . '#commentaires' ;
+        $view->redirect($route);
+    }
+
     public function showPost()
     {
         if (isset($_GET['id'])) {
@@ -64,7 +75,7 @@ class Home
         $subject = "Formulaire de contact Site CV :  $name";
         $body = "Name: $name\n\nEmail: $email\n\nMessage:\n$message";
         $header = "From: vignon.esteban@gmail.com";
-        $header .= "Reply-To: $email";
+        $header = "Reply-To: $email";
 
         mail($to, $subject, $body, $header);
 

@@ -42,15 +42,26 @@ class CommentManager
 
     }
 
-
-    public function postComment($firstname, $lastname, $content, $email, $blog_post_id)
+    public function create($values)
     {
-        $db = $this->dbConnect();
-        $comment = $db->prepare('INSERT INTO comment(firstname, lastname, content, email, created_at, is_approved, blog_post_id) 
-                                 VALUES(?, ?, ?, ?, NOW(), ?, ?)');
-        $affectedLines = $comment->execute(array($firstname, $lastname, $content, $email, 0, $blog_post_id));
-        return $affectedLines;
+        $db = $this->db;
+
+        $query = 'INSERT INTO comment(firstname, lastname, content, email, created_at, is_approved, blog_post_id) 
+                  VALUES(:firstname, :lastname, :content, :email, NOW(), 0, :blogPostId)';
+
+        $req = $db->prepare($query);
+
+        $req->bindValue(':firstname', $values['firstname'], PDO::PARAM_STR);
+        $req->bindValue(':lastname', $values['lastname'], PDO::PARAM_STR);
+        $req->bindValue(':content', $values['content'], PDO::PARAM_STR);
+        $req->bindValue(':email', $values['email'], PDO::PARAM_STR);
+        $req->bindValue(':blogPostId', $values['id'], PDO::PARAM_INT);
+
+        $req->execute();
+
     }
+
+
 }
 
 

@@ -6,7 +6,7 @@ class View
     private $pageTitle;
     private $pageDesc;
 
-    public function __construct($template)
+    public function __construct($template = NULL)
     {
         $this->template = $template;
     }
@@ -35,5 +35,11 @@ class View
         !empty($this->pageDesc) ? $pageDesc = $this->pageDesc : $pageDesc = 'Blog de Esteban Vignon - Développeur PHP - Symphony';
 
         include_once(VIEW . 'template.php');
+    }
+
+    public function redirect($route)
+    {
+        header("Location: " . HOST . $route);
+        exit;
     }
 }
