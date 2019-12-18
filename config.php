@@ -11,7 +11,7 @@ class CustomAutoload
         $host = $_SERVER['HTTP_HOST'];
         $root = $_SERVER['DOCUMENT_ROOT'];
 
-        define('HOST', 'http://' . $host . '/BlogP5/');
+        define('HOST', 'https://' . $host . '/BlogP5/');
         define('ROOT', $root . '/BlogP5/');
 
         define('CONTROLLER', ROOT . 'controller/');

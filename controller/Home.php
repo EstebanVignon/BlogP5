@@ -28,7 +28,7 @@ class Home
         $manager->create($values);
 
         $view = new View();
-        $route = 'post?id=' . $values['id'] . '#commentaires' ;
+        $route = 'post?id=' . $values['id'] . '#commentaires';
         $view->redirect($route);
     }
 
@@ -58,27 +58,24 @@ class Home
 
     public function contact()
     {
+        $values = $_POST['values'];
+
         if (
-            empty($_POST['name']) ||
-            empty($_POST['email']) ||
-            empty($_POST['message']) ||
-            !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
+            empty($values['name']) ||
+            empty($values['email']) ||
+            empty($values['message']) ||
+            !filter_var($values['email'], FILTER_VALIDATE_EMAIL)
         ) {
             header('Location: home');
+            exit;
         }
 
-        $name = strip_tags(htmlspecialchars($_POST['name']));
-        $email = strip_tags(htmlspecialchars($_POST['email']));
-        $message = strip_tags(htmlspecialchars($_POST['message']));
+        $manager = new MailManager();
+        $manager->send($values, 'vignon.esteban@gmail.com', 'Mail Du Site Esteban-Vignon.fr');
 
-        $to = "vignon.esteban@gmail.com";
-        $subject = "Formulaire de contact Site CV :  $name";
-        $body = "Name: $name\n\nEmail: $email\n\nMessage:\n$message";
-        $header = "From: vignon.esteban@gmail.com";
-        $header = "Reply-To: $email";
+        $view = new View();
+        $route = 'home';
+        $view->redirect($route);
 
-        mail($to, $subject, $body, $header);
-
-        header('Location: home');
     }
 }
