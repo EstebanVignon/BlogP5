@@ -24,7 +24,6 @@ class PostManager
             $post->setHeading($row['heading']);
             $post->setContent($row['content']);
             $post->setCreatedAt($row['created_at']);
-            $post->setPublicationAt($row['publication_at']);
             $post->setIsActive($row['is_active']);
             $post->setLastModification($row['last_modification']);
             $post->setaccountId($row['account_id']);
@@ -54,7 +53,6 @@ class PostManager
             $post->setHeading($row['heading']);
             $post->setContent($row['content']);
             $post->setCreatedAt($row['created_at']);
-            $post->setPublicationAt($row['publication_at']);
             $post->setIsActive($row['is_active']);
             $post->setLastModification($row['last_modification']);
             $post->setaccountId($row['account_id']);
@@ -77,6 +75,23 @@ class PostManager
         $req->execute();
         $result = $req->fetch(PDO::FETCH_OBJ);
         return $result;
+    }
+
+    public function create($values)
+    {
+        $db = $this->db;
+
+        $query = 'INSERT INTO blog_post(title, heading, content, created_at, is_active, account_id) 
+                  VALUES(:title, :heading, :content, NOW(), 1, 1)';
+
+        $req = $db->prepare($query);
+
+        $req->bindValue(':title', $values['title'], PDO::PARAM_STR);
+        $req->bindValue(':heading', $values['heading'], PDO::PARAM_STR);
+        $req->bindValue(':content', $values['content'], PDO::PARAM_STR);
+
+        $req->execute();
+
     }
 
 }

@@ -1,10 +1,18 @@
 <?php
 
-class Home
+class Home //Extends Controller / Dans nouvel Object Controller : Mettre Vue + Session / Vérifier Session dans le __construct
 {
     public function showHome()
     {
         $myView = new View('home');
+        $myView->setPageTitle('Page d\'Accueil Du blog De Esteban Vignon');
+        $myView->setPageDesc('Page d\'accueil Du Blog De Esteban Vignon - Développeur PHP');
+        $myView->render();
+    }
+
+    public function showError()
+    {
+        $myView = new View('error');
         $myView->setPageTitle('Page d\'Accueil Du blog De Esteban Vignon');
         $myView->setPageDesc('Page d\'accueil Du Blog De Esteban Vignon - Développeur PHP');
         $myView->render();
@@ -78,4 +86,72 @@ class Home
         $view->redirect($route);
 
     }
+
+    public function showDashboard()
+    {
+        $myView = new View('dashboard');
+        $myView->setPageTitle('Page d\'Administration Du blog De Esteban Vignon');
+        $myView->render();
+    }
+
+    public function showAddPost()
+    {
+        $myView = new View('addPost');
+        $myView->setPageTitle('Ajouter un article pour le blog De Esteban Vignon');
+        $myView->render();
+    }
+
+    public function addPost()
+    {
+        $values = $_POST['values'];
+        $manager = new PostManager();
+        $manager->create($values);
+
+        $view = new View();
+        $route = 'addPost';
+        $view->redirect($route);
+    }
+
+    public function showLogin()
+    {
+        $myView = new View('login');
+        $myView->setPageTitle('Login Du blog De Esteban Vignon');
+        $myView->setPageDesc('Page de connexion du Blog De Esteban Vignon - Développeur PHP');
+        $myView->render();
+    }
+
+    public function checkLogin()
+    {
+        $values = $_POST['values'];
+
+        if (empty($values['password']) && empty($values['username'])) {
+            $myView = new View('login');
+            $myView->render(array('errorMessage' => 'Nom d\'utilisateur et mot de passe vide'));
+        } elseif (empty($values['password'])) {
+            $myView = new View('login');
+            $myView->render(array('errorMessage' => 'Mot de passe vide'));
+        } elseif (empty($values['username'])) {
+            $myView = new View('login');
+            $myView->render(array('errorMessage' => 'Nom d\'utilisateur vide'));
+        } else {
+
+            $manager = new LoginManager();
+            $account = $manager->checkCredentials($values);
+
+            if ($account->getUsername() === NULL) {
+                $myView = new View('login');
+                $myView->render(array('errorMessage' => 'Le nom d\'utilisateur n\'existe pas'));
+            } elseif (password_verify($values['password'], $account->getPassword())) {
+                $myView = new View('login');
+                $myView->render(array('errorMessage' => 'OK'));
+            } else {
+                $myView = new View('login');
+                $myView->render(array('errorMessage' => 'Mot de passe incorrect'));
+            }
+
+        }
+
+    }
+
+
 }

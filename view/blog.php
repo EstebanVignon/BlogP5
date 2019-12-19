@@ -4,11 +4,12 @@
         <div class="row">
             <h1 class="text-body">Blog</h1>
         </div>
-        <div class="card-columns mt-5">
+
+        <div class="row card-columns mt-5">
 
             <!-- Blog Post -->
             <?php foreach ($posts as $post) : ?>
-                <div class="card">
+                <div class=" col-4 mb-3">
                     <div class="card-body border-dark bg-info">
                         <h4 class="card-title"><?= $post->getTitle() . '<br>'; ?></h4>
                         <p class="card-text text-light"><?= $post->getHeading() . '<br>'; ?></p>

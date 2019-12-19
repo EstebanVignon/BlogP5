@@ -10994,3 +10994,20 @@ form .row:first-child .floating-label-form-group {
     font-size : 20px;
     text-align: center;
 }
+
+.dashboard-menu{
+    background-color: #c2c2c2;
+    border-radius: 10px;
+    padding: 10px;
+    width:100%;
+}
+
+.row{
+    width:100%;
+}
+
+.login-error-message{
+    justify-content:center;
+    color: #a31100!important;
+    font-size: 24px!important;
+}

@@ -9,8 +9,12 @@ class Router
         "contact" => ["controller" => 'Home', "method" => 'contact'],
         "blog" => ["controller" => 'Home', "method" => 'showBlog'],
         "post" => ["controller" => 'Home', "method" => 'showPost'],
-        "login" => ["controller" => 'Login', "method" => 'showLogin'],
-        "addComment" => ["controller" => 'Home', "method" => 'addComment']
+        "login" => ["controller" => 'Home', "method" => 'showLogin'],
+        "addComment" => ["controller" => 'Home', "method" => 'addComment'],
+        "dashboard" => ["controller" => 'Home', "method" => 'showDashboard'],
+        "addPost" => ["controller" => 'Home', "method" => 'showAddPost'],
+        "addPostForm" => ["controller" => 'Home', "method" => 'addPost'],
+        "checkLogin" => ["controller" => 'Home', "method" => 'checkLogin']
     ];
 
     public function __construct($request)
@@ -30,10 +34,8 @@ class Router
             $currentController = new $controller();
             $currentController->$method();
         } else {
-            $myView = new View('error');
-            $myView->setPageTitle('Erreur');
-            $myView->setPageDesc('La page n\'existe pas');
-            $myView->render();
+            $controller = new Home();
+            $controller->showError();
         }
     }
 }

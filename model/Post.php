@@ -7,7 +7,6 @@ class Post
     private $heading;
     private $content;
     private $createdAt;
-    private $publicationAt;
     private $isActive;
     private $lastModification;
     private $accountId;
@@ -90,22 +89,6 @@ class Post
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPublicationAt()
-    {
-        return $this->publicationAt;
-    }
-
-    /**
-     * @param mixed $publicationAt
-     */
-    public function setPublicationAt($publicationAt)
-    {
-        $this->publicationAt = $publicationAt;
     }
 
     /**
