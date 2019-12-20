@@ -89,6 +89,11 @@ class Home //Extends Controller / Dans nouvel Object Controller : Mettre Vue + S
 
     public function showDashboard()
     {
+        if ($_SESSION['role'] !== 'Admin') {
+            $view = new View();
+            $view->redirect('login');
+            exit;
+        }
         $myView = new View('dashboard');
         $myView->setPageTitle('Page d\'Administration Du blog De Esteban Vignon');
         $myView->render();
@@ -114,42 +119,58 @@ class Home //Extends Controller / Dans nouvel Object Controller : Mettre Vue + S
 
     public function showLogin()
     {
+        if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
+            $view = new View();
+            $view->redirect('dashboard');
+        }
         $myView = new View('login');
         $myView->setPageTitle('Login Du blog De Esteban Vignon');
         $myView->setPageDesc('Page de connexion du Blog De Esteban Vignon - Développeur PHP');
         $myView->render();
     }
 
+    public function logout(){
+        session_destroy();
+        $view = new View();
+        $view->redirect('login');
+    }
+
     public function checkLogin()
     {
         $values = $_POST['values'];
 
-        if (empty($values['password']) && empty($values['username'])) {
-            $myView = new View('login');
-            $myView->render(array('errorMessage' => 'Nom d\'utilisateur et mot de passe vide'));
-        } elseif (empty($values['password'])) {
-            $myView = new View('login');
-            $myView->render(array('errorMessage' => 'Mot de passe vide'));
-        } elseif (empty($values['username'])) {
-            $myView = new View('login');
-            $myView->render(array('errorMessage' => 'Nom d\'utilisateur vide'));
-        } else {
-
-            $manager = new LoginManager();
-            $account = $manager->checkCredentials($values);
-
-            if ($account->getUsername() === NULL) {
+        if (!empty($values['submit-connexion']) && $values['submit-connexion'] == 1) {
+            if (empty($values['password']) && empty($values['username'])) {
                 $myView = new View('login');
-                $myView->render(array('errorMessage' => 'Le nom d\'utilisateur n\'existe pas'));
-            } elseif (password_verify($values['password'], $account->getPassword())) {
+                $myView->render(array('errorMessage' => 'Nom d\'utilisateur et mot de passe vide'));
+            } elseif (empty($values['password'])) {
                 $myView = new View('login');
-                $myView->render(array('errorMessage' => 'OK'));
+                $myView->render(array('errorMessage' => 'Mot de passe vide'));
+            } elseif (empty($values['username'])) {
+                $myView = new View('login');
+                $myView->render(array('errorMessage' => 'Nom d\'utilisateur vide'));
             } else {
-                $myView = new View('login');
-                $myView->render(array('errorMessage' => 'Mot de passe incorrect'));
-            }
+                $manager = new LoginManager();
+                $account = $manager->checkCredentials($values);
 
+                if ($account->getUsername() === NULL) {
+                    $myView = new View('login');
+                    $myView->render(array('errorMessage' => 'Le nom d\'utilisateur n\'existe pas'));
+                } elseif (password_verify($values['password'], $account->getPassword())) {
+                    $_SESSION['connected'] = 1;
+                    $_SESSION['role'] = $account->getRole();
+                    $view = new View();
+                    $view->redirect('dashboard');
+                } else {
+                    $myView = new View('login');
+                    $myView->render(array('errorMessage' => 'Bonjour ' . $account->getUsername() . ', votre mot de passe est incorrect'));
+                }
+            }
+        } elseif (!empty($values['submit-register']) && $values['submit-register'] == 1) {
+            $myView = new View('login');
+            $myView->render(array('errorMessage' => 'PAS ENCORE POSSIBLE DE SINSCRIRE'));
         }
+
 
     }
 

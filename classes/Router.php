@@ -14,7 +14,8 @@ class Router
         "dashboard" => ["controller" => 'Home', "method" => 'showDashboard'],
         "addPost" => ["controller" => 'Home', "method" => 'showAddPost'],
         "addPostForm" => ["controller" => 'Home', "method" => 'addPost'],
-        "checkLogin" => ["controller" => 'Home', "method" => 'checkLogin']
+        "checkLogin" => ["controller" => 'Home', "method" => 'checkLogin'],
+        "logout" => ["controller" => 'Home', "method" => 'logout']
     ];
 
     public function __construct($request)

@@ -78,7 +78,11 @@
             <small>Copyright &copy; Esteban Vignon - 2019</small>
         </div>
         <div class="container">
-            <small><a href="<?= HOST ?>login">Se connecter</a></small>
+            <?php if(!isset($_SESSION['connected'])) : ?>
+            <small><a href="<?= HOST ?>login">Se connecter</a></small><br>
+            <?php elseif(isset($_SESSION['connected'])) : ?>
+            <small><a href="<?= HOST ?>logout">Se déconnecter</a></small>
+            <?php endif; ?>
         </div>
     </section>
 

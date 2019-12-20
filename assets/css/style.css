@@ -11007,7 +11007,16 @@ form .row:first-child .floating-label-form-group {
 }
 
 .login-error-message{
-    justify-content:center;
+    margin:auto;
+    text-align: center!important;
     color: #a31100!important;
     font-size: 24px!important;
+}
+
+.login-form{
+    width:350px;
+}
+
+h1{
+    margin:auto;
 }
