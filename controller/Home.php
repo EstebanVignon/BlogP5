@@ -89,24 +89,31 @@ class Home
 
     public function showDashboard($params)
     {
-        $values = [];
-
         if (!isset($_SESSION['role'])) {
             $view = new View();
             $view->redirect('login');
             exit;
         }
 
+        $posts = null;
+        $commentsToApprove = null;
+
         //Show user posts
-        if ($_SESSION['role'] = 'Admin') {
+        if ($_SESSION['role'] === 'Admin') {
             $manager = new PostManager();
             $posts = $manager->getUserPosts();
-            $values['posts'] = $posts;
+        }
+
+        //Show comment to approve or delete
+        if ($_SESSION['role'] === 'Admin') {
+            $manager = new CommentManager();
+            $commentsToApprove = $manager->getCommentsToApprove();
         }
 
         $myView = new View('dashboard');
         $myView->setPageTitle('Page d\'Administration Du blog De Esteban Vignon');
-        $myView->render($values);
+        $myView->render(array('posts' => $posts, 'commentsToApprove' => $commentsToApprove));
+
     }
 
     public function addPost($params)
@@ -180,13 +187,66 @@ class Home
         }
     }
 
-    public function deletePost($params){
+    public function deletePost($params)
+    {
         $id = $params;
         $manager = new PostManager();
         $manager->delete($id);
 
         $view = new View();
         $view->redirect('dashboard');
+
+    }
+
+    public function showEditPost($params)
+    {
+        $id = $params;
+        if (isset($params)) {
+            $manager = new PostManager();
+            $post = $manager->find($params);
+        } else {
+            $view = new View();
+            $view->redirect('dashboard');
+            exit();
+        }
+
+        $view = new View('edit-post');
+        $view->render(array('post' => $post));
+    }
+
+    public function editPost($params)
+    {
+        $values = $_POST['values'];
+
+        $manager = new PostManager();
+        $manager->edit($values);
+
+
+        $view = new View();
+        $view->redirect('dashboard');
+
+    }
+
+    public function deleteComment($params)
+    {
+        $id = $params;
+        $manager = new CommentManager();
+        $manager->delete($id);
+
+        $view = new View();
+        $view->redirect('dashboard');
+
+    }
+
+    public function approveComment($params)
+    {
+        $id = $params;
+        $manager = new CommentManager();
+        $manager->approve($id);
+
+        $view = new View();
+        $view->redirect('dashboard');
+
     }
 
 }

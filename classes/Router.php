@@ -15,7 +15,11 @@ class Router
         "addPost" => ["controller" => 'Home', "method" => 'addPost'],
         "checkLogin" => ["controller" => 'Home', "method" => 'checkLogin'],
         "logout" => ["controller" => 'Home', "method" => 'logout'],
-        "del-post" => ["controller" => 'Home', "method" => 'deletePost']
+        "del-post" => ["controller" => 'Home', "method" => 'deletePost'],
+        "edit-post" => ["controller" => 'Home', "method" => 'showEditPost'],
+        "edit-post-send" => ["controller" => 'Home', "method" => 'editPost'],
+        "approve-comment" => ["controller" => 'Home', "method" => 'approveComment'],
+        "delete-comment" => ["controller" => 'Home', "method" => 'deleteComment'],
     ];
 
     public function __construct($request)
