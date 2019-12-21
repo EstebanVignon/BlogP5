@@ -10996,7 +10996,10 @@ form .row:first-child .floating-label-form-group {
 }
 
 .dashboard-menu{
-    background-color: #c2c2c2;
+    background-color: #e6e6e6;
+    margin-top:100px!important;
+    box-shadow: #949494 0px 0px 18px;
+    height: 200px;
     border-radius: 10px;
     padding: 10px;
     width:100%;

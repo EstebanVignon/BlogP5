@@ -14,7 +14,8 @@ class Router
         "dashboard" => ["controller" => 'Home', "method" => 'showDashboard'],
         "addPost" => ["controller" => 'Home', "method" => 'addPost'],
         "checkLogin" => ["controller" => 'Home', "method" => 'checkLogin'],
-        "logout" => ["controller" => 'Home', "method" => 'logout']
+        "logout" => ["controller" => 'Home', "method" => 'logout'],
+        "del-post" => ["controller" => 'Home', "method" => 'deletePost']
     ];
 
     public function __construct($request)
@@ -22,17 +23,34 @@ class Router
         $this->request = $request;
     }
 
+    public function getRoute()
+    {
+        $elements = explode('/', $this->request);
+        return $elements[0];
+    }
+
+    public function getParams()
+    {
+        $elements = explode('/', $this->request);
+        if (isset($elements[1])) {
+            return $elements[1];
+        }
+        return null;
+
+    }
+
     public function renderController()
     {
-        $request = $this->request;
+        $route = $this->getRoute();
+        $params = $this->getParams();
 
-        if (key_exists($request, $this->routes)) {
+        if (key_exists($route, $this->routes)) {
 
-            $controller = $this->routes[$request]['controller'];
-            $method = $this->routes[$request]['method'];
+            $controller = $this->routes[$route]['controller'];
+            $method = $this->routes[$route]['method'];
 
             $currentController = new $controller();
-            $currentController->$method();
+            $currentController->$method($params);
         } else {
             $controller = new Home();
             $controller->showError();

@@ -119,11 +119,19 @@ class PostManager
 
         $req->bindValue(':title', $values['title'], PDO::PARAM_STR);
         $req->bindValue(':heading', $values['heading'], PDO::PARAM_STR);
-        $req->bindValue(':content', $values['content'], PDO::PARAM_STR);
+        $req->bindValue(':content', nl2br( $values['content']), PDO::PARAM_STR);
         $req->bindValue(':userId', $userId, PDO::PARAM_INT);
 
         $req->execute();
 
+    }
+
+    public function delete($id){
+        $db = $this->db;
+        $query = 'DELETE FROM blog_post WHERE id = :id';
+        $req = $db->prepare($query);
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->execute();
     }
 
 }

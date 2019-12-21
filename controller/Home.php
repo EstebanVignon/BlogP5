@@ -2,7 +2,7 @@
 
 class Home
 {
-    public function showHome()
+    public function showHome($params)
     {
         $myView = new View('home');
         $myView->setPageTitle('Page d\'Accueil Du blog De Esteban Vignon');
@@ -10,7 +10,7 @@ class Home
         $myView->render();
     }
 
-    public function showError()
+    public function showError($params)
     {
         $myView = new View('error');
         $myView->setPageTitle('Page d\'Accueil Du blog De Esteban Vignon');
@@ -18,7 +18,7 @@ class Home
         $myView->render();
     }
 
-    public function showBlog()
+    public function showBlog($params)
     {
         $manager = new PostManager();
         $posts = $manager->getPosts();
@@ -29,7 +29,7 @@ class Home
         $myView->render(array('posts' => $posts));
     }
 
-    public function addComment()
+    public function addComment($params)
     {
         $values = $_POST['values'];
         $manager = new CommentManager();
@@ -40,7 +40,7 @@ class Home
         $view->redirect($route);
     }
 
-    public function showPost()
+    public function showPost($params)
     {
         if (isset($_GET['id'])) {
 
@@ -64,7 +64,7 @@ class Home
         }
     }
 
-    public function contact()
+    public function contact($params)
     {
         $values = $_POST['values'];
 
@@ -87,7 +87,7 @@ class Home
 
     }
 
-    public function showDashboard()
+    public function showDashboard($params)
     {
         $values = [];
 
@@ -109,7 +109,7 @@ class Home
         $myView->render($values);
     }
 
-    public function addPost()
+    public function addPost($params)
     {
         $values = $_POST['values'];
         $manager = new PostManager();
@@ -119,7 +119,7 @@ class Home
         $view->redirect('dashboard');
     }
 
-    public function showLogin()
+    public function showLogin($params)
     {
         if (isset($_SESSION['role'])) {
             $view = new View();
@@ -132,14 +132,14 @@ class Home
         $myView->render();
     }
 
-    public function logout()
+    public function logout($params)
     {
         session_destroy();
         $view = new View();
         $view->redirect('login');
     }
 
-    public function checkLogin()
+    public function checkLogin($params)
     {
         $values = $_POST['values'];
 
@@ -178,9 +178,15 @@ class Home
             $myView = new View('login');
             $myView->render(array('errorMessage' => 'PAS ENCORE POSSIBLE DE SINSCRIRE'));
         }
-
-
     }
 
+    public function deletePost($params){
+        $id = $params;
+        $manager = new PostManager();
+        $manager->delete($id);
+
+        $view = new View();
+        $view->redirect('dashboard');
+    }
 
 }

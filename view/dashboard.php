@@ -10,14 +10,16 @@
                 <a class="text-black-50" href="#" data-toggle="">Gérer les utilisateurs</a><br>
             </div>
 
-
+            <!-- DASHBOARD MAIN MENU -->
             <div class="col-md-9 mt-5 dashboard-toggle-item" id="dashboard-menu">
-                <h1 class="text-body">Dashboard</h1>
-                <h2 class="text-dark mt-5">Bienvenue sur l'interface d'administration du blog de Esteban Vignon</h2>
+                <h1 class="text-body">Tableau de board</h1>
+                <h3 class="text-dark mt-5">Bienvenue <?= $_SESSION['username'] ?> sur l'administration du blog Esteban
+                    Vignon</h3>
             </div>
 
-            <div class="col-md-9 mt-5 dashboard-toggle-item" id="dashboard-add-post">
-                <h1 class="text-body">Ajouter un article</h1>
+            <!-- DASHBOARD ADD POST -->
+            <div class="col-lg-8 offset-lg-1 col-md-12 mt-5 dashboard-toggle-item" id="dashboard-add-post">
+                <h2 class="text-body">Ajouter un article</h2>
                 <form class="col-12 mt-5" action="<?= HOST ?>addPost" method="post">
                     <div class="form-group text-black-50">
                         <label for="title">Titre de l'article</label>
@@ -38,23 +40,28 @@
                 </form>
             </div>
 
+            <!-- DASHBOARD USER'S POSTS -->
             <div class="col-md-9 mt-5 dashboard-toggle-item" id="dashboard-my-posts">
-                <p>mes articles</p>
-                <!-- Blog Post -->
-                <?php foreach ($posts as $post) : ?>
-                    <div class=" col-4 mb-3">
-                        <div class="card-body border-dark bg-info">
-                            <h4 class="card-title"><?= $post->getTitle() . '<br>'; ?></h4>
-                            <p class="card-text text-light"><?= $post->getHeading() . '<br>'; ?></p>
-                            <a class="btn btn-light mb-3" href="<?= HOST ?>post&id=<?= $post->getId() ?>">Lire</a>
-                            <p class="card-text">
-                                <small class="text-white-50">
-                                    <?= 'Le : ' . date('d/m/Y à G:i', strtotime($post->getCreatedAt())) . '<br>'; ?>
-                                </small>
-                            </p>
-                        </div>
+                <div class="container d-flex align-items-center flex-column">
+                    <h2 class="text-body">Mes articles</h2>
+                    <div class="row mt-5">
+                        <?php foreach ($posts as $post) : ?>
+                            <div class="mb-4 col-lg-5 offset-lg-1 col-md-12 offset-md-0 card-body border-dark bg-info">
+                                <h4 class="card-title"><?= $post->getTitle() . '<br>'; ?></h4>
+                                <p class="card-text text-light"><?= $post->getHeading() . '<br>'; ?></p>
+                                <p class="card-text text-light"><?= substr($post->getContent(), 0, 50) . '...<br>'; ?></p>
+                                <a class="btn btn-light mb-3" href="<?= HOST ?>post&id=<?= $post->getId() ?>">Lire</a>
+                                <p class="card-text">
+                                    <small class="text-white-50">
+                                        <?= 'Le : ' . date('d/m/Y à G:i', strtotime($post->getCreatedAt())) . '<br>'; ?>
+                                    </small>
+                                </p>
+                                <a class="btn btn-secondary mb-3" href="<?= HOST ?>edit-post&id=<?= $post->getId() ?>">Modifier</a>
+                                <a class="btn btn-danger mb-3" href="<?= HOST ?>del-post/<?= $post->getId() ?>">Supprimer</a>
+                            </div>
+                        <?php endforeach ?>
                     </div>
-                <?php endforeach ?>
+                </div>
             </div>
 
         </div>
