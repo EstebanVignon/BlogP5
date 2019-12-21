@@ -20,6 +20,7 @@ class Router
         "edit-post-send" => ["controller" => 'Home', "method" => 'editPost'],
         "approve-comment" => ["controller" => 'Home', "method" => 'approveComment'],
         "delete-comment" => ["controller" => 'Home', "method" => 'deleteComment'],
+        "disapprove-comment" => ["controller" => 'Home', "method" => 'disapproveComment'],
     ];
 
     public function __construct($request)

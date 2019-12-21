@@ -107,7 +107,7 @@ class Home
         //Show comment to approve or delete
         if ($_SESSION['role'] === 'Admin') {
             $manager = new CommentManager();
-            $commentsToApprove = $manager->getCommentsToApprove();
+            $commentsToApprove = $manager->getCommentsAllComments();
         }
 
         $myView = new View('dashboard');
@@ -248,5 +248,19 @@ class Home
         $view->redirect('dashboard');
 
     }
+
+    public function disapproveComment($params)
+    {
+        $id = $params;
+        $manager = new CommentManager();
+        $manager->disapprove($id);
+
+        $view = new View();
+        $view->redirect('dashboard');
+
+    }
+
+
+
 
 }
