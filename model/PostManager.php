@@ -34,6 +34,36 @@ class PostManager
         return $posts;
     }
 
+    public function getUserPosts()
+    {
+        $db = $this->db;
+
+        $query = 'SELECT * 
+                  FROM blog_post 
+                  WHERE account_id = :accountId
+                  ORDER BY created_at 
+                  DESC LIMIT 0, 5';
+        $req = $db->prepare($query);
+        $req->bindValue(':accountId', $_SESSION['id'], PDO::PARAM_INT);
+        $req->execute();
+
+        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+            $post = new Post();
+            $post->setId($row['id']);
+            $post->setTitle($row['title']);
+            $post->setHeading($row['heading']);
+            $post->setContent($row['content']);
+            $post->setCreatedAt($row['created_at']);
+            $post->setIsActive($row['is_active']);
+            $post->setLastModification($row['last_modification']);
+            $post->setaccountId($row['account_id']);
+
+            $posts[] = $post;
+        }
+
+        return $posts;
+    }
+
     public function find($postId)
     {
         $id = $postId;

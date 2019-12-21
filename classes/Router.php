@@ -12,8 +12,7 @@ class Router
         "login" => ["controller" => 'Home', "method" => 'showLogin'],
         "addComment" => ["controller" => 'Home', "method" => 'addComment'],
         "dashboard" => ["controller" => 'Home', "method" => 'showDashboard'],
-        "addPost" => ["controller" => 'Home', "method" => 'showAddPost'],
-        "addPostForm" => ["controller" => 'Home', "method" => 'addPost'],
+        "addPost" => ["controller" => 'Home', "method" => 'addPost'],
         "checkLogin" => ["controller" => 'Home', "method" => 'checkLogin'],
         "logout" => ["controller" => 'Home', "method" => 'logout']
     ];

@@ -60,4 +60,14 @@
     });
   });
 
+  //toggle menu dashboard
+
+  $("a[data-toggle]").on("click", function (e) {
+    e.preventDefault();
+    var selector = $(this).data("toggle");
+    $(".dashboard-toggle-item").hide();
+    $(selector).show();
+  });
+
+
 })(jQuery); // End of use strict

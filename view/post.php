@@ -49,7 +49,7 @@
                                           placeholder="Message" required></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Envoyer le commentaire</button>
 
                         </form>
                     </div>

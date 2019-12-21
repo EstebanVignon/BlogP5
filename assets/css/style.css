@@ -11020,3 +11020,8 @@ form .row:first-child .floating-label-form-group {
 h1{
     margin:auto;
 }
+
+/*Dashboard menu toggle*/
+ .dashboard-toggle-item:not(#dashboard-menu) {
+     display: none;
+ }

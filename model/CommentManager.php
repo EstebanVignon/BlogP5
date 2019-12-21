@@ -20,7 +20,7 @@ class CommentManager
                   FROM comment
                   INNER JOIN account
                   ON comment.account_id = account.id
-                  WHERE blog_post_id = :postId
+                  WHERE blog_post_id = :postId AND comment.is_approved = 1
                   ORDER BY created_at DESC';
 
         $req = $db->prepare($query);
@@ -49,11 +49,16 @@ class CommentManager
         $accountId = $_SESSION['id'];
 
         $query = 'INSERT INTO comment(content, created_at, is_approved, blog_post_id, account_id) 
-                  VALUES(:content, NOW(), 0, :blogPostId, :accountId)';
+                  VALUES(:content, NOW(), :isApproved, :blogPostId, :accountId)';
 
         $req = $db->prepare($query);
 
         $req->bindValue(':content', $values['content'], PDO::PARAM_STR);
+        if ($_SESSION['role'] == 'Admin'){
+            $req->bindValue(':isApproved', 1, PDO::PARAM_INT);
+        }else{
+            $req->bindValue(':isApproved', 0, PDO::PARAM_INT);
+        }
         $req->bindValue(':blogPostId', $values['id'], PDO::PARAM_INT);
         $req->bindValue(':accountId', $accountId, PDO::PARAM_INT);
 

@@ -89,21 +89,24 @@ class Home
 
     public function showDashboard()
     {
+        $values = [];
+
         if (!isset($_SESSION['role'])) {
             $view = new View();
             $view->redirect('login');
             exit;
         }
+
+        //Show user posts
+        if ($_SESSION['role'] = 'Admin') {
+            $manager = new PostManager();
+            $posts = $manager->getUserPosts();
+            $values['posts'] = $posts;
+        }
+
         $myView = new View('dashboard');
         $myView->setPageTitle('Page d\'Administration Du blog De Esteban Vignon');
-        $myView->render();
-    }
-
-    public function showAddPost()
-    {
-        $myView = new View('addPost');
-        $myView->setPageTitle('Ajouter un article pour le blog De Esteban Vignon');
-        $myView->render();
+        $myView->render($values);
     }
 
     public function addPost()
@@ -113,8 +116,7 @@ class Home
         $manager->create($values);
 
         $view = new View();
-        $route = 'addPost';
-        $view->redirect($route);
+        $view->redirect('dashboard');
     }
 
     public function showLogin()
@@ -130,7 +132,8 @@ class Home
         $myView->render();
     }
 
-    public function logout(){
+    public function logout()
+    {
         session_destroy();
         $view = new View();
         $view->redirect('login');

@@ -30,7 +30,6 @@
                 aria-expanded="false" aria-label="Toggle navigation">
             Menu <i class="fas fa-bars"></i>
         </button>
-        <?= var_dump($_SESSION) ?>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mx-0 mx-lg-1">
