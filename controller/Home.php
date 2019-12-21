@@ -1,6 +1,6 @@
 <?php
 
-class Home //Extends Controller / Dans nouvel Object Controller : Mettre Vue + Session / Vérifier Session dans le __construct
+class Home
 {
     public function showHome()
     {
@@ -89,7 +89,7 @@ class Home //Extends Controller / Dans nouvel Object Controller : Mettre Vue + S
 
     public function showDashboard()
     {
-        if ($_SESSION['role'] !== 'Admin') {
+        if (!isset($_SESSION['role'])) {
             $view = new View();
             $view->redirect('login');
             exit;
@@ -119,9 +119,10 @@ class Home //Extends Controller / Dans nouvel Object Controller : Mettre Vue + S
 
     public function showLogin()
     {
-        if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
+        if (isset($_SESSION['role'])) {
             $view = new View();
             $view->redirect('dashboard');
+            exit;
         }
         $myView = new View('login');
         $myView->setPageTitle('Login Du blog De Esteban Vignon');
@@ -157,8 +158,12 @@ class Home //Extends Controller / Dans nouvel Object Controller : Mettre Vue + S
                     $myView = new View('login');
                     $myView->render(array('errorMessage' => 'Le nom d\'utilisateur n\'existe pas'));
                 } elseif (password_verify($values['password'], $account->getPassword())) {
-                    $_SESSION['connected'] = 1;
+
                     $_SESSION['role'] = $account->getRole();
+                    $_SESSION['username'] = $account->getUsername();
+                    $_SESSION['isApproved'] = $account->getIsApproved();
+                    $_SESSION['id'] = $account->getId();
+
                     $view = new View();
                     $view->redirect('dashboard');
                 } else {

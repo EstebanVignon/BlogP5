@@ -80,15 +80,17 @@ class PostManager
     public function create($values)
     {
         $db = $this->db;
+        $userId = $_SESSION['id'];
 
         $query = 'INSERT INTO blog_post(title, heading, content, created_at, is_active, account_id) 
-                  VALUES(:title, :heading, :content, NOW(), 1, 1)';
+                  VALUES(:title, :heading, :content, NOW(), 1, :userId)';
 
         $req = $db->prepare($query);
 
         $req->bindValue(':title', $values['title'], PDO::PARAM_STR);
         $req->bindValue(':heading', $values['heading'], PDO::PARAM_STR);
         $req->bindValue(':content', $values['content'], PDO::PARAM_STR);
+        $req->bindValue(':userId', $userId, PDO::PARAM_INT);
 
         $req->execute();
 

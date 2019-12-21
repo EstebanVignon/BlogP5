@@ -3,10 +3,8 @@
 class Comment
 {
     private $id;
-    private $firstname;
-    private $lastname;
+    private $username;
     private $content;
-    private $email;
     private $created_at;
     private $is_approved;
     private $blog_post_id;
@@ -30,33 +28,17 @@ class Comment
     /**
      * @return mixed
      */
-    public function getFirstname()
+    public function getUsername()
     {
-        return $this->firstname;
+        return $this->username;
     }
 
     /**
-     * @param mixed $firstname
+     * @param mixed $username
      */
-    public function setFirstname($firstname): void
+    public function setUsername($username): void
     {
-        $this->firstname = $firstname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * @param mixed $lastname
-     */
-    public function setLastname($lastname): void
-    {
-        $this->lastname = $lastname;
+        $this->username = $username;
     }
 
     /**
@@ -73,22 +55,6 @@ class Comment
     public function setContent($content): void
     {
         $this->content = $content;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email): void
-    {
-        $this->email = $email;
     }
 
     /**
@@ -138,6 +104,5 @@ class Comment
     {
         $this->blog_post_id = $blog_post_id;
     }
-
 
 }

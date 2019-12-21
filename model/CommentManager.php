@@ -16,10 +16,13 @@ class CommentManager
         $comments = [];
 
         $db = $this->db;
-        $query = 'SELECT * 
-                FROM comment
-                WHERE blog_post_id = :postId
-                ORDER BY created_at DESC';
+        $query = 'SELECT *
+                  FROM comment
+                  INNER JOIN account
+                  ON comment.account_id = account.id
+                  WHERE blog_post_id = :postId
+                  ORDER BY created_at DESC';
+
         $req = $db->prepare($query);
         $req->bindValue(':postId', $id, PDO::PARAM_INT);
         $req->execute();
@@ -27,10 +30,8 @@ class CommentManager
         while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
             $comment = new Comment();
             $comment->setId($row['id']);
-            $comment->setFirstname($row['firstname']);
-            $comment->setLastname($row['lastname']);
+            $comment->setUsername($row['username']);
             $comment->setContent($row['content']);
-            $comment->setEmail($row['email']);
             $comment->setCreatedAt($row['created_at']);
             $comment->setIsApproved($row['is_approved']);
             $comment->setBlogPostId($row['blog_post_id']);
@@ -45,17 +46,16 @@ class CommentManager
     public function create($values)
     {
         $db = $this->db;
+        $accountId = $_SESSION['id'];
 
-        $query = 'INSERT INTO comment(firstname, lastname, content, email, created_at, is_approved, blog_post_id) 
-                  VALUES(:firstname, :lastname, :content, :email, NOW(), 0, :blogPostId)';
+        $query = 'INSERT INTO comment(content, created_at, is_approved, blog_post_id, account_id) 
+                  VALUES(:content, NOW(), 0, :blogPostId, :accountId)';
 
         $req = $db->prepare($query);
 
-        $req->bindValue(':firstname', $values['firstname'], PDO::PARAM_STR);
-        $req->bindValue(':lastname', $values['lastname'], PDO::PARAM_STR);
         $req->bindValue(':content', $values['content'], PDO::PARAM_STR);
-        $req->bindValue(':email', $values['email'], PDO::PARAM_STR);
         $req->bindValue(':blogPostId', $values['id'], PDO::PARAM_INT);
+        $req->bindValue(':accountId', $accountId, PDO::PARAM_INT);
 
         $req->execute();
 

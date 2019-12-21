@@ -24,9 +24,9 @@
                 </div>
             <?php else : ?>
                 <?php foreach ($comments as $comment) : ?>
-                    <div class="comment-post p-3 text-white col-12 mt-3 offset-md-1 col-md-8">
+                    <div class="comment-post p-3 text-white col-12 mt-3 offset-md-2 col-md-8">
                         <p class="text-left text-body">
-                            <b><?= 'Par ' . $comment->getFirstname() . ' ' . $comment->getLastname() . ' le ' . date('d/m/Y à G:i', strtotime($comment->getCreatedAt())) ?></b>
+                            <b><?= 'Par ' . $comment->getUsername() . ' le ' . date('d/m/Y à G:i', strtotime($comment->getCreatedAt())) ?></b>
                         </p>
                         <p class="text-left text-body"><?= nl2br($comment->getContent()) ?></p>
                     </div>
@@ -36,37 +36,40 @@
 
         <div class="row mt-5">
 
-            <form class="col-12" action="<?= HOST ?>addComment" method="post">
+            <?php if (isset($_SESSION['role'])) : ?>
+                <div class="row">
+                    <div class="mt-4 pl-4 pr-4 col-md-10 offset-md-1">
+                        <form action="<?= HOST ?>addComment" method="post">
 
-                <input type="hidden" name="values[id]" value="<?= $post->getId() ?>"/>
+                            <input type="hidden" name="values[id]" value="<?= $post->getId() ?>"/>
 
-                <div class="form-group text-black-50">
-                    <label for="email">Adresse Email</label>
-                    <input type="email" class="form-control" name="values[email]" id="email" placeholder="Enter email"
-                           required>
+                            <div class="form-group text-black-50">
+                                <label for="content">Message</label>
+                                <textarea class="textarea" name="values[content]" id="content" cols="30" rows="5"
+                                          placeholder="Message" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                        </form>
+                    </div>
+                </div>
+            <?php else : ?>
+
+
+                <div class="row">
+                    <div class="mt-4 pl-4 pr-4 col-md-10 offset-md-1">
+                        <h3 id="commentaires" class="text-body">Ecrire un commentaire</h3>
+                        <p class="text-body">Vous n'êtes pas connecté, veuillez vous connecter ou créer un compte</p>
+                        <br>
+                        <a href="<?= HOST ?>login">
+                            <button type="button" class="btn btn-primary">Se connecter</button>
+                        </a>
+                    </div>
                 </div>
 
-                <div class="form-group text-black-50">
-                    <label for="firstname">Prénom</label>
-                    <input type="text" class="form-control" name="values[firstname]" id="firstname" placeholder="Prénom"
-                           required>
-                </div>
 
-                <div class="form-group text-black-50">
-                    <label for="lastname">Nom</label>
-                    <input type="text" class="form-control" name="values[lastname]" id="lastname" placeholder="Nom"
-                           required>
-                </div>
-
-                <div class="form-group text-black-50">
-                    <label for="content">Message</label>
-                    <textarea class="textarea" name="values[content]" id="content" cols="30" rows="5"
-                              placeholder="Message" required></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Submit</button>
-
-            </form>
+            <?php endif; ?>
 
         </div>
     </div>
