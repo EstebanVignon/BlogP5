@@ -4,20 +4,19 @@
 
 
             <div class="col-md-3 mt-5 dashboard-menu">
-                <a class="text-black-50" href="#" data-toggle="#dashboard-menu"><h2 class="text-body">Menu</h2></a>
+                <a class="text-black-50 dashboard-menu-item" id="menu-target-1" href="#"><h2 class="text-body">Menu</h2></a>
                 <?php if ($_SESSION['role'] === 'Admin') : ?>
-                    <a class="text-black-50" href="#" data-toggle="#dashboard-add-post">Ajouter un article</a><br>
-                    <a class="text-black-50" href="#" data-toggle="#dashboard-my-posts">Mes articles</a><br>
-                    <a class="text-black-50" href="#" data-toggle="#dashboard-manage-comments">Gérer les
-                        commentaires</a><br>
-                    <a class="text-black-50" href="#" data-toggle="">Gérer les utilisateurs</a><br>
+                    <a class="text-black-50 dashboard-menu-item" id="menu-target-2" href="#">Ajouter un article</a><br>
+                    <a class="text-black-50 dashboard-menu-item" id="menu-target-3" href="#">Mes articles</a><br>
+                    <a class="text-black-50 dashboard-menu-item" id="menu-target-4" href="#">Gérer les commentaires</a><br>
+                    <a class="text-black-50 dashboard-menu-item" id="menu-target-5" href="#">Gérer les utilisateurs</a><br>
                 <?php elseif ($_SESSION['role'] === 'Abonné') : ?>
 
                 <?php endif ?>
             </div>
 
             <!-- DASHBOARD MAIN MENU -->
-            <div class="col-md-9 mt-5 dashboard-toggle-item" id="dashboard-menu">
+            <div class="col-md-9 mt-5 targetDiv" id="div-menu-target-1">
                 <h1 class="text-body">Tableau de board</h1>
                 <h3 class="text-dark mt-5">Bienvenue <?= $_SESSION['username'] ?> sur l'administration du blog
                     Esteban
@@ -27,7 +26,7 @@
             <?php if ($_SESSION['role'] === 'Admin') : ?>
 
                 <!-- DASHBOARD ADD POST -->
-                <div class="col-lg-8 offset-lg-1 col-md-12 mt-5 dashboard-toggle-item" id="dashboard-add-post">
+                <div class="col-lg-8 offset-lg-1 col-md-12 mt-5 targetDiv" id="div-menu-target-2">
                     <h2 class="text-body">Ajouter un article</h2>
                     <form class="col-12 mt-5" action="<?= HOST ?>addPost" method="post">
                         <div class="form-group text-black-50">
@@ -51,7 +50,7 @@
                 </div>
 
                 <!-- DASHBOARD USER'S POSTS -->
-                <div class="col-md-9 mt-5 dashboard-toggle-item" id="dashboard-my-posts">
+                <div class="col-md-9 mt-5 targetDiv" id="div-menu-target-3">
                     <div class="container d-flex align-items-center flex-column">
                         <h2 class="text-body">Mes articles</h2>
                         <div class="row mt-5">
@@ -76,7 +75,7 @@
                 </div>
 
                 <!-- MANAGE COMMENTS -->
-                <div class="col-md-9 mt-5 dashboard-toggle-item" id="dashboard-manage-comments">
+                <div class="col-md-9 mt-5 targetDiv" id="div-menu-target-4">
                     <div class="container d-flex align-items-center flex-column">
                         <h2 class="text-body">Gérer les commentaires</h2>
                         <div class="row mt-5">
