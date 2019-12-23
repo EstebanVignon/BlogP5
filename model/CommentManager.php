@@ -1,13 +1,7 @@
 <?php
 
-class CommentManager
+class CommentManager extends ModelManager
 {
-    private $db;
-
-    public function __construct()
-    {
-        $this->db = $db = new PDO('mysql:host=localhost;dbname=ocblog;charset=utf8', 'root', '');
-    }
 
     public function getComments($postId)
     {
@@ -34,6 +28,27 @@ class CommentManager
             $comments[] = $comment;
         }
         return $comments;
+    }
+
+    public function find($commentId)
+    {
+        $id = $commentId;
+        $db = $this->db;
+        $query = 'SELECT *
+                  FROM comment
+                  WHERE comment.id = :id';
+        $req = $db->prepare($query);
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->execute();
+        $row = $req->fetch(PDO::FETCH_ASSOC);
+        $comment = new Comment();
+        $comment->setId($row['id']);
+        $comment->setUsername($row['username']);
+        $comment->setContent($row['content']);
+        $comment->setCreatedAt($row['created_at']);
+        $comment->setIsApproved($row['is_approved']);
+        $comment->setBlogPostId($row['blog_post_id']);
+        return $comment;
     }
 
     public function create($values)
@@ -76,15 +91,6 @@ class CommentManager
             $comments[] = $comment;
         }
         return $comments;
-    }
-
-    public function delete($id)
-    {
-        $db = $this->db;
-        $query = 'DELETE FROM comment WHERE id = :id';
-        $req = $db->prepare($query);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
-        $req->execute();
     }
 
     public function approve($id)

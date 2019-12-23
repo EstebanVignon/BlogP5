@@ -21,7 +21,7 @@ class Home
     public function showBlog($params)
     {
         $manager = new PostManager();
-        $posts = $manager->getPosts();
+        $posts = $manager->findAll();
 
         $myView = new View('blog');
         $myView->setPageTitle('Page de blog De Esteban Vignon');
@@ -101,7 +101,7 @@ class Home
         //Show user posts
         if ($_SESSION['role'] === 'Admin') {
             $manager = new PostManager();
-            $posts = $manager->getUserPosts();
+            $posts = $manager->findUsersPosts();
         }
 
         //Show comment to approve or delete
@@ -110,7 +110,7 @@ class Home
             $commentsToApprove = $manager->getCommentsAllComments();
         }
 
-        $myView = new View('dashboard');
+        $myView = new View('/dashboard/index');
         $myView->setPageTitle('Page d\'Administration Du blog De Esteban Vignon');
         $myView->render(array('posts' => $posts, 'commentsToApprove' => $commentsToApprove));
 
@@ -191,7 +191,9 @@ class Home
     {
         $id = $params;
         $manager = new PostManager();
-        $manager->delete($id);
+        $post = $manager->find($id);
+        $manager->delete($post);
+
 
         $view = new View();
         $view->redirect('dashboard');
@@ -229,9 +231,11 @@ class Home
 
     public function deleteComment($params)
     {
-        $id = $params;
+        $commentId = $params;
         $manager = new CommentManager();
-        $manager->delete($id);
+
+        $comment = $manager->find($commentId);
+        $manager->delete($comment);
 
         $view = new View();
         $view->redirect('dashboard');

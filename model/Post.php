@@ -1,6 +1,6 @@
 <?php
 
-class Post
+class Post extends Entity
 {
     private $id;
     private $title;
@@ -10,6 +10,14 @@ class Post
     private $isActive;
     private $lastModification;
     private $accountId;
+
+    /**
+     * @return string
+     */
+    public function getTableName()
+    {
+        return "blog_post";
+    }
 
     /**
      * @return mixed
@@ -138,7 +146,5 @@ class Post
     {
         $this->accountId = $accountId;
     }
-    
-    
-    
+
 }

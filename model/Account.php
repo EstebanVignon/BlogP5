@@ -1,12 +1,20 @@
 <?php
 
-class Account
+class Account extends Entity
 {
     private $id;
     private $username;
     private $password;
     private $isApproved;
     private $role;
+
+    /**
+     * @return string
+     */
+    public function getTableName()
+    {
+        return "account";
+    }
 
     /**
      * @return mixed

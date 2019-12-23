@@ -1,15 +1,34 @@
 <?php
 
-class PostManager
+class PostManager extends ModelManager
 {
-    private $db;
-
-    public function __construct()
+    public function find($postId)
     {
-        $this->db = $db = new PDO('mysql:host=localhost;dbname=ocblog;charset=utf8', 'root', '');
+        $db = $this->db;
+
+        $id = $postId;
+
+        $query = 'SELECT * FROM blog_post WHERE id = :id';
+        $req = $db->prepare($query);
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->execute();
+
+        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+            $post = new Post();
+            $post->setId($row['id']);
+            $post->setTitle($row['title']);
+            $post->setHeading($row['heading']);
+            $post->setContent($row['content']);
+            $post->setCreatedAt($row['created_at']);
+            $post->setIsActive($row['is_active']);
+            $post->setLastModification($row['last_modification']);
+            $post->setaccountId($row['account_id']);
+        }
+
+        return $post;
     }
 
-    public function getPosts()
+    public function findAll()
     {
         $db = $this->db;
 
@@ -34,7 +53,7 @@ class PostManager
         return $posts;
     }
 
-    public function getUserPosts()
+    public function findUsersPosts()
     {
         $db = $this->db;
 
@@ -64,36 +83,9 @@ class PostManager
         return $posts;
     }
 
-    public function find($postId)
+    public function findAuthor(int $id)
     {
-        $id = $postId;
-
-        $db = $this->db;
-        $query = 'SELECT * FROM blog_post WHERE id = :id';
-        $req = $db->prepare($query);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
-        $req->execute();
-
-        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
-
-            $post = new Post();
-
-            $post->setId($row['id']);
-            $post->setTitle($row['title']);
-            $post->setHeading($row['heading']);
-            $post->setContent($row['content']);
-            $post->setCreatedAt($row['created_at']);
-            $post->setIsActive($row['is_active']);
-            $post->setLastModification($row['last_modification']);
-            $post->setaccountId($row['account_id']);
-        }
-
-        return $post;
-    }
-
-    public function findAuthor(int $accountId)
-    {
-        $accountId = $accountId;
+        $accountId = $id;
 
         $db = $this->db;
         $query = 'SELECT username
@@ -119,22 +111,15 @@ class PostManager
 
         $req->bindValue(':title', $values['title'], PDO::PARAM_STR);
         $req->bindValue(':heading', $values['heading'], PDO::PARAM_STR);
-        $req->bindValue(':content', nl2br( $values['content']), PDO::PARAM_STR);
+        $req->bindValue(':content', nl2br($values['content']), PDO::PARAM_STR);
         $req->bindValue(':userId', $userId, PDO::PARAM_INT);
 
         $req->execute();
 
     }
 
-    public function delete($id){
-        $db = $this->db;
-        $query = 'DELETE FROM blog_post WHERE id = :id';
-        $req = $db->prepare($query);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
-        $req->execute();
-    }
-
-    public function edit($values){
+    public function edit($values)
+    {
         $db = $this->db;
         $query = 'UPDATE blog_post 
                   SET title = :title, heading = :heading, content = :content, last_modification = NOW()
@@ -142,7 +127,7 @@ class PostManager
         $req = $db->prepare($query);
         $req->bindValue(':title', $values['title'], PDO::PARAM_STR);
         $req->bindValue(':heading', $values['heading'], PDO::PARAM_STR);
-        $req->bindValue(':content', nl2br($values['content']) , PDO::PARAM_STR);
+        $req->bindValue(':content', nl2br($values['content']), PDO::PARAM_STR);
         $req->bindValue(':id', $values['id'], PDO::PARAM_INT);
         $req->execute();
     }

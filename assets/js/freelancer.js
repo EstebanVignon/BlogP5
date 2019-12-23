@@ -60,7 +60,7 @@
         });
     });
 
-    //toggle menu dashboard
+    //toggle menu dashboard // VOIR LES DATA
     if (sessionStorage.getItem('openItem') === null) {
       sessionStorage.setItem('openItem', 'menu-target-1');
         jQuery('.targetDiv').hide();
@@ -71,7 +71,7 @@
     }
 
     jQuery('.dashboard-menu-item').click(function () {
-        sessionStorage.setItem('openItem', $(this).attr('id'));
+        sessionStorage.setItem('openItem', $(this).attr('id')); // /!\
         jQuery('.targetDiv').hide();
         jQuery("#div-" + sessionStorage.getItem('openItem')).show();
     });

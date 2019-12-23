@@ -1,6 +1,6 @@
 <?php
 
-class Comment
+class Comment extends Entity
 {
     private $id;
     private $username;
@@ -8,6 +8,14 @@ class Comment
     private $created_at;
     private $is_approved;
     private $blog_post_id;
+
+    /**
+     * @return string
+     */
+    public function getTableName()
+    {
+        return "comment";
+    }
 
     /**
      * @return mixed
