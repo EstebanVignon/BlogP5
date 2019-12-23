@@ -2,15 +2,15 @@
 
 class MailManager
 {
-    public function send($values, string $to, string $subject)
+    public function send(array $values, string $to, string $subject)
     {
         $mail = new Mail();
 
         $mail->setTo($to);
         $mail->setSubject($subject);
-        $mail->setName(strip_tags(htmlspecialchars($values['name'])));
-        $mail->setEmail(strip_tags(htmlspecialchars($values['email'])));
-        $mail->setMessage(strip_tags(htmlspecialchars($values['message'])));
+        $mail->setName($values['name']);
+        $mail->setEmail($values['email']);
+        $mail->setMessage($values['message']);
 
         $to = $mail->getTo();
         $subject = $mail->getSubject();
@@ -29,7 +29,6 @@ class MailManager
         mail($to, $subject, $message, $headers);
 
         $view = new View();
-        $route = 'home';
-        $view->redirect($route);
+        $view->redirect('home');
     }
 }

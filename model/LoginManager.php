@@ -1,23 +1,14 @@
 <?php
 
-class LoginManager
+class LoginManager extends ModelManager
 {
-
-    private $db;
-
-    public function __construct()
-    {
-        $this->db = $db = new PDO('mysql:host=localhost;dbname=ocblog;charset=utf8', 'root', '');
-    }
-
     public function checkCredentials($credentials)
     {
         $db = $this->db;
-        $values = $credentials;
 
         $query = 'SELECT * FROM account WHERE username = :username';
         $req = $db->prepare($query);
-        $req->bindValue(':username', $values['username'], PDO::PARAM_STR);
+        $req->bindValue(':username', $credentials['username'], PDO::PARAM_STR);
         $req->execute();
 
         $result = $req->fetch(PDO::FETCH_ASSOC);

@@ -51,7 +51,7 @@ class Home
             $author = $postManager->findAuthor($post->getaccountId());
 
             $commentManager = new CommentManager();
-            $comments = $commentManager->getComments($id);
+            $comments = $commentManager->findBlogPostComments($id);
 
 
             $myView = new View('post');
@@ -98,16 +98,16 @@ class Home
         $posts = null;
         $commentsToApprove = null;
 
-        //Show user posts
+        //Show user's posts
         if ($_SESSION['role'] === 'Admin') {
-            $manager = new PostManager();
-            $posts = $manager->findUsersPosts();
+            $postManager = new PostManager();
+            $posts = $postManager->findUsersPosts();
         }
 
         //Show comment to approve or delete
         if ($_SESSION['role'] === 'Admin') {
-            $manager = new CommentManager();
-            $commentsToApprove = $manager->getCommentsAllComments();
+            $commentManager = new CommentManager();
+            $commentsToApprove = $commentManager->findAll();
         }
 
         $myView = new View('/dashboard/index');

@@ -9,7 +9,7 @@ class ModelManager
         $this->db = $db = new PDO('mysql:host=' . DBHOST . ';dbname=' . DBNAME . ';charset=utf8', '' . DBUSERNAME . '', '' . DBPWD . '');
     }
 
-    public function delete($obj)
+    public function delete(object $obj)
     {
         $db = $this->db;
         $query = ' DELETE FROM ' . $obj->getTableName() . ' WHERE id = ' . $obj->getId();

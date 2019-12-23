@@ -21,7 +21,7 @@ class Mail
      */
     public function setTo($to): void
     {
-        $this->to = $to;
+        $this->to = strip_tags(htmlspecialchars($to));
     }
 
     /**
@@ -37,7 +37,7 @@ class Mail
      */
     public function setSubject($subject): void
     {
-        $this->subject = $subject;
+        $this->subject = strip_tags(htmlspecialchars($subject));
     }
 
     /**
@@ -53,7 +53,7 @@ class Mail
      */
     public function setName($name): void
     {
-        $this->name = $name;
+        $this->name = strip_tags(htmlspecialchars($name));
     }
 
     /**
@@ -69,7 +69,7 @@ class Mail
      */
     public function setEmail($email): void
     {
-        $this->email = $email;
+        $this->email = strip_tags(htmlspecialchars($email));
     }
 
     /**
@@ -85,7 +85,7 @@ class Mail
      */
     public function setMessage($message): void
     {
-        $this->message = $message;
+        $this->message = strip_tags(htmlspecialchars($message));
     }
 
 
