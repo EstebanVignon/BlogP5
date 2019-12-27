@@ -20,6 +20,8 @@
 
                     <a class="btn btn-danger mb-3"
                        href="<?= HOST ?>delete-comment/<?= $commentToApprove->getId() ?>">Supprimer</a>
+
+                    <a href="<?= HOST ?>post?id=<?= $commentToApprove->getBlogPostId() ?>"><p class="card-text text-light">Article en lien</p></a>
                 </div>
             <?php endforeach ?>
         </div>

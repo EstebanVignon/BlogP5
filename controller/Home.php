@@ -4,15 +4,7 @@ class Home
 {
     public function showHome($params)
     {
-        $myView = new View('home');
-        $myView->setPageTitle('Page d\'Accueil Du blog De Esteban Vignon');
-        $myView->setPageDesc('Page d\'accueil Du Blog De Esteban Vignon - Développeur PHP');
-        $myView->render();
-    }
-
-    public function showError($params)
-    {
-        $myView = new View('error');
+        $myView = new View('_home');
         $myView->setPageTitle('Page d\'Accueil Du blog De Esteban Vignon');
         $myView->setPageDesc('Page d\'accueil Du Blog De Esteban Vignon - Développeur PHP');
         $myView->render();
@@ -23,21 +15,10 @@ class Home
         $manager = new PostManager();
         $posts = $manager->findAll();
 
-        $myView = new View('blog');
+        $myView = new View('_blog');
         $myView->setPageTitle('Page de blog De Esteban Vignon');
         $myView->setPageDesc('Liste des Du Blog De Esteban Vignon - Développeur PHP');
         $myView->render(array('posts' => $posts));
-    }
-
-    public function addComment($params)
-    {
-        $values = $_POST['values'];
-        $manager = new CommentManager();
-        $manager->create($values);
-
-        $view = new View();
-        $route = 'post?id=' . $values['id'] . '#commentaires';
-        $view->redirect($route);
     }
 
     public function showPost($params)
@@ -54,12 +35,12 @@ class Home
             $comments = $commentManager->findBlogPostComments($id);
 
 
-            $myView = new View('post');
+            $myView = new View('_post');
             $myView->setPageTitle('Article Du blog De Esteban Vignon');
             $myView->setPageDesc('Page d\'article Du Blog De Esteban Vignon - Développeur PHP');
             $myView->render(array('post' => $post, 'author' => $author, 'comments' => $comments));
         } else {
-            $myView = new View('error');
+            $myView = new View('_error');
             $myView->render(array('errorMessage' => 'Pas d\'ID d\'article demandé'));
         }
     }
@@ -87,184 +68,34 @@ class Home
 
     }
 
-    public function showDashboard($params)
-    {
-        if (!isset($_SESSION['role'])) {
-            $view = new View();
-            $view->redirect('login');
-            exit;
-        }
-
-        $posts = null;
-        $commentsToApprove = null;
-
-        //Show user's posts
-        if ($_SESSION['role'] === 'Admin') {
-            $postManager = new PostManager();
-            $posts = $postManager->findUsersPosts();
-        }
-
-        //Show comment to approve or delete
-        if ($_SESSION['role'] === 'Admin') {
-            $commentManager = new CommentManager();
-            $commentsToApprove = $commentManager->findAll();
-        }
-
-        $myView = new View('/dashboard/index');
-        $myView->setPageTitle('Page d\'Administration Du blog De Esteban Vignon');
-        $myView->render(array('posts' => $posts, 'commentsToApprove' => $commentsToApprove));
-
-    }
-
-    public function addPost($params)
+    public function addComment($params)
     {
         $values = $_POST['values'];
-        $manager = new PostManager();
+        $manager = new CommentManager();
         $manager->create($values);
 
         $view = new View();
-        $view->redirect('dashboard');
-    }
-
-    public function showLogin($params)
-    {
-        if (isset($_SESSION['role'])) {
-            $view = new View();
-            $view->redirect('dashboard');
-            exit;
-        }
-        $myView = new View('login');
-        $myView->setPageTitle('Login Du blog De Esteban Vignon');
-        $myView->setPageDesc('Page de connexion du Blog De Esteban Vignon - Développeur PHP');
-        $myView->render();
-    }
-
-    public function logout($params)
-    {
-        session_destroy();
-        $view = new View();
-        $view->redirect('login');
-    }
-
-    public function checkLogin($params)
-    {
-        $values = $_POST['values'];
-
-        if (!empty($values['submit-connexion']) && $values['submit-connexion'] == 1) {
-            if (empty($values['password']) && empty($values['username'])) {
-                $myView = new View('login');
-                $myView->render(array('errorMessage' => 'Nom d\'utilisateur et mot de passe vide'));
-            } elseif (empty($values['password'])) {
-                $myView = new View('login');
-                $myView->render(array('errorMessage' => 'Mot de passe vide'));
-            } elseif (empty($values['username'])) {
-                $myView = new View('login');
-                $myView->render(array('errorMessage' => 'Nom d\'utilisateur vide'));
-            } else {
-                $manager = new LoginManager();
-                $account = $manager->checkCredentials($values);
-
-                if ($account->getUsername() === NULL) {
-                    $myView = new View('login');
-                    $myView->render(array('errorMessage' => 'Le nom d\'utilisateur n\'existe pas'));
-                } elseif (password_verify($values['password'], $account->getPassword())) {
-
-                    $_SESSION['role'] = $account->getRole();
-                    $_SESSION['username'] = $account->getUsername();
-                    $_SESSION['isApproved'] = $account->getIsApproved();
-                    $_SESSION['id'] = $account->getId();
-
-                    $view = new View();
-                    $view->redirect('dashboard');
-                } else {
-                    $myView = new View('login');
-                    $myView->render(array('errorMessage' => 'Bonjour ' . $account->getUsername() . ', votre mot de passe est incorrect'));
-                }
-            }
-        } elseif (!empty($values['submit-register']) && $values['submit-register'] == 1) {
-            $myView = new View('login');
-            $myView->render(array('errorMessage' => 'PAS ENCORE POSSIBLE DE SINSCRIRE'));
-        }
-    }
-
-    public function deletePost($params)
-    {
-        $id = $params;
-        $manager = new PostManager();
-        $post = $manager->find($id);
-        $manager->delete($post);
-
-
-        $view = new View();
-        $view->redirect('dashboard');
-
-    }
-
-    public function showEditPost($params)
-    {
-        $id = $params;
-        if (isset($params)) {
-            $manager = new PostManager();
-            $post = $manager->find($params);
-        } else {
-            $view = new View();
-            $view->redirect('dashboard');
-            exit();
+        if ($_SESSION['role'] == 'Admin'){
+            $route = 'post?id=' . $values['id'] . '#commentaires';
+        }else{
+            $route = 'post?message=1&id=' . $values['id'] . '#commentaires';
         }
 
-        $view = new View('edit-post');
-        $view->render(array('post' => $post));
+        $view->redirect($route);
     }
 
-    public function editPost($params)
+    public function showError($params = null)
     {
-        $values = $_POST['values'];
-
-        $manager = new PostManager();
-        $manager->edit($values);
-
-
-        $view = new View();
-        $view->redirect('dashboard');
-
-    }
-
-    public function deleteComment($params)
-    {
-        $commentId = $params;
-        $manager = new CommentManager();
-
-        $comment = $manager->find($commentId);
-        $manager->delete($comment);
-
-        $view = new View();
-        $view->redirect('dashboard');
+        $errorMessage = $params;
+        $myView = new View('_error');
+        $myView->setPageTitle('Page d\'Accueil Du blog De Esteban Vignon');
+        $myView->setPageDesc('Page d\'accueil Du Blog De Esteban Vignon - Développeur PHP');
+        if ($params === null){
+            $myView->render(array('errorMessage' => 'La page demandée n\'existe pas'));
+        } else{
+            $myView->render(array('errorMessage' => $errorMessage));
+        }
 
     }
-
-    public function approveComment($params)
-    {
-        $id = $params;
-        $manager = new CommentManager();
-        $manager->approve($id);
-
-        $view = new View();
-        $view->redirect('dashboard');
-
-    }
-
-    public function disapproveComment($params)
-    {
-        $id = $params;
-        $manager = new CommentManager();
-        $manager->disapprove($id);
-
-        $view = new View();
-        $view->redirect('dashboard');
-
-    }
-
-
-
 
 }

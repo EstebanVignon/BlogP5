@@ -13,10 +13,10 @@
                     <div class="card-body border-dark bg-info">
                         <h4 class="card-title"><?= $post->getTitle() . '<br>'; ?></h4>
                         <p class="card-text text-light"><?= $post->getHeading() . '<br>'; ?></p>
-                        <a class="btn btn-light mb-3" href="<?= HOST ?>post&id=<?= $post->getId() ?>">Lire</a>
+                        <a class="btn btn-light mb-3" href="<?= HOST ?>post?id=<?= $post->getId() ?>">Lire</a>
                         <p class="card-text">
                             <small class="text-white-50">
-                                <?= 'Le : ' . date('d/m/Y à G:i', strtotime($post->getCreatedAt())) . '<br>'; ?>
+                                <?= 'Le : ' . date('d/m/Y', strtotime($post->getLastModification())) . '<br>'; ?>
                             </small>
                         </p>
                     </div>

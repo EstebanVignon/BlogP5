@@ -5,7 +5,7 @@
             <h1 class="text-body">Erreur</h1>
         </div>
         <div class="row mt-5">
-            <p class="error-text"><?= isset($errorMessage) ? $errorMessage : 'La page demandée n\'existe pas'?></p>
+            <p class="error-text"><?= $errorMessage ?></p>
         </div>
     </div>
 </header>

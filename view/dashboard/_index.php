@@ -13,6 +13,7 @@
                 <?php elseif ($_SESSION['role'] === 'Abonné') : ?>
 
                 <?php endif ?>
+                <div class="mt-3"><a class="logout-link" href="<?= HOST ?>logout">Se déconnecter</a><br></div>
             </div>
 
             <!-- DASHBOARD MAIN MENU -->

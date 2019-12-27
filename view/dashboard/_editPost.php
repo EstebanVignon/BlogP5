@@ -25,6 +25,16 @@
                                   placeholder="Message" required><?= $post->getContent() ?></textarea>
                     </div>
 
+                    <div class="form-group text-black-50">
+                        <label for="account-select">Changer l'auteur :</label>
+                        <select name="values[account]" id="account-select">
+                            <option value="<?php echo $_SESSION['id'] ?>"><?php echo $_SESSION['username'] ?></option>
+                            <?php foreach ($accounts as $account): ?>
+                                <option value="<?php echo $account->getId() ?>"><?php echo $account->getUsername() ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Modifier</button>
 
                 </form>

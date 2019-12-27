@@ -10971,6 +10971,8 @@ form .row:first-child .floating-label-form-group {
 #error-comments{
     color: #8b1212;
     font-weight: 800;
+    text-align: center!important;
+    margin:auto;
 }
 
 
@@ -10999,7 +11001,7 @@ form .row:first-child .floating-label-form-group {
     background-color: #e6e6e6;
     margin-top:100px!important;
     box-shadow: #949494 0px 0px 18px;
-    height: 200px;
+    height: 230px;
     border-radius: 10px;
     padding: 10px;
     width:100%;
@@ -11028,3 +11030,14 @@ h1{
  .dashboard-toggle-item:not(#dashboard-menu) {
      display: none;
  }
+
+
+ .logout-link{
+     color:red!important;
+ }
+
+#comment-message{
+    color: #00a046;
+    font-weight: 800;
+    text-align: center;
+}

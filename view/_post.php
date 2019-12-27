@@ -11,15 +11,17 @@
 
                 <p class="text-body text-left"><?= $post->getContent(); ?></p>
                 <p class="text-left text-body mt-5"><b>Rédigé par : </b><?= $author->username ?></p>
-                <p class="text-left text-body"><b>Le :</b> <?= date('d/m/Y', strtotime($post->getCreatedAt())) ?></p>
+                <p class="text-left text-body"><b>Le :</b> <?= date('d/m/Y', strtotime($post->getLastModification())) ?>
+                </p>
             </div>
         </div>
         <div class="row col-12">
             <div class="mt-5 pl-4 pr-4 col-12">
                 <h3 id="commentaires" class="text-body">Commentaires</h3>
             </div>
+
             <?php if ($comments == false) : ?>
-                <div>
+                <div class="row col-6 offset-3 mt-5">
                     <p id="error-comments">Pas encore de commentaires</p>
                 </div>
             <?php else : ?>
@@ -35,6 +37,12 @@
         </div>
 
         <div class="row mt-5">
+
+            <?php if (isset($_GET['message']) && $_GET['message'] == 1) : ?>
+                <div class="row col-6 offset-3">
+                    <p id="comment-message">Merci, commentaire bien reçu. Celui-ci est en attente de modération</p>
+                </div>
+            <?php endif ?>
 
             <?php if (isset($_SESSION['role'])) : ?>
                 <div class="row">
@@ -55,8 +63,6 @@
                     </div>
                 </div>
             <?php else : ?>
-
-
                 <div class="row">
                     <div class="mt-4 pl-4 pr-4 col-md-10 offset-md-1">
                         <h3 id="commentaires" class="text-body">Ecrire un commentaire</h3>
@@ -67,9 +73,7 @@
                         </a>
                     </div>
                 </div>
-
-
-            <?php endif; ?>
+            <?php endif ?>
 
         </div>
     </div>

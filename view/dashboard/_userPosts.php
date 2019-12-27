@@ -11,9 +11,16 @@
                        href="<?= HOST ?>post&id=<?= $post->getId() ?>">Lire</a>
                     <p class="card-text">
                         <small class="text-white-50">
-                            <?= 'Le : ' . date('d/m/Y à G:i', strtotime($post->getCreatedAt())) . '<br>'; ?>
+                            <?= 'Créé le : <br>' . date('d/m/Y à G:i', strtotime($post->getCreatedAt())) . '<br>'; ?>
                         </small>
                     </p>
+                    <?php if ($post->getLastModification() !== NULL) : ?>
+                        <p class="card-text">
+                            <small class="text-white-50">
+                                <?= 'Dernière modification : <br>' . date('d/m/Y à G:i', strtotime($post->getLastModification())) . '<br>'; ?>
+                            </small>
+                        </p>
+                    <?php endif ?>
                     <a class="btn btn-secondary mb-3" href="<?= HOST ?>edit-post/<?= $post->getId() ?>">Modifier</a>
                     <a class="btn btn-danger mb-3" href="<?= HOST ?>del-post/<?= $post->getId() ?>">Supprimer</a>
                 </div>

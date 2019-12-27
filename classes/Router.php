@@ -6,21 +6,23 @@ class Router
 
     private $routes = [
         "home" => ["controller" => 'Home', "method" => 'showHome'],
-        "contact" => ["controller" => 'Home', "method" => 'contact'],
         "blog" => ["controller" => 'Home', "method" => 'showBlog'],
         "post" => ["controller" => 'Home', "method" => 'showPost'],
-        "login" => ["controller" => 'Home', "method" => 'showLogin'],
+        "contact" => ["controller" => 'Home', "method" => 'contact'],
         "addComment" => ["controller" => 'Home', "method" => 'addComment'],
-        "dashboard" => ["controller" => 'Home', "method" => 'showDashboard'],
-        "addPost" => ["controller" => 'Home', "method" => 'addPost'],
-        "checkLogin" => ["controller" => 'Home', "method" => 'checkLogin'],
-        "logout" => ["controller" => 'Home', "method" => 'logout'],
-        "del-post" => ["controller" => 'Home', "method" => 'deletePost'],
-        "edit-post" => ["controller" => 'Home', "method" => 'showEditPost'],
-        "edit-post-send" => ["controller" => 'Home', "method" => 'editPost'],
-        "approve-comment" => ["controller" => 'Home', "method" => 'approveComment'],
-        "delete-comment" => ["controller" => 'Home', "method" => 'deleteComment'],
-        "disapprove-comment" => ["controller" => 'Home', "method" => 'disapproveComment'],
+
+        "login" => ["controller" => 'Login', "method" => 'showLogin'],
+        "checkLogin" => ["controller" => 'Login', "method" => 'checkLogin'],
+        "logout" => ["controller" => 'Login', "method" => 'logout'],
+
+        "dashboard" => ["controller" => 'Dashboard', "method" => 'showDashboard'],
+        "addPost" => ["controller" => 'Dashboard', "method" => 'addPost'],
+        "del-post" => ["controller" => 'Dashboard', "method" => 'deletePost'],
+        "edit-post" => ["controller" => 'Dashboard', "method" => 'showEditPost'],
+        "edit-post-send" => ["controller" => 'Dashboard', "method" => 'editPost'],
+        "approve-comment" => ["controller" => 'Dashboard', "method" => 'approveComment'],
+        "delete-comment" => ["controller" => 'Dashboard', "method" => 'deleteComment'],
+        "disapprove-comment" => ["controller" => 'Dashboard', "method" => 'disapproveComment']
     ];
 
     public function __construct($request)
