@@ -17,6 +17,7 @@ class SessionManager
     {
         $this->setUserId($user->getId());
         $this->setRole($user->getRole());
+        $this->setUsername($user->getUsername());
     }
 
     public function setUserId($id)
@@ -27,6 +28,11 @@ class SessionManager
     public function setRole($role)
     {
         $_SESSION['role'] = $role;
+    }
+
+    public function setUsername($username)
+    {
+        $_SESSION['username'] = $username;
     }
 
     public function get($name)

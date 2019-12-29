@@ -20,13 +20,15 @@ class Request
         $this->params = $params;
     }
 
+    public function getParams()
+    {
+        return $this->params;
+    }
+
     public function get($name)
     {
         return $this->params[$name];
     }
 
-    public function getParams()
-    {
-        return $this->params;
-    }
+
 }

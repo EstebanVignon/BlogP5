@@ -1,78 +1,86 @@
 <?php
 
-class Home
+class Home extends Controller
 {
-    public function showHome($params)
+    public function showHome($request)
     {
-        $myView = new View('_home');
-        $myView->setPageTitle('Page d\'Accueil Du blog De Esteban Vignon');
-        $myView->setPageDesc('Page d\'accueil Du Blog De Esteban Vignon - Développeur PHP');
-        $myView->render();
+        $title = 'Page d\'Accueil Du blog De Esteban Vignon';
+        $description = 'Page d\'accueil Du Blog De Esteban Vignon - Développeur PHP';
+        $this->render('_home.php', array('message' => $request['message']), $title, $description);
     }
 
-    public function showBlog($params)
+    public function showBlog($request)
     {
         $manager = new PostManager();
         $posts = $manager->findAll();
 
-        $myView = new View('_blog');
-        $myView->setPageTitle('Page de blog De Esteban Vignon');
-        $myView->setPageDesc('Liste des Du Blog De Esteban Vignon - Développeur PHP');
-        $myView->render(array('posts' => $posts));
+        $title = 'Page de blog De Esteban Vignon';
+        $description = 'Liste des Du Blog De Esteban Vignon - Développeur PHP';
+        $this->render('_blog.php', array('posts' => $posts), $title, $description);
     }
 
-    public function showPost($params)
+    public function showPost($request)
     {
-        if (isset($_GET['id'])) {
-
-            $id = $_GET['id'];
+        if (isset($request['id'])) {
+            $id = $request['id'];
 
             $postManager = new PostManager();
             $post = $postManager->find($id);
-            $author = $postManager->findAuthor($post->getaccountId());
+            if ($post === null) {
+                $this->redirect('error/message/L\'article demandé n\'existe pas');
+            } else {
+                $author = $postManager->findAuthor($post->getaccountId());
 
-            $commentManager = new CommentManager();
-            $comments = $commentManager->findBlogPostComments($id);
+                $commentManager = new CommentManager();
+                $comments = $commentManager->findBlogPostComments($id);
 
-
-            $myView = new View('_post');
-            $myView->setPageTitle('Article Du blog De Esteban Vignon');
-            $myView->setPageDesc('Page d\'article Du Blog De Esteban Vignon - Développeur PHP');
-            $myView->render(array('post' => $post, 'author' => $author, 'comments' => $comments));
-        } else {
-            $myView = new View('_error');
-            $myView->render(array('errorMessage' => 'Pas d\'ID d\'article demandé'));
+                $title = 'Article Du blog De Esteban Vignon';
+                $description = 'Page d\'article Du Blog De Esteban Vignon - Développeur PHP';
+                $this->render('_post.php',
+                    array('post' => $post,
+                        'author' => $author,
+                        'comments' => $comments,
+                        'message' => $request['message'],
+                        'userRole' => $this->userRole,
+                        ),
+                    $title,
+                    $description);
+            }
         }
     }
 
-    public function contact($params)
+    public function showError($request)
     {
-        $values = $_POST['values'];
+        if (!isset($request['message'])|| $request['message'] == null) {
+            $this->render('_error.php', array('message' => 'Page demandée innexistante'), 'Erreur : La page demandée n\'existe pas');
+        } else {
+            $this->render('_error.php', array('message' => $request['message']), 'Erreur : ' . $request['message']);
+        }
+    }
 
+    public function contact($request)
+    {
         if (
-            empty($values['name']) ||
-            empty($values['email']) ||
-            empty($values['message']) ||
-            !filter_var($values['email'], FILTER_VALIDATE_EMAIL)
+            empty($request['name']) ||
+            empty($request['email']) ||
+            empty($request['message']) ||
+            !filter_var($request['email'], FILTER_VALIDATE_EMAIL)
         ) {
-            header('Location: home');
-            exit;
+            $this->redirect('home/message/error');
         }
 
         $manager = new MailManager();
-        $manager->send($values, 'vignon.esteban@gmail.com', 'Mail Du Site Esteban-Vignon.fr');
+        $manager->send($request, 'vignon.esteban@gmail.com', 'Mail Du Site Esteban-Vignon.fr');
 
         $view = new View();
         $route = 'home';
-        $view->redirect($route);
-
+        $this->redirect('home/message/succes');
     }
 
-    public function addComment($params)
+    public function addComment($request)
     {
-        $values = $_POST['values'];
         $manager = new CommentManager();
-        $manager->create($values);
+        $manager->create($request);
 
         $view = new View();
         if ($_SESSION['role'] == 'Admin'){
@@ -82,20 +90,6 @@ class Home
         }
 
         $view->redirect($route);
-    }
-
-    public function showError($params = null)
-    {
-        $errorMessage = $params;
-        $myView = new View('_error');
-        $myView->setPageTitle('Page d\'Accueil Du blog De Esteban Vignon');
-        $myView->setPageDesc('Page d\'accueil Du Blog De Esteban Vignon - Développeur PHP');
-        if ($params === null){
-            $myView->render(array('errorMessage' => 'La page demandée n\'existe pas'));
-        } else{
-            $myView->render(array('errorMessage' => $errorMessage));
-        }
-
     }
 
 }

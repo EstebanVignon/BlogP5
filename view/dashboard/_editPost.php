@@ -5,30 +5,29 @@
                 <h2 class="text-body">Modifier Article</h2>
                 <form class="col-12 mt-5" action="<?= HOST ?>edit-post-send" method="post">
 
-                    <input type="hidden" name="values[id]" value="<?= $post->getId() ?>"/>
+                    <input type="hidden" name="id" value="<?= $post->getId() ?>"/>
 
                     <div class="form-group text-black-50">
                         <label for="title">Titre de l'article</label>
-                        <input type="text" class="form-control" name="values[title]" id="title" placeholder="Titre"
+                        <input type="text" class="form-control" name="title" id="title" placeholder="Titre"
                                required value="<?= $post->getTitle() ?>">
                     </div>
 
                     <div class="form-group text-black-50">
                         <label for="heading">Chapô</label>
-                        <input type="text" class="form-control" name="values[heading]" id="heading" placeholder="chapô"
+                        <input type="text" class="form-control" name="heading" id="heading" placeholder="chapô"
                                required value="<?= $post->getHeading() ?>">
                     </div>
 
                     <div class="form-group text-black-50">
                         <label for="content">Contenu de l'article</label>
-                        <textarea class="textarea" name="values[content]" id="content" cols="30" rows="5"
+                        <textarea class="textarea" name="content" id="content" cols="30" rows="5"
                                   placeholder="Message" required><?= $post->getContent() ?></textarea>
                     </div>
-
                     <div class="form-group text-black-50">
                         <label for="account-select">Changer l'auteur :</label>
-                        <select name="values[account]" id="account-select">
-                            <option value="<?php echo $_SESSION['id'] ?>"><?php echo $_SESSION['username'] ?></option>
+                        <select name="account" id="account-select">
+                            <option value="<?php echo $userId ?>"><?php echo $userUsername ?></option>
                             <?php foreach ($accounts as $account): ?>
                                 <option value="<?php echo $account->getId() ?>"><?php echo $account->getUsername() ?></option>
                             <?php endforeach ?>

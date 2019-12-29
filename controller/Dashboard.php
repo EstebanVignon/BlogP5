@@ -4,166 +4,88 @@ class Dashboard extends Controller
 {
     public function showDashboard($request)
     {
-        $userRole = $this->sessionManager->get('role');
-        $userId = $this->sessionManager->get('id');
-
-        var_dump($userId);
-        var_dump($userRole);
-
-        if (!isset($userRole)) {
+        if (!isset($this->userRole)) {
             $this->redirect('login');
         }
 
-        if ($userRole === 'Admin') {
+        if ($this->userRole === 'Admin') {
 
-            //Init
             $posts = null;
             $commentsToApprove = null;
 
-            //Show user's posts
             $postManager = new PostManager();
-            $posts = $postManager->findUsersPosts($userId);
+            $posts = $postManager->findUsersPosts($this->userId);
 
-            //Render
-            $title = 'Tableau de bord';
-            $description = 'Tableau de bord du site de Esteban Vignon';
-            $this->render('dashboard/_index.php', array('posts' => $posts), $title, $description);
-
-
-
-
-        }
-
-    }
-
-    public function delete($request)
-    {
-        $manager = new PostManager();
-        $article = $manager->find($request->get('id'));
-        $this->render('montemplate.php');
-    }
-
-
-    /*
-    public function showDashboard($params)
-    {
-        if (!isset($_SESSION['role'])) {
-            $view = new View();
-            $view->redirect('login');
-            exit;
-        }
-
-        $posts = null;
-        $commentsToApprove = null;
-
-        //Show user's posts
-        if ($_SESSION['role'] === 'Admin') {
-            $postManager = new PostManager();
-            $posts = $postManager->findUsersPosts();
-        }
-
-        //Show comment to approve or delete
-        if ($_SESSION['role'] === 'Admin') {
             $commentManager = new CommentManager();
             $commentsToApprove = $commentManager->findAll();
+
+            $title = 'Tableau de bord zefzef';
+            $description = 'Tableau de bord du site de Esteban Vignon';
+            $this->render('dashboard/_index.php', array('posts' => $posts, 'commentsToApprove' => $commentsToApprove), $title, $description);
         }
-
-        $myView = new View('/dashboard/_index');
-        $myView->setPageTitle('Page d\'Administration Du blog De Esteban Vignon');
-        $myView->render(array('posts' => $posts, 'commentsToApprove' => $commentsToApprove));
-
     }
 
-    public function addPost($params)
+    public function addPost($request)
     {
-        $values = $_POST['values'];
         $manager = new PostManager();
-        $manager->create($values);
-
-        $view = new View();
-        $view->redirect('dashboard');
+        $manager->create($request, $this->userId);
+        $this->redirect('dashboard');
     }
 
-
-    public function deletePost($params)
+    public function deletePost($request)
     {
-        $id = $params;
         $manager = new PostManager();
-        $post = $manager->find($id);
+        $post = $manager->find($request['id']);
         $manager->delete($post);
-
-        $view = new View();
-        $view->redirect('dashboard');
-
+        $this->redirect('dashboard');
     }
 
-    public function showEditPost($params)
+    public function showEditPost($request)
     {
-        $id = $params;
-        $currentUserId = $_SESSION['id'];
+        $postManager = new PostManager();
+        $post = $postManager->find($request['id']);
 
-        if (isset($params)) {
-            $postManager = new PostManager();
-            $post = $postManager->find($params);
+        $accountManager = new AccountManager();
+        $accounts = $accountManager->findOtherAdminAccounts($this->userId);
 
-            $accountManager = new AccountManager();
-            $accounts = $accountManager->findOtherAdminAccounts($currentUserId);
-        } else {
-            $view = new View();
-            $view->redirect('dashboard');
-            exit();
-        }
-
-        $view = new View('dashboard/_editPost');
-        $view->render(array('post' => $post, 'accounts' => $accounts));
+        $this->render(
+            'dashboard/_editPost.php',
+            array('post' => $post,
+                'accounts' => $accounts,
+                'userId' => $this->userId,
+                'userUsername' => $this->userUsername),
+            'Edition de l\'article ' . $post->getTitle(),
+            'Contenu : ' . $post->getContent()
+        );
     }
 
-    public function editPost($params)
+    public function editPost($request)
     {
-        $values = $_POST['values'];
-
         $manager = new PostManager();
-        $manager->edit($values);
-
-
-        $view = new View();
-        $view->redirect('dashboard');
-
+        $manager->edit($request);
+        $this->redirect('dashboard');
     }
 
-    public function deleteComment($params)
+    public function deleteComment($request)
     {
-        $commentId = $params;
         $manager = new CommentManager();
-
-        $comment = $manager->find($commentId);
+        $comment = $manager->find($request['id']);
         $manager->delete($comment);
-
-        $view = new View();
-        $view->redirect('dashboard');
+        $this->redirect('dashboard');
 
     }
 
-    public function approveComment($params)
+    public function approveComment($request)
     {
-        $id = $params;
         $manager = new CommentManager();
-        $manager->approve($id);
-
-        $view = new View();
-        $view->redirect('dashboard');
-
+        $manager->approve($request['id']);
+        $this->redirect('dashboard');
     }
 
-    public function disapproveComment($params)
+    public function disapproveComment($request)
     {
-        $id = $params;
         $manager = new CommentManager();
-        $manager->disapprove($id);
-
-        $view = new View();
-        $view->redirect('dashboard');
-
+        $manager->disapprove($request['id']);
+        $this->redirect('dashboard');
     }
-*/
 }

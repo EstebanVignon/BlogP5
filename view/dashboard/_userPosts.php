@@ -21,8 +21,8 @@
                             </small>
                         </p>
                     <?php endif ?>
-                    <a class="btn btn-secondary mb-3" href="<?= HOST ?>edit-post/<?= $post->getId() ?>">Modifier</a>
-                    <a class="btn btn-danger mb-3" href="<?= HOST ?>del-post/<?= $post->getId() ?>">Supprimer</a>
+                    <a class="btn btn-secondary mb-3" href="<?= HOST ?>edit-post/id/<?= $post->getId() ?>">Modifier</a>
+                    <a class="btn btn-danger mb-3" href="<?= HOST ?>delete-post/id/<?= $post->getId() ?>">Supprimer</a>
                 </div>
             <?php endforeach ?>
         </div>

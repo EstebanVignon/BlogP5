@@ -10,16 +10,16 @@
 
                     <?php if ($commentToApprove->getIsApproved() == 0) : ?>
                         <a class="btn btn-success mb-3"
-                           href="<?= HOST ?>approve-comment/<?= $commentToApprove->getId() ?>">Approuver</a>
+                           href="<?= HOST ?>approve-comment/id/<?= $commentToApprove->getId() ?>">Approuver</a>
                     <?php endif ?>
 
                     <?php if ($commentToApprove->getIsApproved() == 1) : ?>
                         <a class="btn btn-warning mb-3"
-                           href="<?= HOST ?>disapprove-comment/<?= $commentToApprove->getId() ?>">Désaprouver</a>
+                           href="<?= HOST ?>disapprove-comment/id/<?= $commentToApprove->getId() ?>">Désaprouver</a>
                     <?php endif ?>
 
                     <a class="btn btn-danger mb-3"
-                       href="<?= HOST ?>delete-comment/<?= $commentToApprove->getId() ?>">Supprimer</a>
+                       href="<?= HOST ?>delete-comment/id/<?= $commentToApprove->getId() ?>">Supprimer</a>
 
                     <a href="<?= HOST ?>post?id=<?= $commentToApprove->getBlogPostId() ?>"><p class="card-text text-light">Article en lien</p></a>
                 </div>

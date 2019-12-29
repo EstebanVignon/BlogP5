@@ -50,6 +50,9 @@
     </div>
 </nav>
 
+<br><br>
+<?php var_dump($_SESSION); ?>
+
 <?= $contentPage ?>
 
 <!-- Footer -->

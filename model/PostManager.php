@@ -97,10 +97,9 @@ class PostManager extends ModelManager
         return $result;
     }
 
-    public function create($values)
+    public function create(array $values, int $accountId)
     {
         $db = $this->db;
-        $userId = $_SESSION['id'];
 
         $query = 'INSERT INTO blog_post(title, heading, content, created_at, is_active, account_id) 
                   VALUES(:title, :heading, :content, NOW(), 1, :userId)';
@@ -108,7 +107,7 @@ class PostManager extends ModelManager
         $req->bindValue(':title', $values['title'], PDO::PARAM_STR);
         $req->bindValue(':heading', $values['heading'], PDO::PARAM_STR);
         $req->bindValue(':content', nl2br($values['content']), PDO::PARAM_STR);
-        $req->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $req->bindValue(':userId', $accountId, PDO::PARAM_INT);
 
         $req->execute();
     }

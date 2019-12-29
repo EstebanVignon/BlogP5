@@ -10997,6 +10997,13 @@ form .row:first-child .floating-label-form-group {
     text-align: center;
 }
 
+.succes-text{
+    color: #1d8b2b;
+    font-weight: 800;
+    font-size : 20px;
+    text-align: center;
+}
+
 .dashboard-menu{
     background-color: #e6e6e6;
     margin-top:100px!important;

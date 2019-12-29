@@ -9,6 +9,7 @@ Class Router
         "home" => ["controller" => 'Home', "method" => 'showHome'],
         "blog" => ["controller" => 'Home', "method" => 'showBlog'],
         "post" => ["controller" => 'Home', "method" => 'showPost'],
+        "error" => ["controller" => 'Home', "method" => 'showError'],
         "contact" => ["controller" => 'Home', "method" => 'contact'],
         "addComment" => ["controller" => 'Home', "method" => 'addComment'],
         "login" => ["controller" => 'Login', "method" => 'showLogin'],
@@ -16,7 +17,7 @@ Class Router
         "logout" => ["controller" => 'Login', "method" => 'logout'],
         "dashboard" => ["controller" => 'Dashboard', "method" => 'showDashboard'],
         "addPost" => ["controller" => 'Dashboard', "method" => 'addPost'],
-        "del-post" => ["controller" => 'Dashboard', "method" => 'deletePost'],
+        "delete-post" => ["controller" => 'Dashboard', "method" => 'deletePost'],
         "edit-post" => ["controller" => 'Dashboard', "method" => 'showEditPost'],
         "edit-post-send" => ["controller" => 'Dashboard', "method" => 'editPost'],
         "approve-comment" => ["controller" => 'Dashboard', "method" => 'approveComment'],
@@ -53,8 +54,6 @@ Class Router
 
     public function renderController()
     {
-
-
         $route = $this->routeName;
         $params = $this->request->getParams();
         if (key_exists($route, $this->routes)) {
@@ -64,7 +63,7 @@ Class Router
             $currentController->$method($params);
         } else {
             $controller = new Home();
-            $controller->showError();
+            $controller->showError(array());
         }
     }
 

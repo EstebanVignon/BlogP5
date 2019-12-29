@@ -38,22 +38,22 @@
 
         <div class="row mt-5">
 
-            <?php if (isset($_GET['message']) && $_GET['message'] == 1) : ?>
+            <?php if (isset($message) && $message == 1) : ?>
                 <div class="row col-6 offset-3">
                     <p id="comment-message">Merci, commentaire bien reçu. Celui-ci est en attente de modération</p>
                 </div>
             <?php endif ?>
 
-            <?php if (isset($_SESSION['role'])) : ?>
+            <?php if (isset($userRole)) : ?>
                 <div class="row">
                     <div class="mt-4 pl-4 pr-4 col-md-10 offset-md-1">
                         <form action="<?= HOST ?>addComment" method="post">
 
-                            <input type="hidden" name="values[id]" value="<?= $post->getId() ?>"/>
+                            <input type="hidden" name="id" value="<?= $post->getId() ?>"/>
 
                             <div class="form-group text-black-50">
                                 <label for="content">Message</label>
-                                <textarea class="textarea" name="values[content]" id="content" cols="30" rows="5"
+                                <textarea class="textarea" name="content" id="content" cols="30" rows="5"
                                           placeholder="Message" required></textarea>
                             </div>
 
