@@ -6,11 +6,12 @@ class SessionManager
 
     public function __construct()
     {
-        foreach ($_SESSION as $key => $value) {
-            $params[$key] = $value;
+        if (!empty($_SESSION)){
+            foreach ($_SESSION as $key => $value) {
+                $params[$key] = $value;
+            }
+            $this->params = $params;
         }
-
-        $this->params = $params;
     }
 
     public function initSession($user)
@@ -18,6 +19,7 @@ class SessionManager
         $this->setUserId($user->getId());
         $this->setRole($user->getRole());
         $this->setUsername($user->getUsername());
+        $this->setIsApproved($user->getIsApproved());
     }
 
     public function setUserId($id)
@@ -35,8 +37,14 @@ class SessionManager
         $_SESSION['username'] = $username;
     }
 
+    public function setIsApproved($isApproved)
+    {
+        $_SESSION['is_approved'] = $isApproved;
+    }
+
     public function get($name)
     {
         return $this->params[$name];
     }
+
 }

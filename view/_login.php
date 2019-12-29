@@ -8,14 +8,14 @@
             <form class="col-12" action="<?= HOST ?>checkLogin" method="post">
                 <div class="form-group text-black-50">
                     <label for="username">Nom d'utilisateur</label>
-                    <input type="username" class="form-control" name="values[username]" id="username" placeholder="Nom d'utilisateur">
+                    <input type="username" class="form-control" name="username" id="username" placeholder="Nom d'utilisateur">
                 </div>
                 <div class="form-group text-black-50">
                     <label for="pwd">Mot de passe</label>
-                    <input type="password" class="form-control" name="values[password]" id="pwd" placeholder="Mot de passe">
+                    <input type="password" class="form-control" name="password" id="pwd" placeholder="Mot de passe">
                 </div>
-                <button type="submit" name="values[submit-connexion]" value="1" class="btn btn-primary">Se Connecter</button>
-                <button type="submit" name="values[submit-register]" value="1" class="btn btn-warning">S'inscrire</button>
+                <button type="submit" name="submit-connexion" value="1" class="btn btn-primary">Se Connecter</button>
+                <button type="submit" name="submit-register" value="1" class="btn btn-warning">S'inscrire</button>
                 <div class="row mt-3 text-black-50 login-error-message">
                     <?= !empty($errorMessage) ? $errorMessage : ''; ?>
                 </div>

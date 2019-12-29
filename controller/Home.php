@@ -4,9 +4,10 @@ class Home extends Controller
 {
     public function showHome($request)
     {
+        $message = isset($request['message']) ? $request['message'] : '';
         $title = 'Page d\'Accueil Du blog De Esteban Vignon';
         $description = 'Page d\'accueil Du Blog De Esteban Vignon - Développeur PHP';
-        $this->render('_home.php', array('message' => $request['message']), $title, $description);
+        $this->render('_home.php', array('message' => $message), $title, $description);
     }
 
     public function showBlog($request)
@@ -29,22 +30,22 @@ class Home extends Controller
             if ($post === null) {
                 $this->redirect('error/message/L\'article demandé n\'existe pas');
             } else {
+                $message = isset($request['message']) ? $request['message'] : '';
                 $author = $postManager->findAuthor($post->getaccountId());
 
                 $commentManager = new CommentManager();
                 $comments = $commentManager->findBlogPostComments($id);
 
-                $title = 'Article Du blog De Esteban Vignon';
-                $description = 'Page d\'article Du Blog De Esteban Vignon - Développeur PHP';
-                $this->render('_post.php',
+                $this->render(
+                    '_post.php',
                     array('post' => $post,
                         'author' => $author,
                         'comments' => $comments,
-                        'message' => $request['message'],
+                        'message' => $message,
                         'userRole' => $this->userRole,
                         ),
-                    $title,
-                    $description);
+                    'Article Du blog De Esteban Vignon',
+                    'Page d\'article Du Blog De Esteban Vignon - Développeur PHP');
             }
         }
     }
@@ -82,14 +83,11 @@ class Home extends Controller
         $manager = new CommentManager();
         $manager->create($request);
 
-        $view = new View();
-        if ($_SESSION['role'] == 'Admin'){
-            $route = 'post?id=' . $values['id'] . '#commentaires';
+        if ($this->userRole == 'Admin'){
+            $this->redirect('post/id/' . $request['id']);
         }else{
-            $route = 'post?message=1&id=' . $values['id'] . '#commentaires';
+            $this->redirect('post/id/' . $request['id'] . '/message/1');
         }
-
-        $view->redirect($route);
     }
 
 }

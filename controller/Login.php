@@ -1,51 +1,45 @@
 <?php
 
-class Login
+class Login extends Controller
 {
-
-    public function showLogin($params)
+    public function showLogin($request)
     {
-        if (isset($_SESSION['role'])) {
-            $view = new View();
-            $view->redirect('dashboard');
-            exit;
+        if (isset($this->userRole)) {
+            $this->redirect('dashboard');
         }
-        $myView = new View('_login');
-        $myView->setPageTitle('Login Du blog De Esteban Vignon');
-        $myView->setPageDesc('Page de connexion du Blog De Esteban Vignon - Développeur PHP');
-        $myView->render();
+        $this->render('_login.php', array(),
+            'Login Du blog De Esteban Vignon',
+            'Page de connexion du Blog De Esteban Vignon - Développeur PHP');
     }
 
-    public function checkLogin($params)
+    public function logout($request)
     {
-        $values = $_POST['values'];
+        session_destroy();
+        $this->redirect('home');
+    }
 
-        if (!empty($values['submit-connexion']) && $values['submit-connexion'] == 1) {
-            if (empty($values['password']) && empty($values['username'])) {
-                $myView = new View('_login');
-                $myView->render(array('errorMessage' => 'Nom d\'utilisateur et mot de passe vide'));
-            } elseif (empty($values['password'])) {
-                $myView = new View('_login');
-                $myView->render(array('errorMessage' => 'Mot de passe vide'));
-            } elseif (empty($values['username'])) {
-                $myView = new View('_login');
-                $myView->render(array('errorMessage' => 'Nom d\'utilisateur vide'));
+    public function checkLogin($request)
+    {
+        $title = 'Login Du blog De Esteban Vignon';
+        $desc = 'Page de connexion du Blog De Esteban Vignon - Développeur PHP';
+        if (!empty($request['submit-connexion']) && $request['submit-connexion'] == 1) {
+            if (empty($request['password']) && empty($request['username'])) {
+                $this->render('_login.php', array('errorMessage' => 'Nom d\'utilisateur et mot de passe vide'), $title, $desc);
+            } elseif (empty($request['password'])) {
+                $this->render('_login.php', array('errorMessage' => 'Mot de passe vide'), $title, $desc);
+            } elseif (empty($request['username'])) {
+                $this->render('_login.php', array('errorMessage' => 'Nom d\'utilisateur vide'), $title, $desc);
             } else {
                 $manager = new LoginManager();
-                $account = $manager->checkCredentials($values);
-
+                $account = $manager->checkCredentials($request);
                 if ($account->getUsername() === NULL) {
-                    $myView = new View('_login');
-                    $myView->render(array('errorMessage' => 'Le nom d\'utilisateur n\'existe pas'));
-                } elseif (password_verify($values['password'], $account->getPassword())) {
+                    $this->render('_login.php', array('errorMessage' => 'Le nom d\'utilisateur n\'existe pas'), $title, $desc);
+                } elseif (password_verify($request['password'], $account->getPassword())) {
 
-                    $_SESSION['role'] = $account->getRole();
-                    $_SESSION['username'] = $account->getUsername();
-                    $_SESSION['isApproved'] = $account->getIsApproved();
-                    $_SESSION['id'] = $account->getId();
+                    $this->sessionManager->initSession($account);
 
-                    $view = new View();
-                    $view->redirect('dashboard');
+                    $this->redirect('dashboard');
+
                 } else {
                     $myView = new View('_login');
                     $myView->render(array('errorMessage' => 'Bonjour ' . $account->getUsername() . ', votre mot de passe est incorrect'));
@@ -57,11 +51,5 @@ class Login
         }
     }
 
-    public function logout($params)
-    {
-        session_destroy();
-        $view = new View();
-        $view->redirect('home');
-    }
 
 }
