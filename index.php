@@ -4,9 +4,9 @@ session_start();
 include_once('config.php');
 CustomAutoload::start();
 
-$request = $_GET['url'];
+$url = $_GET['url'];
 
-$router = new Router($request);
+$router = new Router($url);
 $router->renderController();
 
 

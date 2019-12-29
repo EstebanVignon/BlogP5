@@ -1,10 +1,8 @@
 <?php
-
-Class Router
+class Router
 {
-
     private $request;
-    private $routeName;
+
     private $routes = [
         "home" => ["controller" => 'Home', "method" => 'showHome'],
         "blog" => ["controller" => 'Home', "method" => 'showBlog'],
@@ -24,39 +22,27 @@ Class Router
         "disapprove-comment" => ["controller" => 'Dashboard', "method" => 'disapproveComment']
     ];
 
-    public function __construct($url)
+    public function __construct($request)
     {
-        $request = new Request();
-        $request->addParams($this->getParams($url));
-        $request->setRouteName($this->routeName);
         $this->request = $request;
     }
-
-    public function getParams($url)
+    public function getRoute()
     {
-        $params = [];
-
-        $elements = explode('/', $url);
-        $this->routeName = $elements[0];
-
-        for ($i = 1; $i < count($elements); $i++) {
-            $params[$elements[$i]] = $elements[$i + 1];
-            $i++;
-        }
-
-        foreach ($_POST as $key => $value) {
-            $params[$key] = $value;
-        }
-
-        return $params;
+        $elements = explode('/', $this->request);
+        return $elements[0];
     }
-
+    public function getParams()
+    {
+        $elements = explode('/', $this->request);
+        if (isset($elements[1])) {
+            return $elements[1];
+        }
+        return null;
+    }
     public function renderController()
     {
-
-
-        $route = $this->routeName;
-        $params = $this->request->getParams();
+        $route = $this->getRoute();
+        $params = $this->getParams();
         if (key_exists($route, $this->routes)) {
             $controller = $this->routes[$route]['controller'];
             $method = $this->routes[$route]['method'];
@@ -67,6 +53,4 @@ Class Router
             $controller->showError();
         }
     }
-
-
 }

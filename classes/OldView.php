@@ -2,34 +2,13 @@
 
 class View
 {
-    private $sessionManager;
     private $template;
     private $pageTitle;
     private $pageDesc;
 
-    public function render($templateName, $params = [])
+    public function __construct($template = NULL)
     {
-        extract($params);
-        $template = $this->template;
-        $sessionManager = $this->sessionManager;
-        ob_start();
-        include(VIEW . $templateName);
-        $contentPage = ob_get_clean();
-
-        !empty($this->pageTitle) ? $pageTitle = $this->pageTitle : $pageTitle = 'Blog de Esteban Vignon';
-        !empty($this->pageDesc) ? $pageDesc = $this->pageDesc : $pageDesc = 'Blog de Esteban Vignon - Développeur PHP - Symphony';
-
-        include_once(VIEW . 'template.php');
-    }
-
-    public function redirect($route)
-    {
-        header("Location: " . HOST . $route);
-    }
-
-    public function setSessionManager($session)
-    {
-        $this->sessionManager = $session;
+        $this->template = $template;
     }
 
     public function setPageTitle($pageTitle)
@@ -42,6 +21,25 @@ class View
         $this->pageDesc = $pageDesc;
     }
 
+    public function render($params = array())
+    {
+        extract($params);
 
+        $template = $this->template;
+
+        ob_start();
+        include_once(VIEW . $template . '.php');
+        $contentPage = ob_get_clean();
+
+        !empty($this->pageTitle) ? $pageTitle = $this->pageTitle : $pageTitle = 'Blog de Esteban Vignon';
+        !empty($this->pageDesc) ? $pageDesc = $this->pageDesc : $pageDesc = 'Blog de Esteban Vignon - Développeur PHP - Symphony';
+
+        include_once(VIEW . 'template.php');
+    }
+
+    public function redirect($route)
+    {
+        header("Location: " . HOST . $route);
+        exit;
+    }
 }
-

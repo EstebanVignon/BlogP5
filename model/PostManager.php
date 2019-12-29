@@ -51,7 +51,7 @@ class PostManager extends ModelManager
         return $posts;
     }
 
-    public function findUsersPosts()
+    public function findUsersPosts($accountId)
     {
         $db = $this->db;
         $posts = [];
@@ -62,7 +62,7 @@ class PostManager extends ModelManager
                   ORDER BY created_at 
                   DESC LIMIT 0, 5';
         $req = $db->prepare($query);
-        $req->bindValue(':accountId', $_SESSION['id'], PDO::PARAM_INT);
+        $req->bindValue(':accountId', $accountId, PDO::PARAM_INT);
         $req->execute();
 
         while ($row = $req->fetch(PDO::FETCH_ASSOC)) {

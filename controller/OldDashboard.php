@@ -1,50 +1,8 @@
 <?php
 
-class Dashboard extends Controller
+class Dashboard
 {
-    public function showDashboard($request)
-    {
-        $userRole = $this->sessionManager->get('role');
-        $userId = $this->sessionManager->get('id');
 
-        var_dump($userId);
-        var_dump($userRole);
-
-        if (!isset($userRole)) {
-            $this->redirect('login');
-        }
-
-        if ($userRole === 'Admin') {
-
-            //Init
-            $posts = null;
-            $commentsToApprove = null;
-
-            //Show user's posts
-            $postManager = new PostManager();
-            $posts = $postManager->findUsersPosts($userId);
-
-            //Render
-            $title = 'Tableau de bord';
-            $description = 'Tableau de bord du site de Esteban Vignon';
-            $this->render('dashboard/_index.php', array('posts' => $posts), $title, $description);
-
-
-
-
-        }
-
-    }
-
-    public function delete($request)
-    {
-        $manager = new PostManager();
-        $article = $manager->find($request->get('id'));
-        $this->render('montemplate.php');
-    }
-
-
-    /*
     public function showDashboard($params)
     {
         if (!isset($_SESSION['role'])) {
@@ -165,5 +123,5 @@ class Dashboard extends Controller
         $view->redirect('dashboard');
 
     }
-*/
+
 }

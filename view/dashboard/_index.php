@@ -1,5 +1,8 @@
 <header class="bg-primary text-white text-center masthead-blog">
     <div class="container d-flex align-items-center flex-column">
+
+        <?php var_dump($_SESSION); ?>
+
         <div class="row">
             <div class="col-md-3 mt-5 dashboard-menu">
 
