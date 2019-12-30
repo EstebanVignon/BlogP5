@@ -51,10 +51,9 @@ class CommentManager extends ModelManager
         return $comments;
     }
 
-    public function findUserComments()
+    public function findUserComments($userId)
     {
         $db = $this->db;
-        $userId = $_SESSION['id'];
         $comments = [];
 
         $query = "SELECT account.username, comment.id, comment.content, comment.created_at, comment.is_approved, comment.blog_post_id
@@ -83,7 +82,6 @@ class CommentManager extends ModelManager
     public function findBlogPostComments($postId)
     {
         $db = $this->db;
-        $id = $postId;
         $comments = [];
 
         $query = 'SELECT *
@@ -93,7 +91,7 @@ class CommentManager extends ModelManager
                   WHERE blog_post_id = :postId AND comment.is_approved = 1
                   ORDER BY created_at DESC';
         $req = $db->prepare($query);
-        $req->bindValue(':postId', $id, PDO::PARAM_INT);
+        $req->bindValue(':postId', $postId, PDO::PARAM_INT);
         $req->execute();
         while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
             $comment = new Comment();
@@ -109,21 +107,20 @@ class CommentManager extends ModelManager
         return $comments;
     }
 
-    public function create($values)
+    public function create($values, $userId, $userRole)
     {
         $db = $this->db;
-        $accountId = $_SESSION['id'];
         $query = 'INSERT INTO comment(content, created_at, is_approved, blog_post_id, account_id) 
                   VALUES(:content, NOW(), :isApproved, :blogPostId, :accountId)';
         $req = $db->prepare($query);
         $req->bindValue(':content', $values['content'], PDO::PARAM_STR);
-        if ($_SESSION['role'] == 'Admin') {
+        if ($userRole == 'Admin') {
             $req->bindValue(':isApproved', 1, PDO::PARAM_INT);
         } else {
             $req->bindValue(':isApproved', 0, PDO::PARAM_INT);
         }
         $req->bindValue(':blogPostId', $values['id'], PDO::PARAM_INT);
-        $req->bindValue(':accountId', $accountId, PDO::PARAM_INT);
+        $req->bindValue(':accountId', $userId, PDO::PARAM_INT);
         $req->execute();
     }
 

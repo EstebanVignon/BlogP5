@@ -16,5 +16,4 @@ class ModelManager
         $req = $db->prepare($query);
         $req->execute();
     }
-
 }

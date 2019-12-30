@@ -7,6 +7,7 @@ class Controller
     protected $userId;
     protected $userRole;
     protected $userUsername;
+    protected $isApproved;
 
     public function __construct()
     {
@@ -20,6 +21,7 @@ class Controller
         $this->userId = $this->sessionManager->get('id');
         $this->userRole = $this->sessionManager->get('role');
         $this->userUsername = $this->sessionManager->get('username');
+        $this->isApproved = $this->sessionManager->get('is_approved');
 
     }
 

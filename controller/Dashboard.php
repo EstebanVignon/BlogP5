@@ -21,7 +21,7 @@ class Dashboard extends Controller
 
             $title = 'Tableau de bord zefzef';
             $description = 'Tableau de bord du site de Esteban Vignon';
-            $this->render('dashboard/_index.php', array('posts' => $posts, 'commentsToApprove' => $commentsToApprove), $title, $description);
+            $this->render('dashboard/_index.php', array('posts' => $posts, 'commentsToApprove' => $commentsToApprove, 'userRole' => $this->userRole), $title, $description);
         }
     }
 

@@ -43,7 +43,7 @@ class Home extends Controller
                         'comments' => $comments,
                         'message' => $message,
                         'userRole' => $this->userRole,
-                        ),
+                    ),
                     'Article Du blog De Esteban Vignon',
                     'Page d\'article Du Blog De Esteban Vignon - Développeur PHP');
             }
@@ -52,7 +52,7 @@ class Home extends Controller
 
     public function showError($request)
     {
-        if (!isset($request['message'])|| $request['message'] == null) {
+        if (!isset($request['message']) || $request['message'] == null) {
             $this->render('_error.php', array('message' => 'Page demandée innexistante'), 'Erreur : La page demandée n\'existe pas');
         } else {
             $this->render('_error.php', array('message' => $request['message']), 'Erreur : ' . $request['message']);
@@ -81,11 +81,11 @@ class Home extends Controller
     public function addComment($request)
     {
         $manager = new CommentManager();
-        $manager->create($request);
+        $manager->create($request, $this->userId, $this->userRole);
 
-        if ($this->userRole == 'Admin'){
+        if ($this->userRole == 'Admin') {
             $this->redirect('post/id/' . $request['id']);
-        }else{
+        } else {
             $this->redirect('post/id/' . $request['id'] . '/message/1');
         }
     }

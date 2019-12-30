@@ -35,19 +35,14 @@ class Login extends Controller
                 if ($account->getUsername() === NULL) {
                     $this->render('_login.php', array('errorMessage' => 'Le nom d\'utilisateur n\'existe pas'), $title, $desc);
                 } elseif (password_verify($request['password'], $account->getPassword())) {
-
                     $this->sessionManager->initSession($account);
-
                     $this->redirect('dashboard');
-
                 } else {
-                    $myView = new View('_login');
-                    $myView->render(array('errorMessage' => 'Bonjour ' . $account->getUsername() . ', votre mot de passe est incorrect'));
+                    $this->render('_login.php', array('errorMessage' => 'Bonjour ' . $account->getUsername() . ', votre mot de passe est incorrect'), $title, $desc);
                 }
             }
         } elseif (!empty($values['submit-register']) && $values['submit-register'] == 1) {
-            $myView = new View('_login');
-            $myView->render(array('errorMessage' => 'PAS ENCORE POSSIBLE DE SINSCRIRE'));
+            $this->render('_login.php', array('errorMessage' => 'PAS ENCORE POSSIBLE DE SINSCRIRE'), $title, $desc);
         }
     }
 

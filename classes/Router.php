@@ -2,7 +2,6 @@
 
 Class Router
 {
-
     private $request;
     private $routeName;
     private $routes = [
@@ -41,12 +40,12 @@ Class Router
         $this->routeName = $elements[0];
 
         for ($i = 1; $i < count($elements); $i++) {
-            $params[$elements[$i]] = $elements[$i + 1];
+            $params[$elements[$i]] = htmlspecialchars($elements[$i + 1]);
             $i++;
         }
 
         foreach ($_POST as $key => $value) {
-            $params[$key] = $value;
+            $params[$key] = htmlspecialchars($value);
         }
 
         return $params;
