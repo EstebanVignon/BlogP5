@@ -11,17 +11,25 @@ class Dashboard extends Controller
         if ($this->userRole === 'Admin') {
 
             $posts = null;
-            $commentsToApprove = null;
+            $comments = null;
 
             $postManager = new PostManager();
             $posts = $postManager->findUsersPosts($this->userId);
 
             $commentManager = new CommentManager();
-            $commentsToApprove = $commentManager->findAll();
+            $comments = $commentManager->findAll();
 
-            $title = 'Tableau de bord zefzef';
-            $description = 'Tableau de bord du site de Esteban Vignon';
-            $this->render('dashboard/_index.php', array('posts' => $posts, 'commentsToApprove' => $commentsToApprove, 'userRole' => $this->userRole), $title, $description);
+            $accountManager = new AccountManager();
+            $accounts = $accountManager->findAll();
+
+            $this->render(
+                'dashboard/_index.php',
+                array('posts' => $posts,
+                    'comments' => $comments,
+                    'userRole' => $this->userRole,
+                    'accounts' => $accounts),
+                'Tableau de bord ',
+                'Tableau de bord du site de Esteban Vignon');
         }
     }
 
@@ -86,6 +94,28 @@ class Dashboard extends Controller
     {
         $manager = new CommentManager();
         $manager->disapprove($request['id']);
+        $this->redirect('dashboard');
+    }
+
+    public function promoteAccount($request)
+    {
+        $manager = new AccountManager();
+        $manager->promote($request['id']);
+        $this->redirect('dashboard');
+    }
+
+    public function decreaseAccount($request)
+    {
+        $manager = new AccountManager();
+        $manager->decrease($request['id']);
+        $this->redirect('dashboard');
+    }
+
+    public function deleteAccount($request)
+    {
+        $manager = new AccountManager();
+        $account = $manager->find($request['id']);
+        $manager->delete($account);
         $this->redirect('dashboard');
     }
 }

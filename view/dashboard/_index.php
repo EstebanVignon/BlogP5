@@ -21,14 +21,10 @@
             <?php include_once('_mainDashboardMenu.php') ?>
 
             <?php if ($userRole === 'Admin') : ?>
-
-                <!-- DASHBOARD ADD POST -->
                 <?php include_once('_addPost.php') ?>
-                <!-- DASHBOARD USER'S POSTS -->
                 <?php include_once('_userPosts.php') ?>
-                <!-- MANAGE COMMENTS -->
                 <?php include_once('_manageComments.php') ?>
-
+                <?php include_once('_manageAccounts.php') ?>
             <?php elseif ($userRole === 'Abonné') : ?>
 
             <?php endif ?>

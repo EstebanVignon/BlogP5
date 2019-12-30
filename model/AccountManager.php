@@ -2,6 +2,26 @@
 
 class AccountManager extends ModelManager
 {
+    public function find($accountId)
+    {
+        $db = $this->db;
+        $query = 'SELECT *
+                  FROM account
+                  WHERE account.id = :id';
+        $req = $db->prepare($query);
+        $req->bindValue(':id', $accountId, PDO::PARAM_INT);
+        $req->execute();
+        $row = $req->fetch(PDO::FETCH_ASSOC);
+        $account = new Account();
+        $account->setId($row['id']);
+        $account->setId($row['id']);
+        $account->setUsername($row['username']);
+        $account->setPassword($row['password']);
+        $account->setIsApproved($row['is_approved']);
+        $account->setRole($row['role']);
+
+        return $account;
+    }
 
     public function findAll()
     {
@@ -29,7 +49,7 @@ class AccountManager extends ModelManager
     {
         $accounts = [];
         $db = $this->db;
-        $currentUserId = (int) $currentUserId;
+        $currentUserId = (int)$currentUserId;
 
         $query = "SELECT *
                   FROM account
@@ -49,6 +69,28 @@ class AccountManager extends ModelManager
         }
 
         return $accounts;
+    }
+
+    public function promote($id)
+    {
+        $db = $this->db;
+        $query = "UPDATE account 
+                  SET is_approved = NOW(), role = 'Admin'
+                  WHERE id = :id";
+        $req = $db->prepare($query);
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->execute();
+    }
+
+    public function decrease($id)
+    {
+        $db = $this->db;
+        $query = "UPDATE account 
+                  SET is_approved = NULL, role = 'Abonné'
+                  WHERE id = :id";
+        $req = $db->prepare($query);
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->execute();
     }
 
 }

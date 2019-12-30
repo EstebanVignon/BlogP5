@@ -21,7 +21,10 @@ Class Router
         "edit-post-send" => ["controller" => 'Dashboard', "method" => 'editPost'],
         "approve-comment" => ["controller" => 'Dashboard', "method" => 'approveComment'],
         "delete-comment" => ["controller" => 'Dashboard', "method" => 'deleteComment'],
-        "disapprove-comment" => ["controller" => 'Dashboard', "method" => 'disapproveComment']
+        "disapprove-comment" => ["controller" => 'Dashboard', "method" => 'disapproveComment'],
+        "promote-account" => ["controller" => 'Dashboard', "method" => 'promoteAccount'],
+        "decrease-account" => ["controller" => 'Dashboard', "method" => 'decreaseAccount'],
+        "delete-account" => ["controller" => 'Dashboard', "method" => 'deleteAccount']
     ];
 
     public function __construct($url)
@@ -40,8 +43,14 @@ Class Router
         $this->routeName = $elements[0];
 
         for ($i = 1; $i < count($elements); $i++) {
-            $params[$elements[$i]] = htmlspecialchars($elements[$i + 1]);
-            $i++;
+
+            if (empty($elements[$i + 1])){
+                $controller = new Home();
+                $controller->showError(array('message' => 'Erreur Paramètres URL'));
+            }else{
+                $params[$elements[$i]] = htmlspecialchars($elements[$i + 1]);
+                $i++;
+            }
         }
 
         foreach ($_POST as $key => $value) {

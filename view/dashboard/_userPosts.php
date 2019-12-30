@@ -8,7 +8,7 @@
                     <p class="card-text text-light"><?= $post->getHeading() . '<br>'; ?></p>
                     <p class="card-text text-light"><?= substr($post->getContent(), 0, 50) . '...<br>'; ?></p>
                     <a class="btn btn-light mb-3"
-                       href="<?= HOST ?>post&id=<?= $post->getId() ?>">Lire</a>
+                       href="<?= HOST ?>post/id/<?= $post->getId() ?>">Lire</a>
                     <p class="card-text">
                         <small class="text-white-50">
                             <?= 'Créé le : <br>' . date('d/m/Y à G:i', strtotime($post->getCreatedAt())) . '<br>'; ?>
