@@ -8,10 +8,10 @@ class Dashboard extends Controller
             $this->redirect('login');
         }
 
-        if ($this->userRole === 'Admin') {
+        $posts = null;
+        $comments = null;
 
-            $posts = null;
-            $comments = null;
+        if ($this->userRole === 'Admin') {
 
             $postManager = new PostManager();
             $posts = $postManager->findUsersPosts($this->userId);
@@ -28,6 +28,19 @@ class Dashboard extends Controller
                     'comments' => $comments,
                     'userRole' => $this->userRole,
                     'accounts' => $accounts),
+                'Tableau de bord ',
+                'Tableau de bord du site de Esteban Vignon');
+        }
+
+        if ($this->userRole === 'Abonné') {
+
+            $commentManager = new CommentManager();
+            $comments = $commentManager->findUserComments($this->userId);
+
+            $this->render(
+                'dashboard/_index.php',
+                array('userRole' => $this->userRole,
+                    'comments' => $comments),
                 'Tableau de bord ',
                 'Tableau de bord du site de Esteban Vignon');
         }

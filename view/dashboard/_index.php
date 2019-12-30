@@ -12,7 +12,7 @@
                     <a class="text-black-50 dashboard-menu-item" id="menu-target-4" href="#">Gérer les commentaires</a><br>
                     <a class="text-black-50 dashboard-menu-item" id="menu-target-5" href="#">Gérer les utilisateurs</a><br>
                 <?php elseif ($userRole === 'Abonné') : ?>
-
+                    <a class="text-black-50 dashboard-menu-item" id="menu-target-2" href="#">Mes commentaires</a><br>
                 <?php endif ?>
                 <div class="mt-3"><a class="logout-link" href="<?= HOST ?>logout">Se déconnecter</a><br></div>
             </div>
@@ -26,7 +26,7 @@
                 <?php include_once('_manageComments.php') ?>
                 <?php include_once('_manageAccounts.php') ?>
             <?php elseif ($userRole === 'Abonné') : ?>
-
+                <?php include_once('_subComments.php') ?>
             <?php endif ?>
 
         </div>
