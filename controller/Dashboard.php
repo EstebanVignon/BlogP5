@@ -4,17 +4,17 @@ class Dashboard extends Controller
 {
     public function showDashboard($request)
     {
-        if (!isset($this->userRole)) {
+        if ($this->sessionManager->get('role') == null) {
             $this->redirect('login');
         }
 
         $posts = null;
         $comments = null;
 
-        if ($this->userRole === 'Admin') {
+        if ($this->sessionManager->get('role') === 'Admin') {
 
             $postManager = new PostManager();
-            $posts = $postManager->findUsersPosts($this->userId);
+            $posts = $postManager->findUsersPosts($this->sessionManager->get('id'));
 
             $commentManager = new CommentManager();
             $comments = $commentManager->findAll();
@@ -26,21 +26,19 @@ class Dashboard extends Controller
                 'dashboard/_index.php',
                 array('posts' => $posts,
                     'comments' => $comments,
-                    'userRole' => $this->userRole,
                     'accounts' => $accounts),
                 'Tableau de bord ',
                 'Tableau de bord du site de Esteban Vignon');
         }
 
-        if ($this->userRole === 'Abonné') {
+        if ($this->sessionManager->get('role') === 'Abonné') {
 
             $commentManager = new CommentManager();
-            $comments = $commentManager->findUserComments($this->userId);
+            $comments = $commentManager->findUserComments($this->sessionManager->get('id'));
 
             $this->render(
                 'dashboard/_index.php',
-                array('userRole' => $this->userRole,
-                    'comments' => $comments),
+                array('comments' => $comments),
                 'Tableau de bord ',
                 'Tableau de bord du site de Esteban Vignon');
         }
@@ -49,7 +47,7 @@ class Dashboard extends Controller
     public function addPost($request)
     {
         $manager = new PostManager();
-        $manager->create($request, $this->userId);
+        $manager->create($request, $this->sessionManager->get('id'));
         $this->redirect('dashboard');
     }
 
@@ -67,14 +65,11 @@ class Dashboard extends Controller
         $post = $postManager->find($request['id']);
 
         $accountManager = new AccountManager();
-        $accounts = $accountManager->findOtherAdminAccounts($this->userId);
+        $accounts = $accountManager->findOtherAdminAccounts($this->sessionManager->get('id'));
 
         $this->render(
             'dashboard/_editPost.php',
-            array('post' => $post,
-                'accounts' => $accounts,
-                'userId' => $this->userId,
-                'userUsername' => $this->userUsername),
+            array('post' => $post, 'accounts' => $accounts),
             'Edition de l\'article ' . $post->getTitle(),
             'Contenu : ' . $post->getContent()
         );

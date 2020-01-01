@@ -87,9 +87,9 @@
         <small>Copyright &copy; Esteban Vignon - 2019</small>
     </div>
     <div class="container">
-        <?php if (!isset($_SESSION['role'])) : ?>
+        <?php if (!isset($accountRole)) : ?>
             <small><a href="<?= HOST ?>login">Se connecter</a></small><br>
-        <?php elseif (isset($_SESSION['role'])) : ?>
+        <?php elseif (isset($accountRole)) : ?>
             <small><a href="<?= HOST ?>dashboard">Dashboard</a></small><br>
             <small><a href="<?= HOST ?>logout">Se déconnecter</a></small>
         <?php endif; ?>

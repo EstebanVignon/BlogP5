@@ -12,14 +12,20 @@ class View
         extract($params);
         $template = $this->template;
         $sessionManager = $this->sessionManager;
+
+        $accountRole = $sessionManager->get('role');
+        $accountId = $sessionManager->get('id');
+        $accountUsername = $sessionManager->get('username');
+        $accountIsApproved = $sessionManager->get('is_approved');
+
         ob_start();
-        include(VIEW . $templateName);
+        include VIEW . $templateName;
         $contentPage = ob_get_clean();
 
         !empty($this->pageTitle) ? $pageTitle = $this->pageTitle : $pageTitle = 'Blog de Esteban Vignon';
         !empty($this->pageDesc) ? $pageDesc = $this->pageDesc : $pageDesc = 'Blog de Esteban Vignon - Développeur PHP - Symphony';
 
-        include_once(VIEW . 'template.php');
+        include_once VIEW . 'template.php';
     }
 
     public function redirect($route)
@@ -41,7 +47,6 @@ class View
     {
         $this->pageDesc = $pageDesc;
     }
-
 
 }
 

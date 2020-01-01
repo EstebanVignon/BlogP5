@@ -44,7 +44,7 @@
                 </div>
             <?php endif ?>
 
-            <?php if (isset($userRole)) : ?>
+            <?php if (isset($accountRole)) : ?>
                 <div class="row">
                     <div class="mt-4 pl-4 pr-4 col-md-10 offset-md-1">
                         <form action="<?= HOST ?>addComment" method="post">

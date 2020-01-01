@@ -4,10 +4,6 @@ class Controller
 {
     protected $view;
     protected $sessionManager;
-    protected $userId;
-    protected $userRole;
-    protected $userUsername;
-    protected $isApproved;
 
     public function __construct()
     {
@@ -17,12 +13,6 @@ class Controller
         $view->setSessionManager($sessionManager);
         $this->sessionManager = $sessionManager;
         $this->view = $view;
-
-        $this->userId = $this->sessionManager->get('id');
-        $this->userRole = $this->sessionManager->get('role');
-        $this->userUsername = $this->sessionManager->get('username');
-        $this->isApproved = $this->sessionManager->get('is_approved');
-
     }
 
     public function render($templateName, array $params, $pageTitle = null, $pageDesc = null)
@@ -35,6 +25,4 @@ class Controller
     public function redirect($route){
         $this->view->redirect($route);
     }
-
-
 }

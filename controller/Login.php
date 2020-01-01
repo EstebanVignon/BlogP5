@@ -4,7 +4,7 @@ class Login extends Controller
 {
     public function showLogin($request)
     {
-        if (isset($this->userRole)) {
+        if (isset($accountRole)) {
             $this->redirect('dashboard');
         }
         $this->render('_login.php', array(),

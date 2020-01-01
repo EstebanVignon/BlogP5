@@ -10,6 +10,11 @@ class Home extends Controller
         $this->render('_home.php', array('message' => $message), $title, $description);
     }
 
+    public function rootShowHome($request)
+    {
+        $this->redirect('home');
+    }
+
     public function showBlog($request)
     {
         $manager = new PostManager();
@@ -41,8 +46,7 @@ class Home extends Controller
                     array('post' => $post,
                         'author' => $author,
                         'comments' => $comments,
-                        'message' => $message,
-                        'userRole' => $this->userRole,
+                        'message' => $message
                     ),
                     'Article Du blog De Esteban Vignon',
                     'Page d\'article Du Blog De Esteban Vignon - Développeur PHP');
@@ -81,9 +85,9 @@ class Home extends Controller
     public function addComment($request)
     {
         $manager = new CommentManager();
-        $manager->create($request, $this->userId, $this->userRole);
+        $manager->create($request, $this->sessionManager->get('id'), $this->sessionManager->get('role'));
 
-        if ($this->userRole == 'Admin') {
+        if ($this->sessionManager->get('role') == 'Admin') {
             $this->redirect('post/id/' . $request['id']);
         } else {
             $this->redirect('post/id/' . $request['id'] . '/message/1');

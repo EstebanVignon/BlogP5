@@ -5,6 +5,7 @@ Class Router
     private $request;
     private $routeName;
     private $routes = [
+        "" => ["controller" => 'Home', "method" => 'rootShowHome'],
         "home" => ["controller" => 'Home', "method" => 'showHome'],
         "blog" => ["controller" => 'Home', "method" => 'showBlog'],
         "post" => ["controller" => 'Home', "method" => 'showPost'],
