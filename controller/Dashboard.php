@@ -28,7 +28,8 @@ class Dashboard extends Controller
                     'comments' => $comments,
                     'accounts' => $accounts),
                 'Tableau de bord ',
-                'Tableau de bord du site de Esteban Vignon');
+                'Tableau de bord du site de Esteban Vignon'
+            );
         }
 
         if ($this->sessionManager->get('role') === 'Abonné') {
@@ -40,7 +41,8 @@ class Dashboard extends Controller
                 'dashboard/_index.php',
                 array('comments' => $comments),
                 'Tableau de bord ',
-                'Tableau de bord du site de Esteban Vignon');
+                'Tableau de bord du site de Esteban Vignon'
+            );
         }
     }
 
@@ -88,7 +90,6 @@ class Dashboard extends Controller
         $comment = $manager->find($request['id']);
         $manager->delete($comment);
         $this->redirect('dashboard');
-
     }
 
     public function approveComment($request)

@@ -27,9 +27,9 @@
                     <div class="form-group text-black-50">
                         <label for="account-select">Changer l'auteur :</label>
                         <select name="account" id="account-select">
-                            <option value="<?php echo $accountId ?>"><?php echo $accountUsername ?></option>
+                            <option value="<?= $accountId ?>"><?= $accountUsername ?></option>
                             <?php foreach ($accounts as $account): ?>
-                                <option value="<?php echo $account->getId() ?>"><?php echo $account->getUsername() ?></option>
+                                <option value="<?= $account->getId() ?>"><?= $account->getUsername() ?></option>
                             <?php endforeach ?>
                         </select>
                     </div>

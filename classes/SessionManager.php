@@ -6,7 +6,7 @@ class SessionManager
 
     public function __construct()
     {
-        if (!empty($_SESSION)){
+        if (!empty($_SESSION)) {
             foreach ($_SESSION as $key => $value) {
                 $params[$key] = $value;
             }

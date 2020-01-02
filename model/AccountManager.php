@@ -93,7 +93,6 @@ class AccountManager extends ModelManager
         $req->execute();
     }
 
-
     public function create($account)
     {
         $db = $this->db;
@@ -101,7 +100,7 @@ class AccountManager extends ModelManager
                   VALUES(:username, :password, NULL, 'Abonné')";
         $req = $db->prepare($query);
         $req->bindValue(':username', $account['username'], PDO::PARAM_STR);
-        $req->bindValue(':password',  $account['password'], PDO::PARAM_STR);
+        $req->bindValue(':password', $account['password'], PDO::PARAM_STR);
         $req->execute();
     }
 

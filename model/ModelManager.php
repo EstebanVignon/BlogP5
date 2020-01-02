@@ -6,7 +6,7 @@ class ModelManager
 
     public function __construct()
     {
-        $this->db = $db = new PDO('mysql:host=' . DBHOST . ';dbname=' . DBNAME . ';charset=utf8', '' . DBUSERNAME . '', '' . DBPWD . '');
+        $this->db = new PDO('mysql:host=' . DBHOST . ';dbname=' . DBNAME . ';charset=utf8', DBUSERNAME, DBPWD);
     }
 
     public function delete(object $obj)

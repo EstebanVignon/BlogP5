@@ -22,7 +22,8 @@ class Controller
         $this->view->render($templateName, $params);
     }
 
-    public function redirect($route){
+    public function redirect($route)
+    {
         $this->view->redirect($route);
     }
 }

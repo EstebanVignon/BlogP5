@@ -49,7 +49,8 @@ class Home extends Controller
                         'message' => $message
                     ),
                     'Article Du blog De Esteban Vignon',
-                    'Page d\'article Du Blog De Esteban Vignon - Développeur PHP');
+                    'Page d\'article Du Blog De Esteban Vignon - Développeur PHP'
+                );
             }
         }
     }
@@ -57,9 +58,17 @@ class Home extends Controller
     public function showError($request)
     {
         if (!isset($request['message']) || $request['message'] == null) {
-            $this->render('_error.php', array('message' => 'Page demandée innexistante'), 'Erreur : La page demandée n\'existe pas');
+            $this->render(
+                '_error.php',
+                array('message' => 'Page demandée innexistante'),
+                'Erreur : La page demandée n\'existe pas'
+            );
         } else {
-            $this->render('_error.php', array('message' => $request['message']), 'Erreur : ' . $request['message']);
+            $this->render(
+                '_error.php',
+                array('message' => $request['message']),
+                'Erreur : ' . $request['message']
+            );
         }
     }
 
@@ -76,9 +85,6 @@ class Home extends Controller
 
         $manager = new MailManager();
         $manager->send($request, 'vignon.esteban@gmail.com', 'Mail Du Site Esteban-Vignon.fr');
-
-        $view = new View();
-        $route = 'home';
         $this->redirect('home/message/succes');
     }
 

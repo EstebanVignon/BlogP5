@@ -3,14 +3,12 @@
 class View
 {
     private $sessionManager;
-    private $template;
     private $pageTitle;
     private $pageDesc;
 
     public function render($templateName, $params = [])
     {
         extract($params);
-        $template = $this->template;
         $sessionManager = $this->sessionManager;
 
         $accountRole = $sessionManager->get('role');

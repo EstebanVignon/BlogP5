@@ -9,7 +9,8 @@ class Login extends Controller
         }
         $this->render('_login.php', array(),
             'Login Du blog De Esteban Vignon',
-            'Page de connexion du Blog De Esteban Vignon - Développeur PHP');
+            'Page de connexion du Blog De Esteban Vignon - Développeur PHP'
+        );
     }
 
     public function logout($request)
@@ -22,6 +23,7 @@ class Login extends Controller
     {
         $title = 'Login Du blog De Esteban Vignon';
         $desc = 'Page de connexion du Blog De Esteban Vignon - Développeur PHP';
+
         if (empty($request['password']) && empty($request['username'])) {
             $this->render('_login.php', array('errorMessage' => 'Nom d\'utilisateur et mot de passe vide'), $title, $desc);
         } elseif (empty($request['password'])) {
@@ -58,6 +60,5 @@ class Login extends Controller
             }
         }
     }
-
 
 }
