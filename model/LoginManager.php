@@ -25,3 +25,4 @@ class LoginManager extends ModelManager
 
 }
 
+

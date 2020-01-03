@@ -32,3 +32,5 @@ class MailManager
         $view->redirect('home');
     }
 }
+
+

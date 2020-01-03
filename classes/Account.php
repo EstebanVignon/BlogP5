@@ -96,3 +96,4 @@ class Account extends Entity
         $this->role = $role;
     }
 }
+

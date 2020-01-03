@@ -106,3 +106,4 @@ class Comment extends Entity
     }
 
 }
+

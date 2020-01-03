@@ -114,5 +114,5 @@ class AccountManager extends ModelManager
         $req->bindValue(':id', $id, PDO::PARAM_INT);
         $req->execute();
     }
-
 }
+

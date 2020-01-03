@@ -58,6 +58,5 @@ Class Router
             $controller->showError(array());
         }
     }
-
-
 }
+

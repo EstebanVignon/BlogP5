@@ -128,3 +128,4 @@ class Dashboard extends Controller
         $this->redirect('dashboard');
     }
 }
+

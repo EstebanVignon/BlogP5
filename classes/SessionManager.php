@@ -46,5 +46,5 @@ class SessionManager
     {
         return $this->params[$name];
     }
-
 }
+
