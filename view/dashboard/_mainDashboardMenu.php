@@ -2,3 +2,4 @@
     <h1 class="text-body">Tableau de board</h1>
     <h3 class="text-dark mt-5">Bienvenue <?= $accountUsername ?> sur l'administration du blog Esteban Vignon</h3>
 </div>
+

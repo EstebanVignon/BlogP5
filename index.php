@@ -5,4 +5,3 @@ CustomAutoload::start();
 $router = new Router($_GET['url']);
 $router->renderController();
 
-
