@@ -4,13 +4,14 @@ class Login extends Controller
 {
     public function showLogin($request)
     {
-        if (isset($accountRole)) {
+        if ($this->sessionManager->get('role') != null) {
             $this->redirect('dashboard');
+        }else{
+            $this->render('_login.php', array(),
+                'Login Du blog De Esteban Vignon',
+                'Page de connexion du Blog De Esteban Vignon - Développeur PHP'
+            );
         }
-        $this->render('_login.php', array(),
-            'Login Du blog De Esteban Vignon',
-            'Page de connexion du Blog De Esteban Vignon - Développeur PHP'
-        );
     }
 
     public function logout($request)

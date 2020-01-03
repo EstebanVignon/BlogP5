@@ -8,7 +8,7 @@ Class Router
 
     public function __construct($url)
     {
-        $this->routes = include 'routes.php';
+        $this->routes = getRoutes();
 
         $request = new Request();
         $request->addParams($this->getParams($url));
@@ -49,7 +49,7 @@ Class Router
             $controller = $this->routes[$route]['controller'];
             $method = $this->routes[$route]['method'];
             $currentController = new $controller();
-            $currentController->$method($params);
+            $currentController->$method($params); //return params array
         } else {
             $controller = new Home();
             $controller->showError(array());

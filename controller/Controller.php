@@ -15,7 +15,7 @@ class Controller
         $this->view = $view;
     }
 
-    public function render($templateName, array $params, $pageTitle = null, $pageDesc = null)
+    public function render($templateName, array $params = [], $pageTitle = null, $pageDesc = null)
     {
         $this->view->setPageTitle($pageTitle);
         $this->view->setPageDesc($pageDesc);

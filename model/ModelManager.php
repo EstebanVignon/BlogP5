@@ -12,8 +12,12 @@ class ModelManager
     public function delete(object $obj)
     {
         $db = $this->db;
-        $query = ' DELETE FROM ' . $obj->getTableName() . ' WHERE id = ' . $obj->getId();
+        $tableName = $obj->getTableName();
+        $id = (int)$obj->getId();
+
+        $query = 'DELETE FROM ' . $tableName . ' WHERE id = :id';
         $req = $db->prepare($query);
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
         $req->execute();
     }
 }

@@ -7,8 +7,10 @@ class CommentManager extends ModelManager
     {
         $id = $commentId;
         $db = $this->db;
-        $query = 'SELECT *
+        $query = 'SELECT account.username, comment.id, comment.content, comment.created_at, comment.is_approved, comment.blog_post_id
                   FROM comment
+                  INNER JOIN account
+                  ON comment.account_id = account.id
                   WHERE comment.id = :id';
         $req = $db->prepare($query);
         $req->bindValue(':id', $id, PDO::PARAM_INT);

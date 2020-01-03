@@ -24,6 +24,9 @@ class CustomAutoload
         define('DBNAME', 'ocblog');
         define('DBUSERNAME', 'root');
         define('DBPWD', '');
+
+        //ROUTES
+        include 'routes.php';
     }
 
     public static function autoload($class)
