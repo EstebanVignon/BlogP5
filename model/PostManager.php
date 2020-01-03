@@ -128,4 +128,15 @@ class PostManager extends ModelManager
         $req->execute();
     }
 
+    public function delete(object $obj)
+    {
+        $db = $this->db;
+        $id = (int)$obj->getId();
+
+        $query = 'DELETE FROM blog_post WHERE id = :id';
+        $req = $db->prepare($query);
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->execute();
+    }
+
 }

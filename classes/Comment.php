@@ -10,14 +10,6 @@ class Comment extends Entity
     private $blog_post_id;
 
     /**
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "comment";
-    }
-
-    /**
      * @return mixed
      */
     public function getId()

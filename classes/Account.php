@@ -9,14 +9,6 @@ class Account extends Entity
     private $role;
 
     /**
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "account";
-    }
-
-    /**
      * @return mixed
      */
     public function getId()

@@ -12,14 +12,6 @@ class Post extends Entity
     private $accountId;
 
     /**
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "blog_post";
-    }
-
-    /**
      * @return mixed
      */
     public function getId()

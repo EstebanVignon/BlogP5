@@ -147,6 +147,17 @@ class CommentManager extends ModelManager
         $req->bindValue(':id', $id, PDO::PARAM_INT);
         $req->execute();
     }
+
+    public function delete(object $obj)
+    {
+        $db = $this->db;
+        $id = (int)$obj->getId();
+
+        $query = 'DELETE FROM comment WHERE id = :id';
+        $req = $db->prepare($query);
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->execute();
+    }
 }
 
 
