@@ -138,5 +138,4 @@ class PostManager extends ModelManager
         $req->bindValue(':id', $id, PDO::PARAM_INT);
         $req->execute();
     }
-
 }

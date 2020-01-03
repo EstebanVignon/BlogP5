@@ -140,3 +140,4 @@ class Post extends Entity
     }
 
 }
+

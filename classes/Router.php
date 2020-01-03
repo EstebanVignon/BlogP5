@@ -8,7 +8,8 @@ Class Router
 
     public function __construct($url)
     {
-        $this->routes = getRoutes();
+        $routes = new Routes();
+        $this->routes = $routes->getRoutes();
 
         $request = new Request();
         $request->addParams($this->getParams($url));
@@ -23,7 +24,9 @@ Class Router
         $elements = explode('/', $url);
         $this->routeName = $elements[0];
 
-        for ($i = 1; $i < count($elements); $i++) {
+        $count = count($elements);
+
+        for ($i = 1; $i < $count; $i++) {
 
             if (empty($elements[$i + 1])) {
                 $controller = new Home();
