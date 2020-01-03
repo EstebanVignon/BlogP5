@@ -5,8 +5,16 @@ class Account extends Entity
     private $id;
     private $username;
     private $password;
-    private $isApproved;
+    private $approved;
     private $role;
+
+    /**
+     * @return string
+     */
+    public function getTableName()
+    {
+        return "account";
+    }
 
     /**
      * @return mixed
@@ -59,17 +67,17 @@ class Account extends Entity
     /**
      * @return mixed
      */
-    public function getIsApproved()
+    public function getApproved()
     {
-        return $this->isApproved;
+        return $this->approved;
     }
 
     /**
-     * @param mixed $isApproved
+     * @param mixed $approved
      */
-    public function setIsApproved($isApproved): void
+    public function setApproved($approved): void
     {
-        $this->isApproved = $isApproved;
+        $this->approved = $approved;
     }
 
     /**

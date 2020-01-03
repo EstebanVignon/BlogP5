@@ -12,13 +12,13 @@
                     </p>
 
 
-                    <?php if ($account->getIsApproved() == null) : ?>
+                    <?php if ($account->getApproved() === null) : ?>
                         <a class="btn btn-success mb-3" href="<?= HOST ?>promote-account/id/<?= $account->getId() ?>">
                             Promouvoir
                         </a>
                     <?php endif ?>
 
-                    <?php if ($account->getIsApproved() != null) : ?>
+                    <?php if ($account->getApproved() !== null) : ?>
                         <a class="btn btn-warning mb-3" href="<?= HOST ?>decrease-account/id/<?= $account->getId() ?>">
                             Destituer
                         </a>

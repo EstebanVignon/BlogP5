@@ -21,7 +21,7 @@ class CommentManager extends ModelManager
         $comment->setUsername($row['username']);
         $comment->setContent($row['content']);
         $comment->setCreatedAt($row['created_at']);
-        $comment->setIsApproved($row['is_approved']);
+        $comment->setApproved($row['is_approved']);
         $comment->setBlogPostId($row['blog_post_id']);
 
         return $comment;
@@ -45,7 +45,7 @@ class CommentManager extends ModelManager
             $comment->setUsername($row['username']);
             $comment->setContent($row['content']);
             $comment->setCreatedAt($row['created_at']);
-            $comment->setIsApproved($row['is_approved']);
+            $comment->setApproved($row['is_approved']);
             $comment->setBlogPostId($row['blog_post_id']);
             $comments[] = $comment;
         }
@@ -73,7 +73,7 @@ class CommentManager extends ModelManager
             $comment->setUsername($row['username']);
             $comment->setContent($row['content']);
             $comment->setCreatedAt($row['created_at']);
-            $comment->setIsApproved($row['is_approved']);
+            $comment->setApproved($row['is_approved']);
             $comment->setBlogPostId($row['blog_post_id']);
             $comments[] = $comment;
         }
@@ -101,7 +101,7 @@ class CommentManager extends ModelManager
             $comment->setUsername($row['username']);
             $comment->setContent($row['content']);
             $comment->setCreatedAt($row['created_at']);
-            $comment->setIsApproved($row['is_approved']);
+            $comment->setApproved($row['is_approved']);
             $comment->setBlogPostId($row['blog_post_id']);
             $comments[] = $comment;
         }

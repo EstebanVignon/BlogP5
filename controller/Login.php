@@ -4,7 +4,7 @@ class Login extends Controller
 {
     public function showLogin($request)
     {
-        if ($this->sessionManager->get('role') != null) {
+        if ($this->sessionManager->get('role') !== null) {
             $this->redirect('dashboard');
         }else{
             $this->render('_login.php', array(),

@@ -17,7 +17,7 @@ class LoginManager extends ModelManager
         $account->setId($result['id']);
         $account->setUsername($result['username']);
         $account->setPassword($result['password']);
-        $account->setIsApproved($result['is_approved']);
+        $account->setApproved($result['is_approved']);
         $account->setRole($result['role']);
 
         return $account;

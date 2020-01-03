@@ -57,7 +57,7 @@ class Home extends Controller
 
     public function showError($request)
     {
-        if (!isset($request['message']) || $request['message'] == null) {
+        if (!isset($request['message']) || $request['message'] === null) {
             $this->render(
                 '_error.php',
                 array('message' => 'Page demandée innexistante'),

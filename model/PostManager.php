@@ -18,7 +18,7 @@ class PostManager extends ModelManager
             $post->setHeading($row['heading']);
             $post->setContent($row['content']);
             $post->setCreatedAt($row['created_at']);
-            $post->setIsActive($row['is_active']);
+            $post->setActive($row['is_active']);
             $post->setLastModification($row['last_modification']);
             $post->setaccountId($row['account_id']);
         }
@@ -42,7 +42,7 @@ class PostManager extends ModelManager
             $post->setHeading($row['heading']);
             $post->setContent($row['content']);
             $post->setCreatedAt($row['created_at']);
-            $post->setIsActive($row['is_active']);
+            $post->setActive($row['is_active']);
             $post->setLastModification($row['last_modification']);
             $post->setaccountId($row['account_id']);
             $posts[] = $post;
@@ -72,7 +72,7 @@ class PostManager extends ModelManager
             $post->setHeading($row['heading']);
             $post->setContent($row['content']);
             $post->setCreatedAt($row['created_at']);
-            $post->setIsActive($row['is_active']);
+            $post->setActive($row['is_active']);
             $post->setLastModification($row['last_modification']);
             $post->setaccountId($row['account_id']);
             $posts[] = $post;

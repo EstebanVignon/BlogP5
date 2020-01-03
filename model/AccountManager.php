@@ -17,7 +17,7 @@ class AccountManager extends ModelManager
         $account->setId($row['id']);
         $account->setUsername($row['username']);
         $account->setPassword($row['password']);
-        $account->setIsApproved($row['is_approved']);
+        $account->setApproved($row['is_approved']);
         $account->setRole($row['role']);
 
         return $account;
@@ -37,7 +37,7 @@ class AccountManager extends ModelManager
             $account->setId($row['id']);
             $account->setUsername($row['username']);
             $account->setPassword($row['password']);
-            $account->setIsApproved($row['is_approved']);
+            $account->setApproved($row['is_approved']);
             $account->setRole($row['role']);
             $accounts[] = $account;
         }
@@ -63,7 +63,7 @@ class AccountManager extends ModelManager
             $account->setId($row['id']);
             $account->setUsername($row['username']);
             $account->setPassword($row['password']);
-            $account->setIsApproved($row['is_approved']);
+            $account->setApproved($row['is_approved']);
             $account->setRole($row['role']);
             $accounts[] = $account;
         }

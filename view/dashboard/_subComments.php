@@ -9,11 +9,11 @@
                     </p>
                     <p class="card-text text-light"><?= $comment->getContent() . '<br>'; ?></p>
 
-                    <?php if ($comment->getIsApproved() == 0) : ?>
+                    <?php if ($comment->getApproved() == 0) : ?>
                         <a class="btn btn-danger mb-3">En attente d'approbation</a>
                     <?php endif ?>
 
-                    <?php if ($comment->getIsApproved() == 1) : ?>
+                    <?php if ($comment->getApproved() == 1) : ?>
                         <a class="btn btn-success mb-3"
                            href="<?= HOST ?>post/id/<?= $comment->getBlogPostId() ?>">Voir le commentaire</a>
                     <?php endif ?>

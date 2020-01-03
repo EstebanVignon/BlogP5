@@ -14,7 +14,7 @@ class View
         $accountRole = $sessionManager->get('role');
         $accountId = $sessionManager->get('id');
         $accountUsername = $sessionManager->get('username');
-        $accountIsApproved = $sessionManager->get('is_approved');
+        $accountApproved = $sessionManager->get('is_approved');
 
         ob_start();
         include VIEW . $templateName;

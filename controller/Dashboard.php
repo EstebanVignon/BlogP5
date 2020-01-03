@@ -4,7 +4,7 @@ class Dashboard extends Controller
 {
     public function showDashboard($request)
     {
-        if ($this->sessionManager->get('role') == null) {
+        if ($this->sessionManager->get('role') === null) {
             $this->redirect('login');
         }
 

@@ -14,12 +14,12 @@ class SessionManager
         }
     }
 
-    public function initSession($user)
+    public function initSession(object $user)
     {
         $this->setUserId($user->getId());
         $this->setRole($user->getRole());
         $this->setUsername($user->getUsername());
-        $this->setIsApproved($user->getIsApproved());
+        $this->setApproved($user->getApproved());
     }
 
     public function setUserId($id)
@@ -37,9 +37,9 @@ class SessionManager
         $_SESSION['username'] = $username;
     }
 
-    public function setIsApproved($isApproved)
+    public function setApproved($approved)
     {
-        $_SESSION['is_approved'] = $isApproved;
+        $_SESSION['is_approved'] = $approved;
     }
 
     public function get($name)

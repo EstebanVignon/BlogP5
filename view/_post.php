@@ -11,8 +11,15 @@
 
                 <p class="text-body text-left"><?= $post->getContent(); ?></p>
                 <p class="text-left text-body mt-5"><b>Rédigé par : </b><?= $author->username ?></p>
-                <p class="text-left text-body"><b>Le :</b> <?= date('d/m/Y', strtotime($post->getLastModification())) ?>
-                </p>
+                <?php if ($post->getLastModification() === null) : ?>
+                    <p class="text-left text-body">
+                        <b>Le:</b> <?= date('d/m/Y', strtotime($post->getCreatedAt())) ?>
+                    </p>
+                <?php else : ?>
+                    <p class="text-left text-body">
+                        <b>Le:</b> <?= date('d/m/Y', strtotime($post->getLastModification())) ?>
+                    </p>
+                <?php endif ?>
             </div>
         </div>
         <div class="row col-12">
@@ -20,7 +27,7 @@
                 <h3 id="commentaires" class="text-body">Commentaires</h3>
             </div>
 
-            <?php if ($comments == false) : ?>
+            <?php if ($comments === false) : ?>
                 <div class="row col-6 offset-3 mt-5">
                     <p id="error-comments">Pas encore de commentaires</p>
                 </div>

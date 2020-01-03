@@ -16,7 +16,7 @@
                         <a class="btn btn-light mb-3" href="<?= HOST ?>post/id/<?= $post->getId() ?>">Lire</a>
                         <p class="card-text">
                             <small class="text-white-50">
-                                <?= 'Le : ' . date('d/m/Y', strtotime($post->getLastModification())) . '<br>'; ?>
+                                <?= 'Le : ' . date('d/m/Y', strtotime($post->getCreatedAt())) . '<br>'; ?>
                             </small>
                         </p>
                     </div>

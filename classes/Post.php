@@ -7,7 +7,7 @@ class Post extends Entity
     private $heading;
     private $content;
     private $createdAt;
-    private $isActive;
+    private $active;
     private $lastModification;
     private $accountId;
 
@@ -94,17 +94,17 @@ class Post extends Entity
     /**
      * @return mixed
      */
-    public function getIsActive()
+    public function getActive()
     {
-        return $this->isActive;
+        return $this->active;
     }
 
     /**
-     * @param mixed $isActive
+     * @param mixed $active
      */
-    public function setIsActive($isActive)
+    public function setActive($active)
     {
-        $this->isActive = $isActive;
+        $this->active = $active;
     }
 
     /**

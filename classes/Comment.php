@@ -6,7 +6,7 @@ class Comment extends Entity
     private $username;
     private $content;
     private $created_at;
-    private $is_approved;
+    private $approved;
     private $blog_post_id;
 
     /**
@@ -76,17 +76,17 @@ class Comment extends Entity
     /**
      * @return mixed
      */
-    public function getIsApproved()
+    public function getApproved()
     {
-        return $this->is_approved;
+        return $this->approved;
     }
 
     /**
-     * @param mixed $is_approved
+     * @param mixed $approved
      */
-    public function setIsApproved($is_approved): void
+    public function setApproved($approved): void
     {
-        $this->is_approved = $is_approved;
+        $this->approved = $approved;
     }
 
     /**
