@@ -1,11 +1,11 @@
 <header class="bg-primary text-white text-center masthead-blog">
-    <div class="container d-flex align-items-center flex-column">
+    <div class="container d-flex align-items-center flex-column mb-5">
 
         <div class="row">
             <h1 class="text-body">Blog</h1>
         </div>
 
-        <div class="row card-columns mt-5">
+        <div class="row card-columns mt-5 mb-5">
 
             <!-- Blog Post -->
             <?php foreach ($posts as $post) : ?>

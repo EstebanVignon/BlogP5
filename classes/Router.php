@@ -30,7 +30,7 @@ Class Router
 
             if (empty($elements[$i + 1])) {
                 $controller = new Home();
-                $controller->showError(array('message' => 'Erreur Paramètres URL'));
+                $controller->showError(array('message' => 'Erreur Paramètres URL')); // <!>
             } else {
                 $params[$elements[$i]] = htmlspecialchars($elements[$i + 1]);
                 $i++;
@@ -54,8 +54,8 @@ Class Router
             $currentController = new $controller();
             $currentController->$method($params); //return params array
         } else {
-            $controller = new Home();
-            $controller->showError(array());
+            $controller = new Home(); // <!>
+            $controller->showError(array()); // <!>
         }
     }
 }

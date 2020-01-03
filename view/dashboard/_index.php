@@ -2,7 +2,7 @@
     <div class="container d-flex align-items-center flex-column">
 
         <div class="row">
-            <div class="col-md-3 mt-5 dashboard-menu">
+            <div class="col-md-3 mt-5 dashboard-menu mb-5">
 
                 <a class="text-black-50 dashboard-menu-item" id="menu-target-1" href="#"><h2 class="text-body">Menu</h2></a>
 

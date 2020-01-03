@@ -6,6 +6,7 @@ class Dashboard extends Controller
     {
         if ($this->sessionManager->get('role') === null) {
             $this->redirect('login');
+            exit();
         }
 
         $posts = null;
@@ -48,6 +49,11 @@ class Dashboard extends Controller
 
     public function addPost($request)
     {
+        if ($this->sessionManager->get('role') !== 'Admin') {
+            $this->redirect('error/message/vous n\'êtes pas Administrateur');
+            exit();
+        }
+
         $manager = new PostManager();
         $manager->create($request, $this->sessionManager->get('id'));
         $this->redirect('dashboard');
@@ -55,6 +61,11 @@ class Dashboard extends Controller
 
     public function deletePost($request)
     {
+        if ($this->sessionManager->get('role') !== 'Admin') {
+            $this->redirect('error/message/vous n\'êtes pas Administrateur');
+            exit();
+        }
+
         $manager = new PostManager();
         $post = $manager->find($request['id']);
         $manager->delete($post);
@@ -63,6 +74,11 @@ class Dashboard extends Controller
 
     public function showEditPost($request)
     {
+        if ($this->sessionManager->get('role') !== 'Admin') {
+            $this->redirect('error/message/vous n\'êtes pas Administrateur');
+            exit();
+        }
+
         $postManager = new PostManager();
         $post = $postManager->find($request['id']);
 
@@ -79,6 +95,11 @@ class Dashboard extends Controller
 
     public function editPost($request)
     {
+        if ($this->sessionManager->get('role') !== 'Admin') {
+            $this->redirect('error/message/vous n\'êtes pas Administrateur');
+            exit();
+        }
+
         $manager = new PostManager();
         $manager->edit($request);
         $this->redirect('dashboard');
@@ -86,6 +107,11 @@ class Dashboard extends Controller
 
     public function deleteComment($request)
     {
+        if ($this->sessionManager->get('role') !== 'Admin') {
+            $this->redirect('error/message/vous n\'êtes pas Administrateur');
+            exit();
+        }
+
         $manager = new CommentManager();
         $comment = $manager->find($request['id']);
         $manager->delete($comment);
@@ -94,6 +120,11 @@ class Dashboard extends Controller
 
     public function approveComment($request)
     {
+        if ($this->sessionManager->get('role') !== 'Admin') {
+            $this->redirect('error/message/vous n\'êtes pas Administrateur');
+            exit();
+        }
+
         $manager = new CommentManager();
         $manager->approve($request['id']);
         $this->redirect('dashboard');
@@ -101,6 +132,11 @@ class Dashboard extends Controller
 
     public function disapproveComment($request)
     {
+        if ($this->sessionManager->get('role') !== 'Admin') {
+            $this->redirect('error/message/vous n\'êtes pas Administrateur');
+            exit();
+        }
+
         $manager = new CommentManager();
         $manager->disapprove($request['id']);
         $this->redirect('dashboard');
@@ -108,6 +144,11 @@ class Dashboard extends Controller
 
     public function promoteAccount($request)
     {
+        if ($this->sessionManager->get('role') !== 'Admin') {
+            $this->redirect('error/message/vous n\'êtes pas Administrateur');
+            exit();
+        }
+
         $manager = new AccountManager();
         $manager->promote($request['id']);
         $this->redirect('dashboard');
@@ -115,6 +156,11 @@ class Dashboard extends Controller
 
     public function decreaseAccount($request)
     {
+        if ($this->sessionManager->get('role') !== 'Admin') {
+            $this->redirect('error/message/vous n\'êtes pas Administrateur');
+            exit();
+        }
+
         $manager = new AccountManager();
         $manager->decrease($request['id']);
         $this->redirect('dashboard');
@@ -122,6 +168,11 @@ class Dashboard extends Controller
 
     public function deleteAccount($request)
     {
+        if ($this->sessionManager->get('role') !== 'Admin') {
+            $this->redirect('error/message/vous n\'êtes pas Administrateur');
+            exit();
+        }
+
         $manager = new AccountManager();
         $account = $manager->find($request['id']);
         $manager->delete($account);

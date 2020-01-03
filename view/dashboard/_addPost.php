@@ -17,7 +17,7 @@
             <textarea class="textarea" name="content" id="content" cols="30" rows="5"
                       placeholder="Message" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
     </form>
 </div>
 
