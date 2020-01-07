@@ -1,5 +1,9 @@
 <?php
 
+namespace Model;
+
+use App\Account;
+
 class LoginManager extends ModelManager
 {
     public function checkCredentials($credentials)
@@ -8,10 +12,10 @@ class LoginManager extends ModelManager
 
         $query = 'SELECT * FROM account WHERE username = :username';
         $req = $db->prepare($query);
-        $req->bindValue(':username', $credentials['username'], PDO::PARAM_STR);
+        $req->bindValue(':username', $credentials['username'], \PDO::PARAM_STR);
         $req->execute();
 
-        $result = $req->fetch(PDO::FETCH_ASSOC);
+        $result = $req->fetch(\PDO::FETCH_ASSOC);
 
         $account = new Account();
         $account->setId($result['id']);

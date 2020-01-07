@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class Mail
 {
     private $to;

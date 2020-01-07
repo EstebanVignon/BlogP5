@@ -10,7 +10,7 @@ define('ROOT', $root . '/BlogP5/');
 define('CONTROLLER', ROOT . 'controller/');
 define('VIEW', ROOT . 'view/');
 define('MODEL', ROOT . 'model/');
-define('CLASSES', ROOT . 'classes/');
+define('CLASSES', ROOT . 'class/');
 define('ASSETS', HOST . 'assets/');
 
 //DATABASE
@@ -18,3 +18,5 @@ define('DBHOST', 'localhost');
 define('DBNAME', 'ocblog');
 define('DBUSERNAME', 'root');
 define('DBPWD', '');
+
+

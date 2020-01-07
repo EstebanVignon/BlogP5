@@ -1,5 +1,10 @@
 <?php
 
+namespace App;
+
+use App\Request;
+use Controller\Home;
+
 Class Router
 {
     private $request;
@@ -25,7 +30,7 @@ Class Router
         for ($i = 1; $i < $count; $i++) {
 
             if (empty($elements[$i + 1])) {
-                throw new Exception('ID article manquant');
+                throw new \Exception('ID article manquant');
             } else {
                 $params[$elements[$i]] = htmlspecialchars($elements[$i + 1]);
                 $i++;
@@ -46,7 +51,7 @@ Class Router
 
         if (key_exists($route, $this->routes)) {
 
-            $controller = $this->routes[$route]['controller'];
+            $controller = "\Controller\\" . $this->routes[$route]['controller'];
             $method = $this->routes[$route]['method'];
 
             $currentController = new $controller();

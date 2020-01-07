@@ -1,5 +1,9 @@
 <?php
 
+namespace Model;
+
+use App\Account;
+
 class AccountManager extends ModelManager
 {
     public function find($accountId)
@@ -9,9 +13,9 @@ class AccountManager extends ModelManager
                   FROM account
                   WHERE account.id = :id';
         $req = $db->prepare($query);
-        $req->bindValue(':id', $accountId, PDO::PARAM_INT);
+        $req->bindValue(':id', $accountId, \PDO::PARAM_INT);
         $req->execute();
-        $row = $req->fetch(PDO::FETCH_ASSOC);
+        $row = $req->fetch(\PDO::FETCH_ASSOC);
         $account = new Account();
         $account->setId($row['id']);
         $account->setId($row['id']);
@@ -32,7 +36,7 @@ class AccountManager extends ModelManager
                   FROM account';
         $req = $db->prepare($query);
         $req->execute();
-        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
             $account = new Account();
             $account->setId($row['id']);
             $account->setUsername($row['username']);
@@ -56,9 +60,9 @@ class AccountManager extends ModelManager
                   WHERE account.role = 'Admin'
                   AND account.id != :currentUserId";
         $req = $db->prepare($query);
-        $req->bindValue(':currentUserId', $currentUserId, PDO::PARAM_INT);
+        $req->bindValue(':currentUserId', $currentUserId, \PDO::PARAM_INT);
         $req->execute();
-        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
             $account = new Account();
             $account->setId($row['id']);
             $account->setUsername($row['username']);
@@ -78,7 +82,7 @@ class AccountManager extends ModelManager
                   SET is_approved = NOW(), role = 'Admin'
                   WHERE id = :id";
         $req = $db->prepare($query);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
         $req->execute();
     }
 
@@ -89,7 +93,7 @@ class AccountManager extends ModelManager
                   SET is_approved = NULL, role = 'Abonné'
                   WHERE id = :id";
         $req = $db->prepare($query);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
         $req->execute();
     }
 
@@ -99,8 +103,8 @@ class AccountManager extends ModelManager
         $query = "INSERT INTO account(username, password, is_approved, role) 
                   VALUES(:username, :password, NULL, 'Abonné')";
         $req = $db->prepare($query);
-        $req->bindValue(':username', $account['username'], PDO::PARAM_STR);
-        $req->bindValue(':password', $account['password'], PDO::PARAM_STR);
+        $req->bindValue(':username', $account['username'], \PDO::PARAM_STR);
+        $req->bindValue(':password', $account['password'], \PDO::PARAM_STR);
         $req->execute();
     }
 
@@ -111,7 +115,7 @@ class AccountManager extends ModelManager
 
         $query = 'DELETE FROM account WHERE id = :id';
         $req = $db->prepare($query);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
         $req->execute();
     }
 }

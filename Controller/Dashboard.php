@@ -1,5 +1,11 @@
 <?php
 
+namespace Controller;
+
+use Model\AccountManager;
+use Model\CommentManager;
+use Model\PostManager;
+
 class Dashboard extends Controller
 {
     public function showDashboard($request)

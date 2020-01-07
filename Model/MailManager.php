@@ -1,5 +1,10 @@
 <?php
 
+namespace Model;
+
+use App\Mail;
+use App\View;
+
 class MailManager
 {
     public function send(array $values, string $to, string $subject)

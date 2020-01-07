@@ -1,5 +1,9 @@
 <?php
 
+namespace Model;
+
+use App\Comment;
+
 class CommentManager extends ModelManager
 {
 
@@ -13,9 +17,9 @@ class CommentManager extends ModelManager
                   ON comment.account_id = account.id
                   WHERE comment.id = :id';
         $req = $db->prepare($query);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
         $req->execute();
-        $row = $req->fetch(PDO::FETCH_ASSOC);
+        $row = $req->fetch(\PDO::FETCH_ASSOC);
         $comment = new Comment();
         $comment->setId($row['id']);
         $comment->setUsername($row['username']);
@@ -39,7 +43,7 @@ class CommentManager extends ModelManager
                   ORDER BY created_at DESC';
         $req = $db->prepare($query);
         $req->execute();
-        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
             $comment = new Comment();
             $comment->setId($row['id']);
             $comment->setUsername($row['username']);
@@ -65,9 +69,9 @@ class CommentManager extends ModelManager
                   WHERE account.id = :userId
                   ORDER BY created_at DESC";
         $req = $db->prepare($query);
-        $req->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $req->bindValue(':userId', $userId, \PDO::PARAM_INT);
         $req->execute();
-        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
             $comment = new Comment();
             $comment->setId($row['id']);
             $comment->setUsername($row['username']);
@@ -93,9 +97,9 @@ class CommentManager extends ModelManager
                   WHERE blog_post_id = :postId AND comment.is_approved = 1
                   ORDER BY created_at DESC';
         $req = $db->prepare($query);
-        $req->bindValue(':postId', $postId, PDO::PARAM_INT);
+        $req->bindValue(':postId', $postId, \PDO::PARAM_INT);
         $req->execute();
-        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
             $comment = new Comment();
             $comment->setId($row['id']);
             $comment->setUsername($row['username']);
@@ -115,14 +119,14 @@ class CommentManager extends ModelManager
         $query = 'INSERT INTO comment(content, created_at, is_approved, blog_post_id, account_id) 
                   VALUES(:content, NOW(), :isApproved, :blogPostId, :accountId)';
         $req = $db->prepare($query);
-        $req->bindValue(':content', $values['content'], PDO::PARAM_STR);
+        $req->bindValue(':content', $values['content'], \PDO::PARAM_STR);
         if ($userRole == 'Admin') {
-            $req->bindValue(':isApproved', 1, PDO::PARAM_INT);
+            $req->bindValue(':isApproved', 1, \PDO::PARAM_INT);
         } else {
-            $req->bindValue(':isApproved', 0, PDO::PARAM_INT);
+            $req->bindValue(':isApproved', 0, \PDO::PARAM_INT);
         }
-        $req->bindValue(':blogPostId', $values['id'], PDO::PARAM_INT);
-        $req->bindValue(':accountId', $userId, PDO::PARAM_INT);
+        $req->bindValue(':blogPostId', $values['id'], \PDO::PARAM_INT);
+        $req->bindValue(':accountId', $userId, \PDO::PARAM_INT);
         $req->execute();
     }
 
@@ -133,7 +137,7 @@ class CommentManager extends ModelManager
                   SET is_approved = 1
                   WHERE id = :id';
         $req = $db->prepare($query);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
         $req->execute();
     }
 
@@ -144,7 +148,7 @@ class CommentManager extends ModelManager
                   SET is_approved = 0
                   WHERE id = :id';
         $req = $db->prepare($query);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
         $req->execute();
     }
 
@@ -155,7 +159,7 @@ class CommentManager extends ModelManager
 
         $query = 'DELETE FROM comment WHERE id = :id';
         $req = $db->prepare($query);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
         $req->execute();
     }
 }

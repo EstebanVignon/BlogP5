@@ -1,5 +1,10 @@
 <?php
 
+namespace Controller;
+
+use App\SessionManager;
+use App\View;
+
 class Controller
 {
     protected $view;

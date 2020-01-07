@@ -1,5 +1,9 @@
 <?php
 
+namespace Model;
+
+use App\Post;
+
 class PostManager extends ModelManager
 {
     public function find(int $postId)
@@ -8,10 +12,10 @@ class PostManager extends ModelManager
 
         $query = 'SELECT * FROM blog_post WHERE id = :id';
         $req = $db->prepare($query);
-        $req->bindValue(':id', $postId, PDO::PARAM_INT);
+        $req->bindValue(':id', $postId, \PDO::PARAM_INT);
         $req->execute();
 
-        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
             $post = new Post();
             $post->setId($row['id']);
             $post->setTitle($row['title']);
@@ -35,7 +39,7 @@ class PostManager extends ModelManager
         $req = $db->prepare($query);
         $req->execute();
 
-        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
             $post = new Post();
             $post->setId($row['id']);
             $post->setTitle($row['title']);
@@ -62,10 +66,10 @@ class PostManager extends ModelManager
                   ORDER BY created_at 
                   DESC LIMIT 0, 5';
         $req = $db->prepare($query);
-        $req->bindValue(':accountId', $accountId, PDO::PARAM_INT);
+        $req->bindValue(':accountId', $accountId, \PDO::PARAM_INT);
         $req->execute();
 
-        while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
             $post = new Post();
             $post->setId($row['id']);
             $post->setTitle($row['title']);
@@ -90,9 +94,9 @@ class PostManager extends ModelManager
                   ON bp.account_id = a.id
                   WHERE a.id = :accountId';
         $req = $db->prepare($query);
-        $req->bindValue(':accountId', $accountId, PDO::PARAM_STR);
+        $req->bindValue(':accountId', $accountId, \PDO::PARAM_STR);
         $req->execute();
-        $result = $req->fetch(PDO::FETCH_OBJ);
+        $result = $req->fetch(\PDO::FETCH_OBJ);
 
         return $result;
     }
@@ -104,10 +108,10 @@ class PostManager extends ModelManager
         $query = 'INSERT INTO blog_post(title, heading, content, created_at, is_active, account_id) 
                   VALUES(:title, :heading, :content, NOW(), 1, :userId)';
         $req = $db->prepare($query);
-        $req->bindValue(':title', $values['title'], PDO::PARAM_STR);
-        $req->bindValue(':heading', $values['heading'], PDO::PARAM_STR);
-        $req->bindValue(':content', nl2br($values['content']), PDO::PARAM_STR);
-        $req->bindValue(':userId', $accountId, PDO::PARAM_INT);
+        $req->bindValue(':title', $values['title'], \PDO::PARAM_STR);
+        $req->bindValue(':heading', $values['heading'], \PDO::PARAM_STR);
+        $req->bindValue(':content', nl2br($values['content']), \PDO::PARAM_STR);
+        $req->bindValue(':userId', $accountId, \PDO::PARAM_INT);
 
         $req->execute();
     }
@@ -120,11 +124,11 @@ class PostManager extends ModelManager
                   SET title = :title, heading = :heading, content = :content, last_modification = NOW() , account_id = :accountId
                   WHERE id = :id';
         $req = $db->prepare($query);
-        $req->bindValue(':title', $values['title'], PDO::PARAM_STR);
-        $req->bindValue(':heading', $values['heading'], PDO::PARAM_STR);
-        $req->bindValue(':content', nl2br($values['content']), PDO::PARAM_STR);
-        $req->bindValue(':accountId', $values['account'], PDO::PARAM_INT);
-        $req->bindValue(':id', $values['id'], PDO::PARAM_INT);
+        $req->bindValue(':title', $values['title'], \PDO::PARAM_STR);
+        $req->bindValue(':heading', $values['heading'], \PDO::PARAM_STR);
+        $req->bindValue(':content', nl2br($values['content']), \PDO::PARAM_STR);
+        $req->bindValue(':accountId', $values['account'], \PDO::PARAM_INT);
+        $req->bindValue(':id', $values['id'], \PDO::PARAM_INT);
         $req->execute();
     }
 
@@ -135,7 +139,7 @@ class PostManager extends ModelManager
 
         $query = 'DELETE FROM blog_post WHERE id = :id';
         $req = $db->prepare($query);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
         $req->execute();
     }
 }

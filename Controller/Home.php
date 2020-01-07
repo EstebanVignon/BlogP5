@@ -1,5 +1,11 @@
 <?php
 
+namespace Controller;
+
+use Model\CommentManager;
+use Model\MailManager;
+use Model\PostManager;
+
 class Home extends Controller
 {
     public function showHome($request)

@@ -1,13 +1,22 @@
 <?php
 
-class Comment extends Entity
+namespace App;
+
+class Account extends Entity
 {
     private $id;
     private $username;
-    private $content;
-    private $created_at;
+    private $password;
     private $approved;
-    private $blog_post_id;
+    private $role;
+
+    /**
+     * @return string
+     */
+    public function getTableName()
+    {
+        return "account";
+    }
 
     /**
      * @return mixed
@@ -44,33 +53,17 @@ class Comment extends Entity
     /**
      * @return mixed
      */
-    public function getContent()
+    public function getPassword()
     {
-        return $this->content;
+        return $this->password;
     }
 
     /**
-     * @param mixed $content
+     * @param mixed $password
      */
-    public function setContent($content): void
+    public function setPassword($password): void
     {
-        $this->content = $content;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * @param mixed $created_at
-     */
-    public function setCreatedAt($created_at): void
-    {
-        $this->created_at = $created_at;
+        $this->password = $password;
     }
 
     /**
@@ -92,19 +85,18 @@ class Comment extends Entity
     /**
      * @return mixed
      */
-    public function getBlogPostId()
+    public function getRole()
     {
-        return $this->blog_post_id;
+        return $this->role;
     }
 
     /**
-     * @param mixed $blog_post_id
+     * @param mixed $role
      */
-    public function setBlogPostId($blog_post_id): void
+    public function setRole($role): void
     {
-        $this->blog_post_id = $blog_post_id;
+        $this->role = $role;
     }
-
 }
 
 

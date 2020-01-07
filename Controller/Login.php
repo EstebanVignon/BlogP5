@@ -1,5 +1,10 @@
 <?php
 
+namespace Controller;
+
+use Model\AccountManager;
+use Model\LoginManager;
+
 class Login extends Controller
 {
     public function showLogin($request)

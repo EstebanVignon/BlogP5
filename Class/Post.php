@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class Post extends Entity
 {
     private $id;
