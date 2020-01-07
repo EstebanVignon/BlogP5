@@ -8,9 +8,7 @@ Class Router
 
     public function __construct($url)
     {
-        $routes = new Routes();
-        $this->routes = $routes->getRoutes();
-
+        $this->routes = parse_ini_file(ROOT . 'routes.ini', true);
         $request = new Request();
         $request->addParams($this->getParams($url));
         $request->setRouteName($this->routeName);
@@ -20,17 +18,14 @@ Class Router
     public function getParams($url)
     {
         $params = [];
-
         $elements = explode('/', $url);
         $this->routeName = $elements[0];
-
         $count = count($elements);
 
         for ($i = 1; $i < $count; $i++) {
 
             if (empty($elements[$i + 1])) {
-                $controller = new Home();
-                $controller->showError(array('message' => 'Erreur Paramètres URL')); // <!>
+                throw new Exception('ID article manquant');
             } else {
                 $params[$elements[$i]] = htmlspecialchars($elements[$i + 1]);
                 $i++;
@@ -48,14 +43,18 @@ Class Router
     {
         $route = $this->routeName;
         $params = $this->request->getParams();
+
         if (key_exists($route, $this->routes)) {
+
             $controller = $this->routes[$route]['controller'];
             $method = $this->routes[$route]['method'];
+
             $currentController = new $controller();
-            $currentController->$method($params); //return params array
+            $currentController->$method($params);
+
         } else {
-            $controller = new Home(); // <!>
-            $controller->showError(array()); // <!>
+            $controller = new Home();
+            $controller->showError(array());
         }
     }
 }
