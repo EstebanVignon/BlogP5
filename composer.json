@@ -1,8 +1,6 @@
 {
   "name": "vignon-esteban/p5",
   "description": "Project 5 OpenClassrooms DAPHP",
-  "version": "1.0",
-  "time": "2020-01-08",
   "license": "MIT",
   "autoload": {
     "psr-4": {
