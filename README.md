@@ -1,6 +1,6 @@
 # Project 5 Blog OpenClassrooms - DA PHP Symfony
 
-[![SymfonyInsight](https://insight.symfony.com/projects/8fdf3854-c41f-4510-885e-ce42ab44e337/big.svg)](https://insight.symfony.com/projects/8fdf3854-c41f-4510-885e-ce42ab44e337)
+![GitHub Logo](https://insight.symfony.com/projects/8fdf3854-c41f-4510-885e-ce42ab44e337/big.svg)
 
 ## How to install
 1. Create a database and import the db.sql file present in this project
