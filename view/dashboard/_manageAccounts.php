@@ -12,13 +12,13 @@
                     </p>
 
 
-                    <?php if ($account->getApproved() === null) : ?>
+                    <?php if ($account->getRole() === 'Abonné') : ?>
                         <a class="btn btn-success mb-3" href="<?= HOST ?>promote-account/id/<?= $account->getId() ?>">
                             Promouvoir
                         </a>
                     <?php endif ?>
 
-                    <?php if ($account->getApproved() !== null) : ?>
+                    <?php if ($account->getRole() === "Admin") : ?>
                         <a class="btn btn-warning mb-3" href="<?= HOST ?>decrease-account/id/<?= $account->getId() ?>">
                             Destituer
                         </a>

@@ -90,12 +90,12 @@ class CommentManager extends ModelManager
         $db = $this->db;
         $comments = [];
 
-        $query = 'SELECT *
+        $query = 'SELECT account.username, comment.id, comment.content, comment.created_at, comment.is_approved, comment.blog_post_id
                   FROM comment
                   INNER JOIN account
                   ON comment.account_id = account.id
                   WHERE blog_post_id = :postId AND comment.is_approved = 1
-                  ORDER BY created_at DESC';
+                  ORDER BY comment.created_at ASC';
         $req = $db->prepare($query);
         $req->bindValue(':postId', $postId, \PDO::PARAM_INT);
         $req->execute();

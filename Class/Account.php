@@ -7,16 +7,7 @@ class Account extends Entity
     private $id;
     private $username;
     private $password;
-    private $approved;
-    private $role;
-
-    /**
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "account";
-    }
+    private $createdAt;
 
     /**
      * @return mixed
@@ -69,17 +60,17 @@ class Account extends Entity
     /**
      * @return mixed
      */
-    public function getApproved()
+    public function getCreatedAt()
     {
-        return $this->approved;
+        return $this->createdAt;
     }
 
     /**
-     * @param mixed $approved
+     * @param mixed $createdAt
      */
-    public function setApproved($approved): void
+    public function setCreatedAt($createdAt): void
     {
-        $this->approved = $approved;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -97,6 +88,9 @@ class Account extends Entity
     {
         $this->role = $role;
     }
+    private $role;
+
+
 }
 
 

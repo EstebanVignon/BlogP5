@@ -21,7 +21,7 @@ class AccountManager extends ModelManager
         $account->setId($row['id']);
         $account->setUsername($row['username']);
         $account->setPassword($row['password']);
-        $account->setApproved($row['is_approved']);
+        $account->setCreatedAt($row['created_at']);
         $account->setRole($row['role']);
 
         return $account;
@@ -41,7 +41,7 @@ class AccountManager extends ModelManager
             $account->setId($row['id']);
             $account->setUsername($row['username']);
             $account->setPassword($row['password']);
-            $account->setApproved($row['is_approved']);
+            $account->setCreatedAt($row['created_at']);
             $account->setRole($row['role']);
             $accounts[] = $account;
         }
@@ -67,7 +67,7 @@ class AccountManager extends ModelManager
             $account->setId($row['id']);
             $account->setUsername($row['username']);
             $account->setPassword($row['password']);
-            $account->setApproved($row['is_approved']);
+            $account->setCreatedAt($row['created_at']);
             $account->setRole($row['role']);
             $accounts[] = $account;
         }
@@ -79,7 +79,7 @@ class AccountManager extends ModelManager
     {
         $db = $this->db;
         $query = "UPDATE account 
-                  SET is_approved = NOW(), role = 'Admin'
+                  SET role = 'Admin'
                   WHERE id = :id";
         $req = $db->prepare($query);
         $req->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -90,7 +90,7 @@ class AccountManager extends ModelManager
     {
         $db = $this->db;
         $query = "UPDATE account 
-                  SET is_approved = NULL, role = 'Abonné'
+                  SET role = 'Abonné'
                   WHERE id = :id";
         $req = $db->prepare($query);
         $req->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -100,8 +100,8 @@ class AccountManager extends ModelManager
     public function create($account)
     {
         $db = $this->db;
-        $query = "INSERT INTO account(username, password, is_approved, role) 
-                  VALUES(:username, :password, NULL, 'Abonné')";
+        $query = "INSERT INTO account(username, password, created_at, role) 
+                  VALUES(:username, :password, NOW(), 'Abonné')";
         $req = $db->prepare($query);
         $req->bindValue(':username', $account['username'], \PDO::PARAM_STR);
         $req->bindValue(':password', $account['password'], \PDO::PARAM_STR);

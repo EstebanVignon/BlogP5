@@ -27,7 +27,7 @@
                 <h3 id="commentaires" class="text-body">Commentaires</h3>
             </div>
 
-            <?php if ($comments === false) : ?>
+            <?php if (empty($comments)) : ?>
                 <div class="row col-6 offset-3 mt-5">
                     <p id="error-comments">Pas encore de commentaires</p>
                 </div>

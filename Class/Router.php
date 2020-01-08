@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Request;
 use Controller\Home;
 
 Class Router

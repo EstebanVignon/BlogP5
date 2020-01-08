@@ -21,7 +21,6 @@ class SessionManager
         $this->setUserId($user->getId());
         $this->setRole($user->getRole());
         $this->setUsername($user->getUsername());
-        $this->setApproved($user->getApproved());
     }
 
     public function setUserId($id)
@@ -37,11 +36,6 @@ class SessionManager
     public function setUsername($username)
     {
         $_SESSION['username'] = $username;
-    }
-
-    public function setApproved($approved)
-    {
-        $_SESSION['is_approved'] = $approved;
     }
 
     public function get($name)
