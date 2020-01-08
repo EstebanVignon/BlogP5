@@ -15,7 +15,7 @@ define('ASSETS', HOST . 'assets/');
 
 //DATABASE
 define('DBHOST', 'localhost');
-define('DBNAME', 'ocblog');
+define('DBNAME', 'ocp5');
 define('DBUSERNAME', 'root');
 define('DBPWD', '');
 
