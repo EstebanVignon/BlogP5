@@ -19,4 +19,3 @@ define('DBNAME', 'ocp5');
 define('DBUSERNAME', 'root');
 define('DBPWD', '');
 
-
