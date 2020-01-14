@@ -13,7 +13,7 @@ class Dashboard extends Controller
         $posts = null;
         $comments = null;
 
-        if ($this->sessionManager->get('role') === 'Admin') {
+        if ($this->checkRole() === 1) {
 
             $postManager = new PostManager();
             $posts = $postManager->findUsersPosts($this->sessionManager->get('id'));
@@ -32,9 +32,7 @@ class Dashboard extends Controller
                 'Tableau de bord ',
                 'Tableau de bord du site de Esteban Vignon'
             );
-        }
-
-        if ($this->sessionManager->get('role') === 'Abonné') {
+        } elseif ($this->checkRole() === 2) {
 
             $commentManager = new CommentManager();
             $comments = $commentManager->findUserComments($this->sessionManager->get('id'));
@@ -45,12 +43,14 @@ class Dashboard extends Controller
                 'Tableau de bord ',
                 'Tableau de bord du site de Esteban Vignon'
             );
+        }else{
+            $this->redirect('login');
         }
     }
 
     public function addPost($request)
     {
-        if ($this->sessionManager->get('role') === 'Admin') {
+        if ($this->checkRole() === 1) {
             $manager = new PostManager();
             $manager->create($request, $this->sessionManager->get('id'));
             $this->redirect('dashboard');
@@ -59,7 +59,7 @@ class Dashboard extends Controller
 
     public function deletePost($request)
     {
-        if ($this->sessionManager->get('role') === 'Admin') {
+        if ($this->checkRole() === 1) {
             $manager = new PostManager();
             $post = $manager->find($request['id']);
             $manager->delete($post);
@@ -69,7 +69,7 @@ class Dashboard extends Controller
 
     public function showEditPost($request)
     {
-        if ($this->sessionManager->get('role') === 'Admin') {
+        if ($this->checkRole() === 1) {
             $postManager = new PostManager();
             $post = $postManager->find($request['id']);
 
@@ -87,7 +87,7 @@ class Dashboard extends Controller
 
     public function editPost($request)
     {
-        if ($this->sessionManager->get('role') === 'Admin') {
+        if ($this->checkRole() === 1) {
             $manager = new PostManager();
             $manager->edit($request);
             $this->redirect('dashboard');
@@ -96,7 +96,7 @@ class Dashboard extends Controller
 
     public function deleteComment($request)
     {
-        if ($this->sessionManager->get('role') === 'Admin') {
+        if ($this->checkRole() === 1) {
             $manager = new CommentManager();
             $comment = $manager->find($request['id']);
             $manager->delete($comment);
@@ -106,7 +106,7 @@ class Dashboard extends Controller
 
     public function approveComment($request)
     {
-        if ($this->sessionManager->get('role') === 'Admin') {
+        if ($this->checkRole() === 1) {
             $manager = new CommentManager();
             $manager->approve($request['id']);
             $this->redirect('dashboard');
@@ -115,7 +115,7 @@ class Dashboard extends Controller
 
     public function disapproveComment($request)
     {
-        if ($this->sessionManager->get('role') === 'Admin') {
+        if ($this->checkRole() === 1) {
             $manager = new CommentManager();
             $manager->disapprove($request['id']);
             $this->redirect('dashboard');
@@ -124,7 +124,7 @@ class Dashboard extends Controller
 
     public function promoteAccount($request)
     {
-        if ($this->sessionManager->get('role') === 'Admin') {
+        if ($this->checkRole() === 1) {
             $manager = new AccountManager();
             $manager->promote($request['id']);
             $this->redirect('dashboard');
@@ -133,7 +133,7 @@ class Dashboard extends Controller
 
     public function decreaseAccount($request)
     {
-        if ($this->sessionManager->get('role') === 'Admin') {
+        if ($this->checkRole() === 1) {
             $manager = new AccountManager();
             $manager->decrease($request['id']);
             $this->redirect('dashboard');
@@ -142,7 +142,7 @@ class Dashboard extends Controller
 
     public function deleteAccount($request)
     {
-        if ($this->sessionManager->get('role') === 'Admin') {
+        if ($this->checkRole() === 1) {
             $manager = new AccountManager();
             $account = $manager->find($request['id']);
             $manager->delete($account);

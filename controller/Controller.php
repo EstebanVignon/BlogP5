@@ -5,7 +5,7 @@ namespace Controller;
 use App\Core\SessionManager;
 use App\Core\View;
 
-class Controller
+abstract class Controller
 {
     protected $view;
     protected $sessionManager;
@@ -30,6 +30,16 @@ class Controller
     public function redirect($route)
     {
         $this->view->redirect($route);
+    }
+
+    public function checkRole(){
+        if ($this->sessionManager->get('role') === "Admin"){
+            return 1;
+        }
+        if ($this->sessionManager->get('role') === "Abonné"){
+            return 2;
+        }
+        return null;
     }
 }
 

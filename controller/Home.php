@@ -99,7 +99,7 @@ class Home extends Controller
         $manager = new CommentManager();
         $manager->create($request, $this->sessionManager->get('id'), $this->sessionManager->get('role'));
 
-        if ($this->sessionManager->get('role') == 'Admin') {
+        if ($this->checkRole() === 1) {
             $this->redirect('post/id/' . $request['id']);
         } else {
             $this->redirect('post/id/' . $request['id'] . '/message/1');
