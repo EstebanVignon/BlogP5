@@ -9,7 +9,7 @@ class Login extends Controller
 {
     public function showLogin($request)
     {
-        if ($this->checkRole() == 1 or $this->checkRole() == 2) {
+        if ($this->checkRole() == 1 || $this->checkRole() == 2) {
             $this->redirect('dashboard');
         }else{
             $this->render('_login.php', array(),
