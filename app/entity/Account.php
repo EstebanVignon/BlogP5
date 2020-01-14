@@ -2,11 +2,8 @@
 
 namespace App\Entity;
 
-class Account
+class Account extends Entity
 {
-
-    use Entity;
-
     private $username;
     private $password;
     private $createdAt;

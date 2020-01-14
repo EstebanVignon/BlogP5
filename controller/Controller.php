@@ -32,15 +32,11 @@ abstract class Controller
         $this->view->redirect($route);
     }
 
-    public function checkRole(){
-        if ($this->sessionManager->get('role') === "Admin"){
-            return 1;
-        }
-        if ($this->sessionManager->get('role') === "Abonné"){
-            return 2;
-        }
-        return null;
+    protected function checkRole(string $role) : bool
+    {
+        Return $this->sessionManager->hasRole($role);
     }
+
 }
 
 

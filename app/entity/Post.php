@@ -2,11 +2,8 @@
 
 namespace App\Entity;
 
-class Post
+class Post extends Entity
 {
-
-    use Entity;
-
     private $title;
     private $heading;
     private $content;

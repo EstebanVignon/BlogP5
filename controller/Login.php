@@ -9,9 +9,9 @@ class Login extends Controller
 {
     public function showLogin($request)
     {
-        if ($this->checkRole() == 1 || $this->checkRole() == 2) {
+        if ($this->checkRole('Admin') || $this->checkRole('Abonné')) {
             $this->redirect('dashboard');
-        }else{
+        } else {
             $this->render('_login.php', array(),
                 'Login Du blog De Esteban Vignon',
                 'Page de connexion du Blog De Esteban Vignon - Développeur PHP'

@@ -42,6 +42,14 @@ class SessionManager
     {
         return $this->params[$name];
     }
+
+    public function hasRole($role)
+    {
+        if ($role === $this->get('role')) {
+            return true;
+        }
+        return false;
+    }
 }
 
 

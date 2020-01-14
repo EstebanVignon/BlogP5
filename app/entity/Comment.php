@@ -2,11 +2,8 @@
 
 namespace App\Entity;
 
-class Comment
+class Comment extends Entity
 {
-
-    use Entity;
-
     private $username;
     private $content;
     private $created_at;
