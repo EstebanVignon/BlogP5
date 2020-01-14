@@ -1,10 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Entity;
 
-class Post extends Entity
+class Post
 {
-    private $id;
+
+    use Entity;
+
     private $title;
     private $heading;
     private $content;
@@ -12,22 +14,6 @@ class Post extends Entity
     private $active;
     private $lastModification;
     private $accountId;
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return mixed

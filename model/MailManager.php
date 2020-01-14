@@ -2,8 +2,8 @@
 
 namespace Model;
 
-use App\Mail;
-use App\View;
+use App\Entity\Mail;
+use App\Core\View;
 
 class MailManager
 {

@@ -1,31 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Entity;
 
-class Comment extends Entity
+class Comment
 {
-    private $id;
+
+    use Entity;
+
     private $username;
     private $content;
     private $created_at;
     private $approved;
     private $blog_post_id;
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return mixed

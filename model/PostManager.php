@@ -2,7 +2,7 @@
 
 namespace Model;
 
-use App\Post;
+use App\Entity\Post;
 
 class PostManager extends ModelManager
 {

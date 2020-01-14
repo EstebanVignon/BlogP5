@@ -3,8 +3,8 @@
 //GLOBAL
 $host = $_SERVER['HTTP_HOST'];
 $root = $_SERVER['DOCUMENT_ROOT'];
-define('HOST', 'https://' . $host . '/');
-define('ROOT', $root . '/');
+define('HOST', 'https://' . $host . '/BlogP5/');
+define('ROOT', $root . '/BlogP5/');
 
 //FOLDERS
 define('CONTROLLER', ROOT . 'controller/');

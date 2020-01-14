@@ -1,29 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Entity;
 
-class Account extends Entity
+class Account
 {
-    private $id;
+
+    use Entity;
+
     private $username;
     private $password;
     private $createdAt;
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return mixed

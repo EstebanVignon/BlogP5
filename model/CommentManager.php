@@ -2,7 +2,7 @@
 
 namespace Model;
 
-use App\Comment;
+use App\Entity\Comment;
 
 class CommentManager extends ModelManager
 {

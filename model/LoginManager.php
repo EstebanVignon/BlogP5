@@ -2,7 +2,7 @@
 
 namespace Model;
 
-use App\Account;
+use App\Entity\Account;
 
 class LoginManager extends ModelManager
 {
